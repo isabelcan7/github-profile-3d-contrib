@@ -548,11 +548,11 @@ const create3DContrib = (svg, userInfo, x, y, width, height, isSeason, isAnimate
     const offsetY = height - (weekcount + 7) * dy;
     const group = svg.append('g');
     userInfo.contributionCalendar.forEach((cal) => {
-        const dayOfWeek = cal.date.getUTCDay(); // sun = 0, mnn = 1, ...
+        const dayOfWeek = cal.date.getUTCDay(); // sun = 0, mon = 1, ...
         const week = Math.floor(diffDate(startTime, cal.date.getTime()) / 7);
         const baseX = offsetX + (week - dayOfWeek) * dx;
         const baseY = offsetY + (week + dayOfWeek) * dy;
-        const calHeight = Math.min(50, cal.contributionCount) * 3 + 3; // TODO 仮実装
+        const calHeight = Math.min(50, cal.contributionCount) * 3 + 3;
         const colorBase = decideColor(cal.date, cal.contributionLevel, isSeason);
         const colorTop = d3.rgb(colorBase);
         const colorRight = d3.rgb(colorBase).darker(0.5);
@@ -785,6 +785,18 @@ const createRadarContrib = (svg, userInfo, x, y, width, height) => {
             .style('stroke-dasharray', '4 4')
             .style('stroke-width', '1px');
     }
+    groupCenter
+        .selectAll(null)
+        .data(['1-', '10', '100', '1K', '10K+'])
+        .enter()
+        .append('text')
+        .text((d) => d)
+        .style('font-size', `${radius / 10}px`)
+        .attr('text-anchor', 'start')
+        .attr('dominant-baseline', 'auto')
+        .attr('x', radius / 50)
+        .attr('y', (d, i) => -radius * ((i + 1) / levels))
+        .attr('fill', 'gray');
     const axis = groupCenter
         .selectAll('.axis')
         .data(allAxis)
