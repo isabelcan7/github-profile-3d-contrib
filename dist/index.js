@@ -569,7 +569,6 @@ const create3DContrib = (svg, userInfo, x, y, width, height, isSeason, isAnimate
             pathLeft
                 .append('animate')
                 .attr('attributeName', 'd')
-                .attr('attributeName', 'd')
                 .attr('values', `${plainLeft0};${plainLeft}`)
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
@@ -586,7 +585,6 @@ const create3DContrib = (svg, userInfo, x, y, width, height, isSeason, isAnimate
             pathRight
                 .append('animate')
                 .attr('attributeName', 'd')
-                .attr('attributeName', 'd')
                 .attr('values', `${plainRigth0};${plainRight}`)
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
@@ -602,7 +600,6 @@ const create3DContrib = (svg, userInfo, x, y, width, height, isSeason, isAnimate
             .append('animate');
         if (isAnimate) {
             pathTop
-                .attr('attributeName', 'd')
                 .attr('attributeName', 'd')
                 .attr('values', `${plainTop0};${plainTop}`)
                 .attr('dur', '3s')
