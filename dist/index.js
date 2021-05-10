@@ -925,7 +925,7 @@ const createSvg = (userInfo, isSeason, isAnimate) => {
     const startDate = userInfo.contributionCalendar[0].date;
     const endDate = userInfo.contributionCalendar[userInfo.contributionCalendar.length - 1]
         .date;
-    const period = `${toIsoDate(startDate)} / ${toIsoDate(endDate)}`;
+    const period = `${toIsoDate(startDate)}/${toIsoDate(endDate)}`;
     group
         .append('text')
         .style('font-size', '16px')
@@ -973,7 +973,8 @@ exports.fetchData = exports.URL = void 0;
 const axios_1 = __importDefault(__nccwpck_require__(50992));
 exports.URL = 'https://api.github.com/graphql';
 /** Fetch data from GitHub GraphQL */
-const fetchData = async (token, userName) => {
+const fetchData = async (token, userName, maxRepos) => {
+    const maxReposOneQuery = 100;
     const headers = {
         Authorization: `bearer ${token}`,
     };
@@ -992,7 +993,7 @@ const fetchData = async (token, userName) => {
                                 }
                             }
                         }
-                        commitContributionsByRepository(maxRepositories: 100) {
+                        commitContributionsByRepository(maxRepositories: ${maxReposOneQuery}) {
                             repository {
                                 primaryLanguage {
                                     name
@@ -1009,7 +1010,10 @@ const fetchData = async (token, userName) => {
                         totalPullRequestReviewContributions
                         totalRepositoryContributions
                     }
-                    repositories(first: 100, ownerAffiliations: OWNER) {
+                    repositories(first: ${maxReposOneQuery}, ownerAffiliations: OWNER) {
+                        edges {
+                            cursor
+                        }
                         nodes {
                             forkCount
                             stargazerCount
@@ -1023,6 +1027,48 @@ const fetchData = async (token, userName) => {
     const response = await axios_1.default.post(exports.URL, req, {
         headers: headers,
     });
+    const result = response.data.data;
+    if (result) {
+        const repos1 = result.user.repositories;
+        let cursor = repos1.edges[repos1.edges.length - 1].cursor;
+        while (repos1.nodes.length < maxRepos) {
+            const req2 = {
+                query: `
+                    query($login: String!, $cursor: String!) {
+                        user(login: $login) {
+                            repositories(after: $cursor, first: ${maxReposOneQuery}, ownerAffiliations: OWNER) {
+                                edges {
+                                    cursor
+                                }
+                                nodes {
+                                    forkCount
+                                    stargazerCount
+                                }
+                            }
+                        }
+                    }
+                `.replace(/\s+/g, ' '),
+                variables: {
+                    login: userName,
+                    cursor: cursor,
+                },
+            };
+            const res2 = await axios_1.default.post(exports.URL, req2, {
+                headers: headers,
+            });
+            if (res2.data.data) {
+                const repos2 = res2.data.data.user.repositories;
+                repos1.nodes.push(...repos2.nodes);
+                if (repos2.nodes.length !== maxReposOneQuery) {
+                    break;
+                }
+                cursor = repos2.edges[repos2.edges.length - 1].cursor;
+            }
+            else {
+                break;
+            }
+        }
+    }
     return response.data;
 };
 exports.fetchData = fetchData;
@@ -1073,7 +1119,14 @@ const main = async () => {
             core.setFailed('USERNAME is empty');
             return;
         }
-        const response = await client.fetchData(token, userName);
+        const maxRepos = process.env.MAX_REPOS
+            ? Number(process.env.MAX_REPOS)
+            : 100;
+        if (Number.isNaN(maxRepos)) {
+            core.setFailed('MAX_REPOS is NaN');
+            return;
+        }
+        const response = await client.fetchData(token, userName, maxRepos);
         const userInfo = aggregate.aggregateUserInfo(response);
         const svgString1 = create.createSvg(userInfo, true, true);
         f.writeFile('profile-season-animate.svg', svgString1);
