@@ -950,7 +950,7 @@ exports.createSvg = createSvg;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.writeFile = exports.OUTPUT_FOLDER = void 0;
 const fs_1 = __nccwpck_require__(35747);
-exports.OUTPUT_FOLDER = "./profile-3d-contrib";
+exports.OUTPUT_FOLDER = './profile-3d-contrib';
 const writeFile = (fileName, content) => {
     fs_1.mkdirSync(exports.OUTPUT_FOLDER, { recursive: true });
     fs_1.writeFileSync(`${exports.OUTPUT_FOLDER}/${fileName}`, content);
@@ -1024,7 +1024,9 @@ const fetchData = async (token, userName, maxRepos) => {
         `.replace(/\s+/g, ' '),
         variables: { login: userName },
     };
-    const response = await axios_1.default.post(exports.URL, req, { headers: headers });
+    const response = await axios_1.default.post(exports.URL, req, {
+        headers: headers,
+    });
     const result = response.data.data;
     if (result) {
         const repos1 = result.user.repositories;
@@ -1048,10 +1050,12 @@ const fetchData = async (token, userName, maxRepos) => {
                 `.replace(/\s+/g, ' '),
                 variables: {
                     login: userName,
-                    cursor: cursor
+                    cursor: cursor,
                 },
             };
-            const res2 = await axios_1.default.post(exports.URL, req2, { headers: headers });
+            const res2 = await axios_1.default.post(exports.URL, req2, {
+                headers: headers,
+            });
             if (res2.data.data) {
                 const repos2 = res2.data.data.user.repositories;
                 repos1.nodes.push(...repos2.nodes);
@@ -1115,7 +1119,7 @@ const main = async () => {
             core.setFailed('USERNAME is empty');
             return;
         }
-        const maxRepos = (process.env.MAX_REPOS)
+        const maxRepos = process.env.MAX_REPOS
             ? Number(process.env.MAX_REPOS)
             : 100;
         if (Number.isNaN(maxRepos)) {
