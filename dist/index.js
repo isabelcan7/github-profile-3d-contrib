@@ -925,7 +925,7 @@ const createSvg = (userInfo, isSeason, isAnimate) => {
     const startDate = userInfo.contributionCalendar[0].date;
     const endDate = userInfo.contributionCalendar[userInfo.contributionCalendar.length - 1]
         .date;
-    const period = `${toIsoDate(startDate)}/${toIsoDate(endDate)}`;
+    const period = `${toIsoDate(startDate)} / ${toIsoDate(endDate)}`;
     group
         .append('text')
         .style('font-size', '16px')
