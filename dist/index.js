@@ -1010,7 +1010,7 @@ const fetchData = async (token, userName) => {
                         totalPullRequestReviewContributions
                         totalRepositoryContributions
                     }
-                    repositories(first: 100) {
+                    repositories(first: 100, ownerAffiliations: OWNER) {
                         nodes {
                             forkCount
                             stargazerCount
