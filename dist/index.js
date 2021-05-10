@@ -833,6 +833,7 @@ const bgcolor = '#ffffff';
 const strongColor = '#111133';
 const width = 1280;
 const height = 850;
+const toIsoDate = (date) => date.toISOString().substring(0, 10);
 const createSvg = (userInfo, isSeason, isAnimate) => {
     const fakeDom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body><div class="container"></div></body></html>');
     const container = d3.select(fakeDom.window.document).select('.container');
@@ -924,9 +925,7 @@ const createSvg = (userInfo, isSeason, isAnimate) => {
     const startDate = userInfo.contributionCalendar[0].date;
     const endDate = userInfo.contributionCalendar[userInfo.contributionCalendar.length - 1]
         .date;
-    const period = `${startDate
-        .toISOString()
-        .substring(0, 10)}/${endDate.toISOString().substring(0, 10)}`;
+    const period = `${toIsoDate(startDate)} / ${toIsoDate(endDate)}`;
     group
         .append('text')
         .style('font-size', '16px')
@@ -951,7 +950,7 @@ exports.createSvg = createSvg;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.writeFile = exports.OUTPUT_FOLDER = void 0;
 const fs_1 = __nccwpck_require__(35747);
-exports.OUTPUT_FOLDER = "./profile-3d-contrib";
+exports.OUTPUT_FOLDER = './profile-3d-contrib';
 const writeFile = (fileName, content) => {
     fs_1.mkdirSync(exports.OUTPUT_FOLDER, { recursive: true });
     fs_1.writeFileSync(`${exports.OUTPUT_FOLDER}/${fileName}`, content);
@@ -1021,7 +1020,9 @@ const fetchData = async (token, userName) => {
         `.replace(/\s+/g, ' '),
         variables: { login: userName },
     };
-    const response = await axios_1.default.post(exports.URL, req, { headers: headers });
+    const response = await axios_1.default.post(exports.URL, req, {
+        headers: headers,
+    });
     return response.data;
 };
 exports.fetchData = fetchData;
