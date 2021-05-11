@@ -391,6 +391,7 @@ const aggregateUserInfo = (response) => {
         .map((node) => node.stargazerCount)
         .reduce((num1, num2) => num1 + num2, 0);
     const userInfo = {
+        isHalloween: user.contributionsCollection.contributionCalendar.isHalloween,
         contributionCalendar: calendar,
         contributesLanguage: languages,
         totalContributions: user.contributionsCollection.contributionCalendar
@@ -466,10 +467,14 @@ const createGradation = (dayOfMonth, color1, color2) => {
     const color = d3.interpolate(color1, color2);
     return color(ratio);
 };
-const decideColor = (date, contributionLevel, isSeason) => {
-    if (!isSeason) {
+const decideColor = (date, contributionLevel, seasonMode) => {
+    if (seasonMode === 'green') {
         // summer (as normal)
         return colors[1][contributionLevel];
+    }
+    else if (seasonMode === 'halloween') {
+        // autumn (as halloween)
+        return colors[2][contributionLevel];
     }
     const sunday = new Date(date.getTime());
     sunday.setDate(sunday.getDate() - sunday.getDay());
@@ -534,7 +539,7 @@ const createTopPanelPath = (baseX, baseY, calHeight, dx, dy) => {
     plainTop.closePath();
     return plainTop.toString();
 };
-const create3DContrib = (svg, userInfo, x, y, width, height, isSeason, isAnimate) => {
+const create3DContrib = (svg, userInfo, x, y, width, height, seasonMode, isAnimate) => {
     if (userInfo.contributionCalendar.length === 0) {
         return;
     }
@@ -553,7 +558,7 @@ const create3DContrib = (svg, userInfo, x, y, width, height, isSeason, isAnimate
         const baseX = offsetX + (week - dayOfWeek) * dx;
         const baseY = offsetY + (week + dayOfWeek) * dy;
         const calHeight = Math.min(50, cal.contributionCount) * 3 + 3;
-        const colorBase = decideColor(cal.date, cal.contributionLevel, isSeason);
+        const colorBase = decideColor(cal.date, cal.contributionLevel, seasonMode);
         const colorTop = d3.rgb(colorBase);
         const colorRight = d3.rgb(colorBase).darker(0.5);
         const colorLeft = d3.rgb(colorBase).darker(1);
@@ -878,7 +883,7 @@ const strongColor = '#111133';
 const width = 1280;
 const height = 850;
 const toIsoDate = (date) => date.toISOString().substring(0, 10);
-const createSvg = (userInfo, isSeason, isAnimate) => {
+const createSvg = (userInfo, seasonMode, isAnimate) => {
     const fakeDom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body><div class="container"></div></body></html>');
     const container = d3.select(fakeDom.window.document).select('.container');
     const svg = container
@@ -895,7 +900,7 @@ const createSvg = (userInfo, isSeason, isAnimate) => {
         .attr('width', width)
         .attr('height', height)
         .attr('fill', bgcolor);
-    contrib.create3DContrib(svg, userInfo, 0, 0, width, height, isSeason, isAnimate);
+    contrib.create3DContrib(svg, userInfo, 0, 0, width, height, seasonMode, isAnimate);
     // radar chart
     const radarWidth = 400 * 1.3;
     const radarHeight = (radarWidth * 3) / 4;
@@ -1028,6 +1033,7 @@ const fetchData = async (token, userName, maxRepos) => {
                 user(login: $login) {
                     contributionsCollection {
                         contributionCalendar {
+                            isHalloween
                             totalContributions
                             weeks {
                                 contributionDays {
@@ -1172,13 +1178,14 @@ const main = async () => {
         }
         const response = await client.fetchData(token, userName, maxRepos);
         const userInfo = aggregate.aggregateUserInfo(response);
-        const svgString1 = create.createSvg(userInfo, true, true);
+        const seasonMode = userInfo.isHalloween ? 'halloween' : 'green';
+        const svgString1 = create.createSvg(userInfo, 'season', true);
         f.writeFile('profile-season-animate.svg', svgString1);
-        const svgString2 = create.createSvg(userInfo, false, true);
+        const svgString2 = create.createSvg(userInfo, seasonMode, true);
         f.writeFile('profile-green-animate.svg', svgString2);
-        const svgString3 = create.createSvg(userInfo, true, false);
+        const svgString3 = create.createSvg(userInfo, 'season', false);
         f.writeFile('profile-season.svg', svgString3);
-        const svgString4 = create.createSvg(userInfo, false, false);
+        const svgString4 = create.createSvg(userInfo, seasonMode, false);
         f.writeFile('profile-green.svg', svgString4);
     }
     catch (error) {
