@@ -1078,7 +1078,7 @@ const fetchData = async (token, userName, maxRepos) => {
         headers: headers,
     });
     const result = response.data.data;
-    if (result) {
+    if (result && result.user.repositories.nodes.length === maxReposOneQuery) {
         const repos1 = result.user.repositories;
         let cursor = repos1.edges[repos1.edges.length - 1].cursor;
         while (repos1.nodes.length < maxRepos) {
@@ -1164,9 +1164,7 @@ const main = async () => {
             core.setFailed('GITHUB_TOKEN is empty');
             return;
         }
-        const userName = 3 <= process.argv.length
-            ? process.argv[2]
-            : process.env.USERNAME;
+        const userName = 3 <= process.argv.length ? process.argv[2] : process.env.USERNAME;
         if (!userName) {
             core.setFailed('USERNAME is empty');
             return;
