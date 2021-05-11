@@ -1164,7 +1164,9 @@ const main = async () => {
             core.setFailed('GITHUB_TOKEN is empty');
             return;
         }
-        const userName = process.env.USERNAME;
+        const userName = 3 <= process.argv.length
+            ? process.argv[2]
+            : process.env.USERNAME;
         if (!userName) {
             core.setFailed('USERNAME is empty');
             return;
