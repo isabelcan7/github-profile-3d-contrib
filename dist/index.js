@@ -718,7 +718,9 @@ const createPieLanguage = (svg, userInfo, x, y, width, height) => {
         .attr('d', arc)
         .style('fill', (d) => d.data.color)
         .attr('stroke', bgcolor)
-        .attr('stroke-width', '2px');
+        .attr('stroke-width', '2px')
+        .append('title')
+        .text((d) => `${d.data.language} ${d.data.contributions}`);
 };
 exports.createPieLanguage = createPieLanguage;
 //# sourceMappingURL=create-pie-language.js.map
@@ -820,7 +822,9 @@ const createRadarContrib = (svg, userInfo, x, y, width, height) => {
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .attr('x', (d, i) => radius * 1.25 * Math.sin((i / total) * radians))
-        .attr('y', (d, i) => radius * 1.17 * -Math.cos((i / total) * radians));
+        .attr('y', (d, i) => radius * 1.17 * -Math.cos((i / total) * radians))
+        .append('title')
+        .text((d) => d.value);
     const dataValues = data
         .map((d) => toLevel(d.value))
         .map((d, i) => `${radius * ((d / levels) * Math.sin((i / total) * radians))},${radius * ((-d / levels) * Math.cos((i / total) * radians))}`);
