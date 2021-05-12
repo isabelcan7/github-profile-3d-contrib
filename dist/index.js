@@ -732,7 +732,8 @@ exports.createPieLanguage = createPieLanguage;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createRadarContrib = void 0;
-const levels = 5;
+const rangeLabels = ['1-', '10', '100', '1K', '10K+'];
+const levels = rangeLabels.length;
 const radians = 2 * Math.PI;
 const radarColor = '#47a042';
 const toLevel = (value) => {
@@ -749,50 +750,47 @@ const createRadarContrib = (svg, userInfo, x, y, width, height) => {
     const data = [
         {
             name: 'Commit',
-            value: toLevel(userInfo.totalCommitContributions),
+            value: userInfo.totalCommitContributions,
         },
         {
             name: 'Issue',
-            value: toLevel(userInfo.totalIssueContributions),
+            value: userInfo.totalIssueContributions,
         },
         {
             name: 'PullReq',
-            value: toLevel(userInfo.totalPullRequestContributions),
+            value: userInfo.totalPullRequestContributions,
         },
         {
             name: 'Review',
-            value: toLevel(userInfo.totalPullRequestReviewContributions),
+            value: userInfo.totalPullRequestReviewContributions,
         },
         {
             name: 'Repo',
-            value: toLevel(userInfo.totalRepositoryContributions),
+            value: userInfo.totalRepositoryContributions,
         },
     ];
-    const allAxis = data.map((dutam) => dutam.name);
-    const total = allAxis.length;
-    const group = svg.append('g').attr('transform', `translate(${x}, ${y})`);
-    const groupCenter = group
+    const total = data.length;
+    const group = svg
         .append('g')
-        .attr('transform', `translate(${cx}, ${cy})`);
+        .attr('transform', `translate(${x + cx}, ${y + cy})`);
     for (let j = 0; j < levels; j++) {
-        const levelRadius = radius * ((j + 1) / levels);
-        groupCenter
-            .selectAll('.levels')
-            .data(allAxis)
+        const length = radius * ((j + 1) / levels);
+        group
+            .selectAll(null)
+            .data(data)
             .enter()
             .append('line')
-            .attr('x1', (d, i) => levelRadius * Math.sin((i * radians) / total))
-            .attr('y1', (d, i) => levelRadius * -Math.cos((i * radians) / total))
-            .attr('x2', (d, i) => levelRadius * Math.sin(((i + 1) * radians) / total))
-            .attr('y2', (d, i) => levelRadius * -Math.cos(((i + 1) * radians) / total))
-            .attr('class', 'line')
+            .attr('x1', (d, i) => length * Math.sin((i / total) * radians))
+            .attr('y1', (d, i) => length * -Math.cos((i / total) * radians))
+            .attr('x2', (d, i) => length * Math.sin(((i + 1) / total) * radians))
+            .attr('y2', (d, i) => length * -Math.cos(((i + 1) / total) * radians))
             .style('stroke', 'grey')
             .style('stroke-dasharray', '4 4')
             .style('stroke-width', '1px');
     }
-    groupCenter
+    group
         .selectAll(null)
-        .data(['1-', '10', '100', '1K', '10K+'])
+        .data(rangeLabels)
         .enter()
         .append('text')
         .text((d) => d)
@@ -802,42 +800,38 @@ const createRadarContrib = (svg, userInfo, x, y, width, height) => {
         .attr('x', radius / 50)
         .attr('y', (d, i) => -radius * ((i + 1) / levels))
         .attr('fill', 'gray');
-    const axis = groupCenter
-        .selectAll('.axis')
-        .data(allAxis)
+    const axis = group
+        .selectAll(null)
+        .data(data)
         .enter()
         .append('g')
         .attr('class', 'axis');
     axis.append('line')
-        .attr('x1', (d, i) => (radius / levels) * Math.sin((i * radians) / total))
-        .attr('y1', (d, i) => (radius / levels) * -Math.cos((i * radians) / total))
-        .attr('x2', (d, i) => radius * Math.sin((i * radians) / total))
-        .attr('y2', (d, i) => radius * -Math.cos((i * radians) / total))
-        .attr('class', 'line')
+        .attr('x1', (d, i) => (radius / levels) * Math.sin((i / total) * radians))
+        .attr('y1', (d, i) => (radius / levels) * -Math.cos((i / total) * radians))
+        .attr('x2', (d, i) => radius * Math.sin((i / total) * radians))
+        .attr('y2', (d, i) => radius * -Math.cos((i / total) * radians))
         .style('stroke', 'grey')
         .style('stroke-dasharray', '4 4')
         .style('stroke-width', '1px');
     axis.append('text')
-        .attr('class', 'legend')
-        .text((d) => d)
+        .text((d) => d.name)
         .style('font-size', `${radius / 7.5}px`)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
-        .attr('x', (d, i) => radius * 1.25 * Math.sin((i * radians) / total))
-        .attr('y', (d, i) => radius * 1.17 * -Math.cos((i * radians) / total));
-    const dataValues = data.flatMap((d, i) => [
-        radius * ((d.value / levels) * Math.sin((i * radians) / total)),
-        radius * ((-d.value / levels) * Math.cos((i * radians) / total)),
-    ]);
-    dataValues.push(dataValues[0], dataValues[1]); // close path
-    groupCenter
-        .selectAll('.area')
+        .attr('x', (d, i) => radius * 1.25 * Math.sin((i / total) * radians))
+        .attr('y', (d, i) => radius * 1.17 * -Math.cos((i / total) * radians));
+    const dataValues = data
+        .map((d) => toLevel(d.value))
+        .map((d, i) => `${radius * ((d / levels) * Math.sin((i / total) * radians))},${radius * ((-d / levels) * Math.cos((i / total) * radians))}`);
+    group
+        .selectAll(null)
         .data([dataValues])
         .enter()
         .append('polygon')
         .style('stroke-width', '4px')
         .style('stroke', radarColor)
-        .attr('points', (d) => d.join(','))
+        .attr('points', (d) => d.join(' '))
         .style('fill', radarColor)
         .style('fill-opacity', 0.5);
 };
