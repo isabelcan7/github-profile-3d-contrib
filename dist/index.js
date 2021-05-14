@@ -1016,16 +1016,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.fetchData = exports.URL = void 0;
+exports.fetchData = exports.fetchNext = exports.fetchFirst = exports.URL = void 0;
 const axios_1 = __importDefault(__nccwpck_require__(50992));
 exports.URL = 'https://api.github.com/graphql';
-/** Fetch data from GitHub GraphQL */
-const fetchData = async (token, userName, maxRepos) => {
-    const maxReposOneQuery = 100;
+const maxReposOneQuery = 100;
+const fetchFirst = async (token, userName) => {
     const headers = {
         Authorization: `bearer ${token}`,
     };
-    const req = {
+    const request = {
         query: `
             query($login: String!) {
                 user(login: $login) {
@@ -1072,40 +1071,54 @@ const fetchData = async (token, userName, maxRepos) => {
         `.replace(/\s+/g, ' '),
         variables: { login: userName },
     };
-    const response = await axios_1.default.post(exports.URL, req, {
+    const response = await axios_1.default.post(exports.URL, request, {
         headers: headers,
     });
-    const result = response.data.data;
+    return response.data;
+};
+exports.fetchFirst = fetchFirst;
+const fetchNext = async (token, userName, cursor) => {
+    const headers = {
+        Authorization: `bearer ${token}`,
+    };
+    const request = {
+        query: `
+            query($login: String!, $cursor: String!) {
+                user(login: $login) {
+                    repositories(after: $cursor, first: ${maxReposOneQuery}, ownerAffiliations: OWNER) {
+                        edges {
+                            cursor
+                        }
+                        nodes {
+                            forkCount
+                            stargazerCount
+                        }
+                    }
+                }
+            }
+        `.replace(/\s+/g, ' '),
+        variables: {
+            login: userName,
+            cursor: cursor,
+        },
+    };
+    const response = await axios_1.default.post(exports.URL, request, {
+        headers: headers,
+    });
+    return response.data;
+};
+exports.fetchNext = fetchNext;
+/** Fetch data from GitHub GraphQL */
+const fetchData = async (token, userName, maxRepos) => {
+    const res1 = await exports.fetchFirst(token, userName);
+    const result = res1.data;
     if (result && result.user.repositories.nodes.length === maxReposOneQuery) {
         const repos1 = result.user.repositories;
         let cursor = repos1.edges[repos1.edges.length - 1].cursor;
         while (repos1.nodes.length < maxRepos) {
-            const req2 = {
-                query: `
-                    query($login: String!, $cursor: String!) {
-                        user(login: $login) {
-                            repositories(after: $cursor, first: ${maxReposOneQuery}, ownerAffiliations: OWNER) {
-                                edges {
-                                    cursor
-                                }
-                                nodes {
-                                    forkCount
-                                    stargazerCount
-                                }
-                            }
-                        }
-                    }
-                `.replace(/\s+/g, ' '),
-                variables: {
-                    login: userName,
-                    cursor: cursor,
-                },
-            };
-            const res2 = await axios_1.default.post(exports.URL, req2, {
-                headers: headers,
-            });
-            if (res2.data.data) {
-                const repos2 = res2.data.data.user.repositories;
+            const res2 = await exports.fetchNext(token, userName, cursor);
+            if (res2.data) {
+                const repos2 = res2.data.user.repositories;
                 repos1.nodes.push(...repos2.nodes);
                 if (repos2.nodes.length !== maxReposOneQuery) {
                     break;
@@ -1117,7 +1130,7 @@ const fetchData = async (token, userName, maxRepos) => {
             }
         }
     }
-    return response.data;
+    return res1;
 };
 exports.fetchData = fetchData;
 //# sourceMappingURL=github-graphql.js.map
