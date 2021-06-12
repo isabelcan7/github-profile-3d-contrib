@@ -336,7 +336,7 @@ const OTHER_NAME = 'other';
 const OTHER_COLOR = '#444444';
 const bgcolor = '#ffffff';
 const fgcolor = '#00000f';
-const createPieLanguage = (svg, userInfo, x, y, width, height) => {
+const createPieLanguage = (svg, userInfo, x, y, width, height, isAnimate) => {
     if (userInfo.totalContributions === 0) {
         return;
     }
@@ -352,6 +352,11 @@ const createPieLanguage = (svg, userInfo, x, y, width, height) => {
             contributions: otherContributions,
         });
     }
+    const animeSteps = 5;
+    const animateOpacity = (num) => Array(languages.length + animeSteps)
+        .fill('')
+        .map((d, i) => (i < num ? 0 : Math.min((i - num) / animeSteps, 1)))
+        .join(';');
     const radius = height / 2;
     const margin = radius / 10;
     const row = 8;
@@ -367,7 +372,7 @@ const createPieLanguage = (svg, userInfo, x, y, width, height) => {
         .append('g')
         .attr('transform', `translate(${radius * 2.1}, ${0})`);
     // markers for label
-    groupLabel
+    const markers = groupLabel
         .selectAll(null)
         .data(pieData)
         .enter()
@@ -379,8 +384,16 @@ const createPieLanguage = (svg, userInfo, x, y, width, height) => {
         .attr('fill', (d) => d.data.color)
         .attr('stroke', bgcolor)
         .attr('stroke-width', '1px');
+    if (isAnimate) {
+        markers
+            .append('animate')
+            .attr('attributeName', 'fill-opacity')
+            .attr('values', (d, i) => animateOpacity(i))
+            .attr('dur', '3s')
+            .attr('repeatCount', '1');
+    }
     // labels
-    groupLabel
+    const labels = groupLabel
         .selectAll(null)
         .data(pieData)
         .enter()
@@ -391,12 +404,20 @@ const createPieLanguage = (svg, userInfo, x, y, width, height) => {
         .attr('y', (d) => (d.index + offset) * (height / row))
         .attr('fill', fgcolor)
         .attr('font-size', `${fontSize}px`);
+    if (isAnimate) {
+        labels
+            .append('animate')
+            .attr('attributeName', 'fill-opacity')
+            .attr('values', (d, i) => animateOpacity(i))
+            .attr('dur', '3s')
+            .attr('repeatCount', '1');
+    }
     const arc = d3
         .arc()
         .outerRadius(radius - margin)
         .innerRadius(radius / 2);
     // pie chart
-    group
+    const paths = group
         .append('g')
         .attr('transform', `translate(${radius}, ${radius})`)
         .selectAll(null)
@@ -406,9 +427,18 @@ const createPieLanguage = (svg, userInfo, x, y, width, height) => {
         .attr('d', arc)
         .style('fill', (d) => d.data.color)
         .attr('stroke', bgcolor)
-        .attr('stroke-width', '2px')
+        .attr('stroke-width', '2px');
+    paths
         .append('title')
         .text((d) => `${d.data.language} ${d.data.contributions}`);
+    if (isAnimate) {
+        paths
+            .append('animate')
+            .attr('attributeName', 'fill-opacity')
+            .attr('values', (d, i) => animateOpacity(i))
+            .attr('dur', '3s')
+            .attr('repeatCount', '1');
+    }
 };
 exports.createPieLanguage = createPieLanguage;
 //# sourceMappingURL=create-pie-language.js.map
@@ -605,7 +635,7 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
     // pie chart
     const pieHeight = 200 * 1.3;
     const pieWidth = pieHeight * 2;
-    pie.createPieLanguage(svg, userInfo, 40, height - pieHeight - 70, pieWidth, pieHeight);
+    pie.createPieLanguage(svg, userInfo, 40, height - pieHeight - 70, pieWidth, pieHeight, isAnimate);
     const group = svg.append('g');
     const positionXContrib = (width * 3) / 10;
     const positionYContrib = height - 20;
