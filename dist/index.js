@@ -750,9 +750,9 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('x', positionXContrib)
         .attr('y', positionYContrib)
         .attr('text-anchor', 'end')
-        .text(userInfo.totalContributions < 1000
+        .text(userInfo.totalContributions < 10000
         ? userInfo.totalContributions
-        : '999+')
+        : '9999+')
         .attr('fill', settings.strongColor)
         .append('title')
         .text(userInfo.totalContributions);
