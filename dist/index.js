@@ -99,6 +99,88 @@ exports.aggregateUserInfo = aggregateUserInfo;
 
 /***/ }),
 
+/***/ 67007:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NightRainbowSettings = exports.NightViewSettings = exports.SouthSeasonSettings = exports.NorthSeasonSettings = exports.HalloweenSettings = exports.NormalSettings = void 0;
+exports.NormalSettings = {
+    type: 'normal',
+    backgroundColor: '#ffffff',
+    foregroundColor: '#00000f',
+    strongColor: '#111133',
+    weakColor: 'gray',
+    radarColor: '#47a042',
+    contribColors: ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'],
+};
+exports.HalloweenSettings = {
+    type: 'normal',
+    backgroundColor: '#ffffff',
+    foregroundColor: '#00000f',
+    strongColor: '#111133',
+    weakColor: 'gray',
+    radarColor: '#47a042',
+    contribColors: ['#efefef', '#ffed4a', '#ffc402', '#fe9400', '#fa6100'],
+};
+// Northern hemisphere
+exports.NorthSeasonSettings = {
+    type: 'season',
+    backgroundColor: '#ffffff',
+    foregroundColor: '#00000f',
+    strongColor: '#111133',
+    weakColor: 'gray',
+    radarColor: '#47a042',
+    contribColors1: ['#efefef', '#ffe7ff', '#edaeda', '#e492ca', '#ba7aad'],
+    contribColors2: ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'],
+    contribColors3: ['#efefef', '#ffed4a', '#ffc402', '#fe9400', '#fa6100'],
+    contribColors4: ['#efefef', '#999999', '#cccccc', '#dddddd', '#eeeeee'], // winter
+};
+// Southern hemisphere
+exports.SouthSeasonSettings = {
+    type: 'season',
+    backgroundColor: '#ffffff',
+    foregroundColor: '#00000f',
+    strongColor: '#111133',
+    weakColor: 'gray',
+    radarColor: '#47a042',
+    contribColors1: ['#efefef', '#ffed4a', '#ffc402', '#fe9400', '#fa6100'],
+    contribColors2: ['#efefef', '#999999', '#cccccc', '#dddddd', '#eeeeee'],
+    contribColors3: ['#efefef', '#ffe7ff', '#edaeda', '#e492ca', '#ba7aad'],
+    contribColors4: ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'], // summer
+};
+exports.NightViewSettings = {
+    type: 'normal',
+    backgroundColor: 'black',
+    foregroundColor: '#eeeeff',
+    strongColor: 'rgb(255,200,55)',
+    weakColor: '#aaaaaa',
+    radarColor: 'rgb(255,200,55)',
+    contribColors: [
+        'rgb(25,60,130)',
+        'rgb(25,90,210)',
+        'rgb(25,120,220)',
+        'rgb(25,150,230)',
+        'rgb(25,165,240)',
+    ],
+};
+exports.NightRainbowSettings = {
+    type: 'rainbow',
+    backgroundColor: 'black',
+    foregroundColor: '#eeeeff',
+    strongColor: 'rgb(255,200,55)',
+    weakColor: '#aaaaaa',
+    radarColor: 'rgb(255,200,55)',
+    saturation: 50,
+    contribLightness: ['20%', '30%', '35%', '40%', '50%'],
+    duration: '10s',
+    hueRatio: -7,
+};
+//# sourceMappingURL=color-template.js.map
+
+/***/ }),
+
 /***/ 78739:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -126,15 +208,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.create3DContrib = void 0;
 const d3 = __importStar(__nccwpck_require__(45203));
-const colors = [
-    ['#efefef', '#ffe7ff', '#edaeda', '#e492ca', '#ba7aad'],
-    ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'],
-    ['#efefef', '#ffed4a', '#ffc402', '#fe9400', '#fa6100'],
-    ['#efefef', '#999999', '#cccccc', '#dddddd', '#eeeeee'], // winter
-];
-const diffDate = (beforeDate, afterDate) => {
-    return Math.floor((afterDate - beforeDate) / (24 * 60 * 60 * 1000));
-};
+const darkerLeft = 1;
+const darkerRight = 0.5;
+const darkerTop = 0;
+const diffDate = (beforeDate, afterDate) => Math.floor((afterDate - beforeDate) / (24 * 60 * 60 * 1000));
 const createGradation = (dayOfMonth, color1, color2) => {
     let ratio;
     if (dayOfMonth <= 7) {
@@ -155,15 +232,7 @@ const createGradation = (dayOfMonth, color1, color2) => {
     const color = d3.interpolate(color1, color2);
     return color(ratio);
 };
-const decideColor = (date, contributionLevel, seasonMode) => {
-    if (seasonMode === 'green') {
-        // summer (as normal)
-        return colors[1][contributionLevel];
-    }
-    else if (seasonMode === 'halloween') {
-        // autumn (as halloween)
-        return colors[2][contributionLevel];
-    }
+const decideSeasonColor = (contributionLevel, settings, date) => {
     const sunday = new Date(date.getTime());
     sunday.setDate(sunday.getDate() - sunday.getDay());
     const month = sunday.getUTCMonth();
@@ -171,33 +240,33 @@ const decideColor = (date, contributionLevel, seasonMode) => {
     switch (month + 1) {
         case 9:
             // summer -> autumn
-            return createGradation(dayOfMonth, colors[1][contributionLevel], colors[2][contributionLevel]);
+            return createGradation(dayOfMonth, settings.contribColors2[contributionLevel], settings.contribColors3[contributionLevel]);
         case 10:
         case 11:
             // autumn
-            return colors[2][contributionLevel];
+            return settings.contribColors3[contributionLevel];
         case 12:
             // autumn -> winter
-            return createGradation(dayOfMonth, colors[2][contributionLevel], colors[3][contributionLevel]);
+            return createGradation(dayOfMonth, settings.contribColors3[contributionLevel], settings.contribColors4[contributionLevel]);
         case 1:
         case 2:
             // winter
-            return colors[3][contributionLevel];
+            return settings.contribColors4[contributionLevel];
         case 3:
             // winter -> spring
-            return createGradation(dayOfMonth, colors[3][contributionLevel], colors[0][contributionLevel]);
+            return createGradation(dayOfMonth, settings.contribColors4[contributionLevel], settings.contribColors1[contributionLevel]);
         case 4:
         case 5:
             // spring
-            return colors[0][contributionLevel];
+            return settings.contribColors1[contributionLevel];
         case 6:
             // spring -> summer
-            return createGradation(dayOfMonth, colors[0][contributionLevel], colors[1][contributionLevel]);
+            return createGradation(dayOfMonth, settings.contribColors1[contributionLevel], settings.contribColors2[contributionLevel]);
         case 7:
         case 8:
         default:
             // summer
-            return colors[1][contributionLevel];
+            return settings.contribColors2[contributionLevel];
     }
 };
 const createLeftPanelPath = (baseX, baseY, calHeight, dx, dy) => {
@@ -227,7 +296,30 @@ const createTopPanelPath = (baseX, baseY, calHeight, dx, dy) => {
     plainTop.closePath();
     return plainTop.toString();
 };
-const create3DContrib = (svg, userInfo, x, y, width, height, seasonMode, isAnimate) => {
+const addNormalColor = (path, contributionLevel, settings, darker) => {
+    const color = settings.contribColors[contributionLevel];
+    path.attr('fill', d3.rgb(color).darker(darker).toString());
+};
+const addSeasonColor = (path, contributionLevel, settings, darker, date) => {
+    const color = decideSeasonColor(contributionLevel, settings, date);
+    path.attr('fill', d3.rgb(color).darker(darker).toString());
+};
+const addRainbowColor = (path, contributionLevel, settings, darker, week) => {
+    const offsetHue = week * settings.hueRatio;
+    const saturation = settings.saturation;
+    const lightness = settings.contribLightness[contributionLevel];
+    const values = [...Array(7)]
+        .map((_, i) => (i * 60 + offsetHue) % 360)
+        .map((hue) => `hsl(${hue},${saturation}%,${lightness})`)
+        .map((c) => d3.rgb(c).darker(darker).toString())
+        .join(';');
+    path.append('animate')
+        .attr('attributeName', 'fill')
+        .attr('values', values)
+        .attr('dur', settings.duration)
+        .attr('repeatCount', 'indefinite');
+};
+const create3DContrib = (svg, userInfo, x, y, width, height, settings, isAnimate) => {
     if (userInfo.contributionCalendar.length === 0) {
         return;
     }
@@ -246,19 +338,22 @@ const create3DContrib = (svg, userInfo, x, y, width, height, seasonMode, isAnima
         const baseX = offsetX + (week - dayOfWeek) * dx;
         const baseY = offsetY + (week + dayOfWeek) * dy;
         const calHeight = Math.min(50, cal.contributionCount) * 3 + 3;
-        const colorBase = decideColor(cal.date, cal.contributionLevel, seasonMode);
-        const colorTop = d3.rgb(colorBase);
-        const colorRight = d3.rgb(colorBase).darker(0.5);
-        const colorLeft = d3.rgb(colorBase).darker(1);
-        const plainLeft0 = createRightPanelPath(baseX, baseY, 3, dxx, dyy);
         const plainLeft = createRightPanelPath(baseX, baseY, calHeight, dxx, dyy);
         const pathLeft = group
             .append('path')
             .attr('d', plainLeft)
-            .attr('stroke', colorLeft.toString())
-            .attr('stroke-width', '0px')
-            .attr('fill', colorLeft.toString());
+            .attr('stroke-width', '0px');
+        if (settings.type === 'normal') {
+            addNormalColor(pathLeft, cal.contributionLevel, settings, darkerLeft);
+        }
+        else if (settings.type === 'season') {
+            addSeasonColor(pathLeft, cal.contributionLevel, settings, darkerLeft, cal.date);
+        }
+        else if (settings.type === 'rainbow') {
+            addRainbowColor(pathLeft, cal.contributionLevel, settings, darkerLeft, week);
+        }
         if (isAnimate) {
+            const plainLeft0 = createRightPanelPath(baseX, baseY, 3, dxx, dyy);
             pathLeft
                 .append('animate')
                 .attr('attributeName', 'd')
@@ -266,15 +361,22 @@ const create3DContrib = (svg, userInfo, x, y, width, height, seasonMode, isAnima
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
         }
-        const plainRigth0 = createLeftPanelPath(baseX, baseY, 3, dxx, dyy);
         const plainRight = createLeftPanelPath(baseX, baseY, calHeight, dxx, dyy);
         const pathRight = group
             .append('path')
             .attr('d', plainRight)
-            .attr('stroke', colorRight.toString())
-            .attr('stroke-width', '0px')
-            .attr('fill', colorRight.toString());
+            .attr('stroke-width', '0px');
+        if (settings.type === 'normal') {
+            addNormalColor(pathRight, cal.contributionLevel, settings, darkerRight);
+        }
+        else if (settings.type === 'season') {
+            addSeasonColor(pathRight, cal.contributionLevel, settings, darkerRight, cal.date);
+        }
+        else if (settings.type === 'rainbow') {
+            addRainbowColor(pathRight, cal.contributionLevel, settings, darkerRight, week);
+        }
         if (isAnimate) {
+            const plainRigth0 = createLeftPanelPath(baseX, baseY, 3, dxx, dyy);
             pathRight
                 .append('animate')
                 .attr('attributeName', 'd')
@@ -282,15 +384,22 @@ const create3DContrib = (svg, userInfo, x, y, width, height, seasonMode, isAnima
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
         }
-        const plainTop0 = createTopPanelPath(baseX, baseY, 3, dxx, dyy);
         const plainTop = createTopPanelPath(baseX, baseY, calHeight, dxx, dyy);
         const pathTop = group
             .append('path')
             .attr('d', plainTop)
-            .attr('stroke', colorTop.toString())
-            .attr('stroke-width', '0px')
-            .attr('fill', colorTop.toString());
+            .attr('stroke-width', '0px');
+        if (settings.type === 'normal') {
+            addNormalColor(pathTop, cal.contributionLevel, settings, darkerTop);
+        }
+        else if (settings.type === 'season') {
+            addSeasonColor(pathTop, cal.contributionLevel, settings, darkerTop, cal.date);
+        }
+        else if (settings.type === 'rainbow') {
+            addRainbowColor(pathTop, cal.contributionLevel, settings, darkerTop, week);
+        }
         if (isAnimate) {
+            const plainTop0 = createTopPanelPath(baseX, baseY, 3, dxx, dyy);
             pathTop
                 .append('animate')
                 .attr('attributeName', 'd')
@@ -334,9 +443,7 @@ exports.createPieLanguage = void 0;
 const d3 = __importStar(__nccwpck_require__(45203));
 const OTHER_NAME = 'other';
 const OTHER_COLOR = '#444444';
-const bgcolor = '#ffffff';
-const fgcolor = '#00000f';
-const createPieLanguage = (svg, userInfo, x, y, width, height, isAnimate) => {
+const createPieLanguage = (svg, userInfo, x, y, width, height, settings, isAnimate) => {
     if (userInfo.totalContributions === 0) {
         return;
     }
@@ -382,7 +489,7 @@ const createPieLanguage = (svg, userInfo, x, y, width, height, isAnimate) => {
         .attr('width', fontSize)
         .attr('height', fontSize)
         .attr('fill', (d) => d.data.color)
-        .attr('stroke', bgcolor)
+        .attr('stroke', settings.backgroundColor)
         .attr('stroke-width', '1px');
     if (isAnimate) {
         markers
@@ -402,7 +509,7 @@ const createPieLanguage = (svg, userInfo, x, y, width, height, isAnimate) => {
         .text((d) => d.data.language)
         .attr('x', fontSize * 1.2)
         .attr('y', (d) => (d.index + offset) * (height / row))
-        .attr('fill', fgcolor)
+        .attr('fill', settings.foregroundColor)
         .attr('font-size', `${fontSize}px`);
     if (isAnimate) {
         labels
@@ -426,7 +533,7 @@ const createPieLanguage = (svg, userInfo, x, y, width, height, isAnimate) => {
         .append('path')
         .attr('d', arc)
         .style('fill', (d) => d.data.color)
-        .attr('stroke', bgcolor)
+        .attr('stroke', settings.backgroundColor)
         .attr('stroke-width', '2px');
     paths
         .append('title')
@@ -455,7 +562,6 @@ exports.createRadarContrib = void 0;
 const rangeLabels = ['1-', '10', '100', '1K', '10K+'];
 const levels = rangeLabels.length;
 const radians = 2 * Math.PI;
-const radarColor = '#47a042';
 const toLevel = (value) => {
     if (value < 1) {
         return 1;
@@ -463,7 +569,7 @@ const toLevel = (value) => {
     const result = Math.log10(value);
     return Math.min(result, 4) + 1;
 };
-const createRadarContrib = (svg, userInfo, x, y, width, height, isAnimate) => {
+const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnimate) => {
     const radius = (height / 2) * 0.8;
     const cx = width / 2;
     const cy = (height / 2) * 1.1;
@@ -505,7 +611,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, isAnimate) => {
             .attr('y1', (d, i) => posY(j + 1, i))
             .attr('x2', (d, i) => posX(j + 1, i + 1))
             .attr('y2', (d, i) => posY(j + 1, i + 1))
-            .style('stroke', 'grey')
+            .style('stroke', settings.weakColor)
             .style('stroke-dasharray', '4 4')
             .style('stroke-width', '1px');
     }
@@ -520,7 +626,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, isAnimate) => {
         .attr('dominant-baseline', 'auto')
         .attr('x', radius / 50)
         .attr('y', (d, i) => -radius * ((i + 1) / levels))
-        .attr('fill', 'gray');
+        .attr('fill', settings.weakColor);
     const axis = group
         .selectAll(null)
         .data(data)
@@ -532,7 +638,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, isAnimate) => {
         .attr('y1', (d, i) => posY(1, i))
         .attr('x2', (d, i) => posX(levels, i))
         .attr('y2', (d, i) => posY(levels, i))
-        .style('stroke', 'grey')
+        .style('stroke', settings.weakColor)
         .style('stroke-dasharray', '4 4')
         .style('stroke-width', '1px');
     axis.append('text')
@@ -542,6 +648,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, isAnimate) => {
         .attr('dominant-baseline', 'middle')
         .attr('x', (d, i) => posX(1.25 * levels, i))
         .attr('y', (d, i) => posY(1.17 * levels, i))
+        .attr('fill', settings.foregroundColor)
         .append('title')
         .text((d) => d.value);
     const points = data
@@ -551,9 +658,9 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, isAnimate) => {
     const radar = group
         .append('polygon')
         .style('stroke-width', '4px')
-        .style('stroke', radarColor)
+        .style('stroke', settings.radarColor)
         .attr('points', points)
-        .style('fill', radarColor)
+        .style('fill', settings.radarColor)
         .style('fill-opacity', 0.5);
     if (isAnimate) {
         const points0 = data
@@ -603,13 +710,10 @@ const jsdom_1 = __nccwpck_require__(46123);
 const contrib = __importStar(__nccwpck_require__(78739));
 const pie = __importStar(__nccwpck_require__(76599));
 const radar = __importStar(__nccwpck_require__(76592));
-const fgcolor = '#00000f';
-const bgcolor = '#ffffff';
-const strongColor = '#111133';
 const width = 1280;
 const height = 850;
 const toIsoDate = (date) => date.toISOString().substring(0, 10);
-const createSvg = (userInfo, seasonMode, isAnimate) => {
+const createSvg = (userInfo, settings, isAnimate) => {
     const fakeDom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body><div class="container"></div></body></html>');
     const container = d3.select(fakeDom.window.document).select('.container');
     const svg = container
@@ -625,17 +729,17 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .attr('y', 0)
         .attr('width', width)
         .attr('height', height)
-        .attr('fill', bgcolor);
-    contrib.create3DContrib(svg, userInfo, 0, 0, width, height, seasonMode, isAnimate);
+        .attr('fill', settings.backgroundColor);
+    contrib.create3DContrib(svg, userInfo, 0, 0, width, height, settings, isAnimate);
     // radar chart
     const radarWidth = 400 * 1.3;
     const radarHeight = (radarWidth * 3) / 4;
     const radarX = width - radarWidth - 40;
-    radar.createRadarContrib(svg, userInfo, radarX, 70, radarWidth, radarHeight, isAnimate);
+    radar.createRadarContrib(svg, userInfo, radarX, 70, radarWidth, radarHeight, settings, isAnimate);
     // pie chart
     const pieHeight = 200 * 1.3;
     const pieWidth = pieHeight * 2;
-    pie.createPieLanguage(svg, userInfo, 40, height - pieHeight - 70, pieWidth, pieHeight, isAnimate);
+    pie.createPieLanguage(svg, userInfo, 40, height - pieHeight - 70, pieWidth, pieHeight, settings, isAnimate);
     const group = svg.append('g');
     const positionXContrib = (width * 3) / 10;
     const positionYContrib = height - 20;
@@ -646,9 +750,12 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .attr('x', positionXContrib)
         .attr('y', positionYContrib)
         .attr('text-anchor', 'end')
-        .text(userInfo.totalContributions.toLocaleString())
-        // .text(userInfo.totalContributions.toLocaleString().replace(',', ' ')) // for SI
-        .attr('fill', strongColor);
+        .text(userInfo.totalContributions < 1000
+        ? userInfo.totalContributions
+        : '999+')
+        .attr('fill', settings.strongColor)
+        .append('title')
+        .text(userInfo.totalContributions);
     group
         .append('text')
         .style('font-size', '24px')
@@ -657,7 +764,7 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .attr('text-anchor', 'start')
         .attr('text-anchor', 'start')
         .text('contributions')
-        .attr('fill', fgcolor);
+        .attr('fill', settings.foregroundColor);
     const positionXStar = (width * 5) / 10;
     const positionYStar = positionYContrib;
     // icon of star
@@ -667,7 +774,7 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .append('path')
         .attr('fill-rule', 'evenodd')
         .attr('d', 'M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z')
-        .attr('fill', fgcolor);
+        .attr('fill', settings.foregroundColor);
     group
         .append('text')
         .style('font-size', '32px')
@@ -678,7 +785,9 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .text(userInfo.totalStargazerCount < 1000
         ? userInfo.totalStargazerCount
         : '999+')
-        .attr('fill', fgcolor);
+        .attr('fill', settings.foregroundColor)
+        .append('title')
+        .text(userInfo.totalStargazerCount);
     const positionXFork = (width * 6) / 10;
     const positionYFork = positionYContrib;
     // icon of fork
@@ -688,7 +797,7 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .append('path')
         .attr('fill-rule', 'evenodd')
         .attr('d', 'M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z')
-        .attr('fill', fgcolor);
+        .attr('fill', settings.foregroundColor);
     group
         .append('text')
         .style('font-size', '32px')
@@ -697,7 +806,9 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .attr('y', positionYFork)
         .attr('text-anchor', 'start')
         .text(userInfo.totalForkCount < 1000 ? userInfo.totalForkCount : '999+')
-        .attr('fill', fgcolor);
+        .attr('fill', settings.foregroundColor)
+        .append('title')
+        .text(userInfo.totalForkCount);
     // ISO 8601 format
     const startDate = userInfo.contributionCalendar[0].date;
     const endDate = userInfo.contributionCalendar[userInfo.contributionCalendar.length - 1]
@@ -711,7 +822,7 @@ const createSvg = (userInfo, seasonMode, isAnimate) => {
         .attr('dominant-baseline', 'hanging')
         .attr('text-anchor', 'end')
         .text(period)
-        .attr('fill', 'gray');
+        .attr('fill', settings.weakColor);
     return container.html();
 };
 exports.createSvg = createSvg;
@@ -898,6 +1009,7 @@ const client = __importStar(__nccwpck_require__(44981));
 const aggregate = __importStar(__nccwpck_require__(34734));
 const create = __importStar(__nccwpck_require__(50951));
 const f = __importStar(__nccwpck_require__(10302));
+const template = __importStar(__nccwpck_require__(67007));
 const main = async () => {
     try {
         const token = process.env.GITHUB_TOKEN;
@@ -919,15 +1031,22 @@ const main = async () => {
         }
         const response = await client.fetchData(token, userName, maxRepos);
         const userInfo = aggregate.aggregateUserInfo(response);
-        const seasonMode = userInfo.isHalloween ? 'halloween' : 'green';
-        const svgString1 = create.createSvg(userInfo, 'season', true);
+        const settings = userInfo.isHalloween
+            ? template.HalloweenSettings
+            : template.NormalSettings;
+        const svgString1 = create.createSvg(userInfo, template.NorthSeasonSettings, true);
         f.writeFile('profile-season-animate.svg', svgString1);
-        const svgString2 = create.createSvg(userInfo, seasonMode, true);
+        const svgString2 = create.createSvg(userInfo, settings, true);
         f.writeFile('profile-green-animate.svg', svgString2);
-        const svgString3 = create.createSvg(userInfo, 'season', false);
+        const svgString3 = create.createSvg(userInfo, template.NorthSeasonSettings, false);
         f.writeFile('profile-season.svg', svgString3);
-        const svgString4 = create.createSvg(userInfo, seasonMode, false);
+        const svgString4 = create.createSvg(userInfo, settings, false);
         f.writeFile('profile-green.svg', svgString4);
+        // Southern hemisphere
+        f.writeFile('profile-south-season-animate.svg', create.createSvg(userInfo, template.SouthSeasonSettings, true));
+        f.writeFile('profile-south-season.svg', create.createSvg(userInfo, template.SouthSeasonSettings, false));
+        f.writeFile('profile-night-view.svg', create.createSvg(userInfo, template.NightViewSettings, true));
+        f.writeFile('profile-night-rainbow.svg', create.createSvg(userInfo, template.NightRainbowSettings, true));
     }
     catch (error) {
         console.error(error);
