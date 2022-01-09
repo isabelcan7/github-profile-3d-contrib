@@ -1046,6 +1046,7 @@ const main = async () => {
         f.writeFile('profile-south-season-animate.svg', create.createSvg(userInfo, template.SouthSeasonSettings, true));
         f.writeFile('profile-south-season.svg', create.createSvg(userInfo, template.SouthSeasonSettings, false));
         f.writeFile('profile-night-view.svg', create.createSvg(userInfo, template.NightViewSettings, true));
+        f.writeFile('profile-night-green.svg', create.createSvg(userInfo, template.NightViewSettings, true));
         f.writeFile('profile-night-rainbow.svg', create.createSvg(userInfo, template.NightRainbowSettings, true));
     }
     catch (error) {
