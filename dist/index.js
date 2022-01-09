@@ -105,7 +105,7 @@ exports.aggregateUserInfo = aggregateUserInfo;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.NightRainbowSettings = exports.NightViewSettings = exports.SouthSeasonSettings = exports.NorthSeasonSettings = exports.HalloweenSettings = exports.NormalSettings = void 0;
+exports.NightRainbowSettings = exports.NightGreenSettings = exports.NightViewSettings = exports.SouthSeasonSettings = exports.NorthSeasonSettings = exports.HalloweenSettings = exports.NormalSettings = void 0;
 exports.NormalSettings = {
     type: 'normal',
     backgroundColor: '#ffffff',
@@ -164,6 +164,15 @@ exports.NightViewSettings = {
         'rgb(25,150,230)',
         'rgb(25,165,240)',
     ],
+};
+exports.NightGreenSettings = {
+    type: 'normal',
+    backgroundColor: 'black',
+    foregroundColor: '#eeeeff',
+    strongColor: 'rgb(255,200,55)',
+    weakColor: '#aaaaaa',
+    radarColor: '#47a042',
+    contribColors: ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'],
 };
 exports.NightRainbowSettings = {
     type: 'rainbow',
@@ -1005,11 +1014,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.main = void 0;
 const core = __importStar(__nccwpck_require__(42186));
-const client = __importStar(__nccwpck_require__(44981));
 const aggregate = __importStar(__nccwpck_require__(34734));
+const template = __importStar(__nccwpck_require__(67007));
 const create = __importStar(__nccwpck_require__(50951));
 const f = __importStar(__nccwpck_require__(10302));
-const template = __importStar(__nccwpck_require__(67007));
+const client = __importStar(__nccwpck_require__(44981));
 const main = async () => {
     try {
         const token = process.env.GITHUB_TOKEN;
@@ -1046,7 +1055,7 @@ const main = async () => {
         f.writeFile('profile-south-season-animate.svg', create.createSvg(userInfo, template.SouthSeasonSettings, true));
         f.writeFile('profile-south-season.svg', create.createSvg(userInfo, template.SouthSeasonSettings, false));
         f.writeFile('profile-night-view.svg', create.createSvg(userInfo, template.NightViewSettings, true));
-        f.writeFile('profile-night-green.svg', create.createSvg(userInfo, template.NightViewSettings, true));
+        f.writeFile('profile-night-green.svg', create.createSvg(userInfo, template.NightGreenSettings, true));
         f.writeFile('profile-night-rainbow.svg', create.createSvg(userInfo, template.NightRainbowSettings, true));
     }
     catch (error) {
