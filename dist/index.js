@@ -346,7 +346,7 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isAnimate
         const week = Math.floor(diffDate(startTime, cal.date.getTime()) / 7);
         const baseX = offsetX + (week - dayOfWeek) * dx;
         const baseY = offsetY + (week + dayOfWeek) * dy;
-        const calHeight = Math.min(50, cal.contributionCount) * 3 + 3;
+        const calHeight = Math.log10(cal.contributionCount / 20 + 1) * 144 + 3;
         const plainLeft = createRightPanelPath(baseX, baseY, calHeight, dxx, dyy);
         const pathLeft = group
             .append('path')
@@ -722,6 +722,26 @@ const radar = __importStar(__nccwpck_require__(76592));
 const width = 1280;
 const height = 850;
 const toIsoDate = (date) => date.toISOString().substring(0, 10);
+// Separate every three digits with a space (SI format)
+const inertThousandSeparator = (value) => value.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1 ');
+// Rounding large numbers
+const toScale = (value) => {
+    if (value < 1000) {
+        // 0 - 999
+        return value.toFixed(0);
+    }
+    else if (value < 10000) {
+        // 1.0K - 9.9K
+        return Math.floor(value / 1000).toFixed(1) + 'K';
+    }
+    else if (value < 1000000) {
+        // 10K - 999K
+        return Math.floor(value / 1000).toFixed(0) + 'K';
+    }
+    else {
+        return '1.0M+';
+    }
+};
 const createSvg = (userInfo, settings, isAnimate) => {
     const fakeDom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body><div class="container"></div></body></html>');
     const container = d3.select(fakeDom.window.document).select('.container');
@@ -759,12 +779,8 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('x', positionXContrib)
         .attr('y', positionYContrib)
         .attr('text-anchor', 'end')
-        .text(userInfo.totalContributions < 10000
-        ? userInfo.totalContributions
-        : '9999+')
-        .attr('fill', settings.strongColor)
-        .append('title')
-        .text(userInfo.totalContributions);
+        .text(inertThousandSeparator(userInfo.totalContributions))
+        .attr('fill', settings.strongColor);
     group
         .append('text')
         .style('font-size', '24px')
@@ -791,9 +807,7 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('x', positionXStar + 10)
         .attr('y', positionYStar)
         .attr('text-anchor', 'start')
-        .text(userInfo.totalStargazerCount < 1000
-        ? userInfo.totalStargazerCount
-        : '999+')
+        .text(toScale(userInfo.totalStargazerCount))
         .attr('fill', settings.foregroundColor)
         .append('title')
         .text(userInfo.totalStargazerCount);
@@ -814,7 +828,7 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('x', positionXFork + 4)
         .attr('y', positionYFork)
         .attr('text-anchor', 'start')
-        .text(userInfo.totalForkCount < 1000 ? userInfo.totalForkCount : '999+')
+        .text(toScale(userInfo.totalForkCount))
         .attr('fill', settings.foregroundColor)
         .append('title')
         .text(userInfo.totalForkCount);
