@@ -105,7 +105,7 @@ exports.aggregateUserInfo = aggregateUserInfo;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.NightRainbowSettings = exports.NightGreenSettings = exports.NightViewSettings = exports.SouthSeasonSettings = exports.NorthSeasonSettings = exports.HalloweenSettings = exports.NormalSettings = void 0;
+exports.GitBlockSettings = exports.NightRainbowSettings = exports.NightGreenSettings = exports.NightViewSettings = exports.SouthSeasonSettings = exports.NorthSeasonSettings = exports.HalloweenSettings = exports.NormalSettings = void 0;
 exports.NormalSettings = {
     type: 'normal',
     backgroundColor: '#ffffff',
@@ -181,10 +181,355 @@ exports.NightRainbowSettings = {
     strongColor: 'rgb(255,200,55)',
     weakColor: '#aaaaaa',
     radarColor: 'rgb(255,200,55)',
-    saturation: 50,
+    saturation: '50%',
     contribLightness: ['20%', '30%', '35%', '40%', '50%'],
     duration: '10s',
     hueRatio: -7,
+};
+exports.GitBlockSettings = {
+    type: 'bitmap',
+    backgroundColor: '#ffffff',
+    foregroundColor: '#00000f',
+    strongColor: '#111133',
+    weakColor: 'gray',
+    radarColor: '#47a042',
+    contribPatterns: [
+        {
+            top: {
+                backgroundColor: '#f8f8f8',
+                foregroundColor: '#aaaaaa',
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    29360576,
+                    103810608,
+                    168299016,
+                    302518792,
+                    285479172,
+                    293867908,
+                    314839748,
+                    225971576,
+                    178784936,
+                    122685264,
+                    31457760,
+                    0,
+                    0,
+                    0,
+                ],
+            },
+            left: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+            right: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+        },
+        {
+            top: {
+                backgroundColor: 'hsl(125, 52%, 50%)',
+                foregroundColor: 'hsl(125, 52%, 10%)',
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    29360576,
+                    103810608,
+                    168299016,
+                    302518792,
+                    285479172,
+                    293867908,
+                    314839748,
+                    225971576,
+                    178784936,
+                    122685264,
+                    31457760,
+                    0,
+                    0,
+                    0,
+                ],
+            },
+            left: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+            right: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+        },
+        {
+            top: {
+                backgroundColor: 'hsl(242, 100%, 65%)',
+                foregroundColor: 'hsl(242, 100%, 16%)',
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    29360576,
+                    103810608,
+                    168299016,
+                    302518792,
+                    285479172,
+                    293867908,
+                    314839748,
+                    225971576,
+                    178784936,
+                    122685264,
+                    31457760,
+                    0,
+                    0,
+                    0,
+                ],
+            },
+            left: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+            right: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+        },
+        {
+            top: {
+                backgroundColor: 'hsl(48, 100%, 50%)',
+                foregroundColor: 'hsl(48, 100%, 15%)',
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    29360576,
+                    103810608,
+                    168299016,
+                    302518792,
+                    285479172,
+                    293867908,
+                    314839748,
+                    225971576,
+                    178784936,
+                    122685264,
+                    31457760,
+                    0,
+                    0,
+                    0,
+                ],
+            },
+            left: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+            right: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+        },
+        {
+            top: {
+                backgroundColor: 'hsl(350, 100%, 50%)',
+                foregroundColor: 'hsl(350, 100%, 15%)',
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    29360576,
+                    103810608,
+                    168299016,
+                    302518792,
+                    285479172,
+                    293867908,
+                    314839748,
+                    225971576,
+                    178784936,
+                    122685264,
+                    31457760,
+                    0,
+                    0,
+                    0,
+                ],
+            },
+            left: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+            right: {
+                width: 32,
+                bitmap: [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    2863311530,
+                ],
+            },
+        },
+    ],
 };
 //# sourceMappingURL=color-template.js.map
 
@@ -215,11 +560,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.create3DContrib = void 0;
+exports.create3DContrib = exports.addDefines = void 0;
 const d3 = __importStar(__nccwpck_require__(45203));
-const darkerLeft = 1;
-const darkerRight = 0.5;
-const darkerTop = 0;
+const util = __importStar(__nccwpck_require__(21458));
+const ANGLE = 30;
+const DARKER_RIGHT = 1;
+const DARKER_LEFT = 0.5;
+const DARKER_TOP = 0;
 const diffDate = (beforeDate, afterDate) => Math.floor((afterDate - beforeDate) / (24 * 60 * 60 * 1000));
 const createGradation = (dayOfMonth, color1, color2) => {
     let ratio;
@@ -278,33 +625,6 @@ const decideSeasonColor = (contributionLevel, settings, date) => {
             return settings.contribColors2[contributionLevel];
     }
 };
-const createLeftPanelPath = (baseX, baseY, calHeight, dx, dy) => {
-    const plainLeft = d3.path();
-    plainLeft.moveTo(baseX, baseY);
-    plainLeft.lineTo(baseX + dx, baseY + dy);
-    plainLeft.lineTo(baseX + dx, baseY + dy - calHeight);
-    plainLeft.lineTo(baseX, baseY - calHeight);
-    plainLeft.closePath();
-    return plainLeft.toString();
-};
-const createRightPanelPath = (baseX, baseY, calHeight, dx, dy) => {
-    const plainRigth = d3.path();
-    plainRigth.moveTo(baseX + dx, baseY + dy);
-    plainRigth.lineTo(baseX + dx * 2, baseY);
-    plainRigth.lineTo(baseX + dx * 2, baseY - calHeight);
-    plainRigth.lineTo(baseX + dx, baseY + dy - calHeight);
-    plainRigth.closePath();
-    return plainRigth.toString();
-};
-const createTopPanelPath = (baseX, baseY, calHeight, dx, dy) => {
-    const plainTop = d3.path();
-    plainTop.moveTo(baseX, baseY - calHeight);
-    plainTop.lineTo(baseX + dx, baseY + dy - calHeight);
-    plainTop.lineTo(baseX + dx * 2, baseY - calHeight);
-    plainTop.lineTo(baseX + dx, baseY - dy - calHeight);
-    plainTop.closePath();
-    return plainTop.toString();
-};
 const addNormalColor = (path, contributionLevel, settings, darker) => {
     const color = settings.contribColors[contributionLevel];
     path.attr('fill', d3.rgb(color).darker(darker).toString());
@@ -319,7 +639,7 @@ const addRainbowColor = (path, contributionLevel, settings, darker, week) => {
     const lightness = settings.contribLightness[contributionLevel];
     const values = [...Array(7)]
         .map((_, i) => (i * 60 + offsetHue) % 360)
-        .map((hue) => `hsl(${hue},${saturation}%,${lightness})`)
+        .map((hue) => `hsl(${hue},${saturation},${lightness})`)
         .map((c) => d3.rgb(c).darker(darker).toString())
         .join(';');
     path.append('animate')
@@ -328,13 +648,79 @@ const addRainbowColor = (path, contributionLevel, settings, darker, week) => {
         .attr('dur', settings.duration)
         .attr('repeatCount', 'indefinite');
 };
-const create3DContrib = (svg, userInfo, x, y, width, height, settings, isAnimate) => {
+const addBitmapPattern = (path, contributionLevel, panel) => {
+    path.attr('fill', `url(#pattern_${contributionLevel}_${panel})`);
+};
+const atan = (value) => (Math.atan(value) * 360) / 2 / Math.PI;
+const addPatternForBitmap = (defs, panelPattern, contributionLevel, panel, backgroundColor, foregroundColor) => {
+    const width = Math.max(1, panelPattern.width);
+    const height = Math.max(1, panelPattern.bitmap.length);
+    const pattern = defs
+        .append('pattern')
+        .attr('id', `pattern_${contributionLevel}_${panel}`)
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', width)
+        .attr('height', height)
+        .attr('patternUnits', 'userSpaceOnUse');
+    pattern
+        .append('rect')
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', width)
+        .attr('height', height)
+        .attr('fill', backgroundColor);
+    for (const [y, bitmapValue] of panelPattern.bitmap.entries()) {
+        const bitmap = typeof bitmapValue === 'string'
+            ? parseInt(bitmapValue, 16)
+            : bitmapValue;
+        for (let x = 0; x < width; x++) {
+            if ((bitmap & (1 << (width - x - 1))) !== 0) {
+                pattern
+                    .append('rect')
+                    .attr('x', x)
+                    .attr('y', y)
+                    .attr('width', 1)
+                    .attr('height', 1)
+                    .attr('fill', foregroundColor);
+            }
+        }
+    }
+};
+const addDefines = (svg, settings) => {
+    if (settings.type === 'bitmap') {
+        const defs = svg.append('defs');
+        for (const [contribLevel, info] of settings.contribPatterns.entries()) {
+            addPatternForBitmap(defs, info.top, contribLevel, 'top', info.top.backgroundColor, info.top.foregroundColor);
+            addPatternForBitmap(defs, info.left, contribLevel, 'left', info.left.backgroundColor ||
+                d3
+                    .rgb(info.top.backgroundColor)
+                    .darker(DARKER_LEFT)
+                    .toString(), info.left.foregroundColor ||
+                d3
+                    .rgb(info.top.foregroundColor)
+                    .darker(DARKER_LEFT)
+                    .toString());
+            addPatternForBitmap(defs, info.right, contribLevel, 'right', info.right.backgroundColor ||
+                d3
+                    .rgb(info.top.backgroundColor)
+                    .darker(DARKER_RIGHT)
+                    .toString(), info.right.foregroundColor ||
+                d3
+                    .rgb(info.top.foregroundColor)
+                    .darker(DARKER_RIGHT)
+                    .toString());
+        }
+    }
+};
+exports.addDefines = addDefines;
+const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedAnimation = false) => {
     if (userInfo.contributionCalendar.length === 0) {
         return;
     }
     const startTime = userInfo.contributionCalendar[0].date.getTime();
     const dx = width / 64;
-    const dy = dx / Math.sqrt(3);
+    const dy = dx * Math.tan(ANGLE * ((2 * Math.PI) / 360));
     const weekcount = Math.ceil(userInfo.contributionCalendar.length / 7.0);
     const dxx = dx * 0.9;
     const dyy = dy * 0.9;
@@ -347,72 +733,105 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isAnimate
         const baseX = offsetX + (week - dayOfWeek) * dx;
         const baseY = offsetY + (week + dayOfWeek) * dy;
         const calHeight = Math.log10(cal.contributionCount / 20 + 1) * 144 + 3;
-        const plainLeft = createRightPanelPath(baseX, baseY, calHeight, dxx, dyy);
-        const pathLeft = group
-            .append('path')
-            .attr('d', plainLeft)
-            .attr('stroke-width', '0px');
-        if (settings.type === 'normal') {
-            addNormalColor(pathLeft, cal.contributionLevel, settings, darkerLeft);
-        }
-        else if (settings.type === 'season') {
-            addSeasonColor(pathLeft, cal.contributionLevel, settings, darkerLeft, cal.date);
-        }
-        else if (settings.type === 'rainbow') {
-            addRainbowColor(pathLeft, cal.contributionLevel, settings, darkerLeft, week);
-        }
-        if (isAnimate) {
-            const plainLeft0 = createRightPanelPath(baseX, baseY, 3, dxx, dyy);
-            pathLeft
-                .append('animate')
-                .attr('attributeName', 'd')
-                .attr('values', `${plainLeft0};${plainLeft}`)
+        const contribLevel = cal.contributionLevel;
+        const isAnimate = settings.growingAnimation || isForcedAnimation;
+        const bar = group
+            .append('g')
+            .attr('transform', `translate(${util.toFixed(baseX)} ${util.toFixed(baseY - calHeight)})`);
+        if (isAnimate && contribLevel !== 0) {
+            bar.append('animateTransform')
+                .attr('attributeName', 'transform')
+                .attr('type', 'translate')
+                .attr('values', `${util.toFixed(baseX)} ${util.toFixed(baseY - 3)};${util.toFixed(baseX)} ${util.toFixed(baseY - calHeight)}`)
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
         }
-        const plainRight = createLeftPanelPath(baseX, baseY, calHeight, dxx, dyy);
-        const pathRight = group
-            .append('path')
-            .attr('d', plainRight)
-            .attr('stroke-width', '0px');
+        const widthTop = settings.type === 'bitmap'
+            ? Math.max(1, settings.contribPatterns[contribLevel].top.width)
+            : dxx;
+        const topPanel = bar
+            .append('rect')
+            .attr('stroke', 'none')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', util.toFixed(widthTop))
+            .attr('height', util.toFixed(widthTop))
+            .attr('transform', `skewY(${-ANGLE}) skewX(${util.toFixed(atan(dxx / 2 / dyy))}) scale(${util.toFixed(dxx / widthTop)} ${util.toFixed((2 * dyy) / widthTop)})`);
         if (settings.type === 'normal') {
-            addNormalColor(pathRight, cal.contributionLevel, settings, darkerRight);
+            addNormalColor(topPanel, contribLevel, settings, DARKER_TOP);
         }
         else if (settings.type === 'season') {
-            addSeasonColor(pathRight, cal.contributionLevel, settings, darkerRight, cal.date);
+            addSeasonColor(topPanel, contribLevel, settings, DARKER_TOP, cal.date);
         }
         else if (settings.type === 'rainbow') {
-            addRainbowColor(pathRight, cal.contributionLevel, settings, darkerRight, week);
+            addRainbowColor(topPanel, contribLevel, settings, DARKER_TOP, week);
         }
-        if (isAnimate) {
-            const plainRigth0 = createLeftPanelPath(baseX, baseY, 3, dxx, dyy);
-            pathRight
+        else if (settings.type === 'bitmap') {
+            addBitmapPattern(topPanel, contribLevel, 'top');
+        }
+        const widthLeft = settings.type === 'bitmap'
+            ? Math.max(1, settings.contribPatterns[contribLevel].left.width)
+            : dxx;
+        const scaleLeft = Math.sqrt(dxx ** 2 + dyy ** 2) / widthLeft;
+        const heightLeft = calHeight / scaleLeft;
+        const leftPanel = bar
+            .append('rect')
+            .attr('stroke', 'none')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', util.toFixed(widthLeft))
+            .attr('height', util.toFixed(heightLeft))
+            .attr('transform', `skewY(${ANGLE}) scale(${util.toFixed(dxx / widthLeft)} ${util.toFixed(scaleLeft)})`);
+        if (settings.type === 'normal') {
+            addNormalColor(leftPanel, contribLevel, settings, DARKER_LEFT);
+        }
+        else if (settings.type === 'season') {
+            addSeasonColor(leftPanel, contribLevel, settings, DARKER_LEFT, cal.date);
+        }
+        else if (settings.type === 'rainbow') {
+            addRainbowColor(leftPanel, contribLevel, settings, DARKER_LEFT, week);
+        }
+        else if (settings.type === 'bitmap') {
+            addBitmapPattern(leftPanel, contribLevel, 'left');
+        }
+        if (isAnimate && contribLevel !== 0) {
+            leftPanel
                 .append('animate')
-                .attr('attributeName', 'd')
-                .attr('values', `${plainRigth0};${plainRight}`)
+                .attr('attributeName', 'height')
+                .attr('values', `${util.toFixed(3 / scaleLeft)};${util.toFixed(heightLeft)}`)
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
         }
-        const plainTop = createTopPanelPath(baseX, baseY, calHeight, dxx, dyy);
-        const pathTop = group
-            .append('path')
-            .attr('d', plainTop)
-            .attr('stroke-width', '0px');
+        const widthRight = settings.type === 'bitmap'
+            ? Math.max(1, settings.contribPatterns[contribLevel].right.width)
+            : dxx;
+        const scaleRight = Math.sqrt(dxx ** 2 + dyy ** 2) / widthRight;
+        const heightRight = calHeight / scaleRight;
+        const rightPanel = bar
+            .append('rect')
+            .attr('stroke', 'none')
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', util.toFixed(widthRight))
+            .attr('height', util.toFixed(heightRight))
+            .attr('transform', `translate(${util.toFixed(dxx)} ${util.toFixed(dyy)}) skewY(${-ANGLE}) scale(${util.toFixed(dxx / widthRight)} ${util.toFixed(scaleRight)})`);
         if (settings.type === 'normal') {
-            addNormalColor(pathTop, cal.contributionLevel, settings, darkerTop);
+            addNormalColor(rightPanel, contribLevel, settings, DARKER_RIGHT);
         }
         else if (settings.type === 'season') {
-            addSeasonColor(pathTop, cal.contributionLevel, settings, darkerTop, cal.date);
+            addSeasonColor(rightPanel, contribLevel, settings, DARKER_RIGHT, cal.date);
         }
         else if (settings.type === 'rainbow') {
-            addRainbowColor(pathTop, cal.contributionLevel, settings, darkerTop, week);
+            addRainbowColor(rightPanel, contribLevel, settings, DARKER_RIGHT, week);
         }
-        if (isAnimate) {
-            const plainTop0 = createTopPanelPath(baseX, baseY, 3, dxx, dyy);
-            pathTop
+        else if (settings.type === 'bitmap') {
+            addBitmapPattern(rightPanel, contribLevel, 'right');
+        }
+        if (isAnimate && contribLevel !== 0) {
+            rightPanel
                 .append('animate')
-                .attr('attributeName', 'd')
-                .attr('values', `${plainTop0};${plainTop}`)
+                .attr('attributeName', 'height')
+                .attr('values', `${util.toFixed(3 / scaleRight)};${util.toFixed(heightRight)}`)
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
         }
@@ -562,21 +981,41 @@ exports.createPieLanguage = createPieLanguage;
 /***/ }),
 
 /***/ 76592:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.createRadarContrib = void 0;
-const rangeLabels = ['1-', '10', '100', '1K', '10K+'];
+const util = __importStar(__nccwpck_require__(21458));
+const rangeLabels = ['1', '10', '100', '1K', '10K'];
 const levels = rangeLabels.length;
 const radians = 2 * Math.PI;
 const toLevel = (value) => {
     if (value < 1) {
-        return 1;
+        return 0.8;
     }
     const result = Math.log10(value);
-    return Math.min(result, 4) + 1;
+    return Math.min(result, 5) + 1;
 };
 const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnimate) => {
     const radius = (height / 2) * 0.8;
@@ -605,11 +1044,11 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnim
         },
     ];
     const total = data.length;
-    const posX = (level, num) => radius * (level / levels) * Math.sin((num / total) * radians);
-    const posY = (level, num) => radius * (level / levels) * -Math.cos((num / total) * radians);
+    const posX = (level, num) => util.toFixed(radius * (level / levels) * Math.sin((num / total) * radians));
+    const posY = (level, num) => util.toFixed(radius * (level / levels) * -Math.cos((num / total) * radians));
     const group = svg
         .append('g')
-        .attr('transform', `translate(${x + cx}, ${y + cy})`);
+        .attr('transform', `translate(${util.toFixed(x + cx)}, ${util.toFixed(y + cy)})`);
     for (let j = 0; j < levels; j++) {
         group
             .selectAll(null)
@@ -630,11 +1069,11 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnim
         .enter()
         .append('text')
         .text((d) => d)
-        .style('font-size', `${radius / 12}px`)
+        .style('font-size', `${util.toFixed(radius / 12)}px`)
         .attr('text-anchor', 'start')
         .attr('dominant-baseline', 'auto')
-        .attr('x', radius / 50)
-        .attr('y', (d, i) => -radius * ((i + 1) / levels))
+        .attr('x', util.toFixed(radius / 50))
+        .attr('y', (d, i) => util.toFixed(-radius * ((i + 1) / levels)))
         .attr('fill', settings.weakColor);
     const axis = group
         .selectAll(null)
@@ -652,7 +1091,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnim
         .style('stroke-width', '1px');
     axis.append('text')
         .text((d) => d.name)
-        .style('font-size', `${radius / 7.5}px`)
+        .style('font-size', `${util.toFixed(radius / 7.5)}px`)
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'middle')
         .attr('x', (d, i) => posX(1.25 * levels, i))
@@ -672,8 +1111,9 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnim
         .style('fill', settings.radarColor)
         .style('fill-opacity', 0.5);
     if (isAnimate) {
+        const level0 = toLevel(0);
         const points0 = data
-            .map((d, i) => `${posX(1, i)},${posY(1, i)}`)
+            .map((d, i) => `${posX(level0, i)},${posY(level0, i)}`)
             .join(' ');
         radar
             .append('animate')
@@ -719,30 +1159,10 @@ const jsdom_1 = __nccwpck_require__(46123);
 const contrib = __importStar(__nccwpck_require__(78739));
 const pie = __importStar(__nccwpck_require__(76599));
 const radar = __importStar(__nccwpck_require__(76592));
+const util = __importStar(__nccwpck_require__(21458));
 const width = 1280;
 const height = 850;
-const toIsoDate = (date) => date.toISOString().substring(0, 10);
-// Separate every three digits with a space (SI format)
-const inertThousandSeparator = (value) => value.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1 ');
-// Rounding large numbers
-const toScale = (value) => {
-    if (value < 1000) {
-        // 0 - 999
-        return value.toFixed(0);
-    }
-    else if (value < 10000) {
-        // 1.0K - 9.9K
-        return Math.floor(value / 1000).toFixed(1) + 'K';
-    }
-    else if (value < 1000000) {
-        // 10K - 999K
-        return Math.floor(value / 1000).toFixed(0) + 'K';
-    }
-    else {
-        return '1.0M+';
-    }
-};
-const createSvg = (userInfo, settings, isAnimate) => {
+const createSvg = (userInfo, settings, isForcedAnimation) => {
     const fakeDom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body><div class="container"></div></body></html>');
     const container = d3.select(fakeDom.window.document).select('.container');
     const svg = container
@@ -752,6 +1172,7 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('height', height)
         .attr('viewBox', `0 0 ${width} ${height}`);
     svg.append('style').html('* { font-family: "Ubuntu", "Helvetica", "Arial", sans-serif; }');
+    contrib.addDefines(svg, settings);
     // background
     svg.append('rect')
         .attr('x', 0)
@@ -759,16 +1180,16 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('width', width)
         .attr('height', height)
         .attr('fill', settings.backgroundColor);
-    contrib.create3DContrib(svg, userInfo, 0, 0, width, height, settings, isAnimate);
+    contrib.create3DContrib(svg, userInfo, 0, 0, width, height, settings, isForcedAnimation);
     // radar chart
     const radarWidth = 400 * 1.3;
     const radarHeight = (radarWidth * 3) / 4;
     const radarX = width - radarWidth - 40;
-    radar.createRadarContrib(svg, userInfo, radarX, 70, radarWidth, radarHeight, settings, isAnimate);
+    radar.createRadarContrib(svg, userInfo, radarX, 70, radarWidth, radarHeight, settings, isForcedAnimation);
     // pie chart
     const pieHeight = 200 * 1.3;
     const pieWidth = pieHeight * 2;
-    pie.createPieLanguage(svg, userInfo, 40, height - pieHeight - 70, pieWidth, pieHeight, settings, isAnimate);
+    pie.createPieLanguage(svg, userInfo, 40, height - pieHeight - 70, pieWidth, pieHeight, settings, isForcedAnimation);
     const group = svg.append('g');
     const positionXContrib = (width * 3) / 10;
     const positionYContrib = height - 20;
@@ -779,7 +1200,7 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('x', positionXContrib)
         .attr('y', positionYContrib)
         .attr('text-anchor', 'end')
-        .text(inertThousandSeparator(userInfo.totalContributions))
+        .text(util.inertThousandSeparator(userInfo.totalContributions))
         .attr('fill', settings.strongColor);
     group
         .append('text')
@@ -807,7 +1228,7 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('x', positionXStar + 10)
         .attr('y', positionYStar)
         .attr('text-anchor', 'start')
-        .text(toScale(userInfo.totalStargazerCount))
+        .text(util.toScale(userInfo.totalStargazerCount))
         .attr('fill', settings.foregroundColor)
         .append('title')
         .text(userInfo.totalStargazerCount);
@@ -828,7 +1249,7 @@ const createSvg = (userInfo, settings, isAnimate) => {
         .attr('x', positionXFork + 4)
         .attr('y', positionYFork)
         .attr('text-anchor', 'start')
-        .text(toScale(userInfo.totalForkCount))
+        .text(util.toScale(userInfo.totalForkCount))
         .attr('fill', settings.foregroundColor)
         .append('title')
         .text(userInfo.totalForkCount);
@@ -836,7 +1257,7 @@ const createSvg = (userInfo, settings, isAnimate) => {
     const startDate = userInfo.contributionCalendar[0].date;
     const endDate = userInfo.contributionCalendar[userInfo.contributionCalendar.length - 1]
         .date;
-    const period = `${toIsoDate(startDate)} / ${toIsoDate(endDate)}`;
+    const period = `${util.toIsoDate(startDate)} / ${util.toIsoDate(endDate)}`;
     group
         .append('text')
         .style('font-size', '16px')
@@ -1032,6 +1453,7 @@ const aggregate = __importStar(__nccwpck_require__(34734));
 const template = __importStar(__nccwpck_require__(67007));
 const create = __importStar(__nccwpck_require__(50951));
 const f = __importStar(__nccwpck_require__(10302));
+const r = __importStar(__nccwpck_require__(30062));
 const client = __importStar(__nccwpck_require__(44981));
 const main = async () => {
     try {
@@ -1054,23 +1476,27 @@ const main = async () => {
         }
         const response = await client.fetchData(token, userName, maxRepos);
         const userInfo = aggregate.aggregateUserInfo(response);
-        const settings = userInfo.isHalloween
-            ? template.HalloweenSettings
-            : template.NormalSettings;
-        const svgString1 = create.createSvg(userInfo, template.NorthSeasonSettings, true);
-        f.writeFile('profile-season-animate.svg', svgString1);
-        const svgString2 = create.createSvg(userInfo, settings, true);
-        f.writeFile('profile-green-animate.svg', svgString2);
-        const svgString3 = create.createSvg(userInfo, template.NorthSeasonSettings, false);
-        f.writeFile('profile-season.svg', svgString3);
-        const svgString4 = create.createSvg(userInfo, settings, false);
-        f.writeFile('profile-green.svg', svgString4);
-        // Southern hemisphere
-        f.writeFile('profile-south-season-animate.svg', create.createSvg(userInfo, template.SouthSeasonSettings, true));
-        f.writeFile('profile-south-season.svg', create.createSvg(userInfo, template.SouthSeasonSettings, false));
-        f.writeFile('profile-night-view.svg', create.createSvg(userInfo, template.NightViewSettings, true));
-        f.writeFile('profile-night-green.svg', create.createSvg(userInfo, template.NightGreenSettings, true));
-        f.writeFile('profile-night-rainbow.svg', create.createSvg(userInfo, template.NightRainbowSettings, true));
+        if (process.env.SETTING_JSON) {
+            const settings = r.readSettingJson(process.env.SETTING_JSON);
+            f.writeFile('profile-customize.svg', create.createSvg(userInfo, settings, false));
+        }
+        else {
+            const settings = userInfo.isHalloween
+                ? template.HalloweenSettings
+                : template.NormalSettings;
+            f.writeFile('profile-green-animate.svg', create.createSvg(userInfo, settings, true));
+            f.writeFile('profile-green.svg', create.createSvg(userInfo, settings, false));
+            // Northern hemisphere
+            f.writeFile('profile-season-animate.svg', create.createSvg(userInfo, template.NorthSeasonSettings, true));
+            f.writeFile('profile-season.svg', create.createSvg(userInfo, template.NorthSeasonSettings, false));
+            // Southern hemisphere
+            f.writeFile('profile-south-season-animate.svg', create.createSvg(userInfo, template.SouthSeasonSettings, true));
+            f.writeFile('profile-south-season.svg', create.createSvg(userInfo, template.SouthSeasonSettings, false));
+            f.writeFile('profile-night-view.svg', create.createSvg(userInfo, template.NightViewSettings, true));
+            f.writeFile('profile-night-green.svg', create.createSvg(userInfo, template.NightGreenSettings, true));
+            f.writeFile('profile-night-rainbow.svg', create.createSvg(userInfo, template.NightRainbowSettings, true));
+            f.writeFile('profile-gitblock.svg', create.createSvg(userInfo, template.GitBlockSettings, true));
+        }
     }
     catch (error) {
         console.error(error);
@@ -1080,6 +1506,68 @@ const main = async () => {
 exports.main = main;
 void exports.main();
 //# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 30062:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.readSettingJson = void 0;
+const fs_1 = __nccwpck_require__(35747);
+const readSettingJson = (filePath) => {
+    const content = fs_1.readFileSync(filePath, {
+        encoding: 'utf8',
+        flag: 'r',
+    });
+    return JSON.parse(content);
+};
+exports.readSettingJson = readSettingJson;
+//# sourceMappingURL=settings-reader.js.map
+
+/***/ }),
+
+/***/ 21458:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.toFixed = exports.toScale = exports.inertThousandSeparator = exports.toIsoDate = void 0;
+const toIsoDate = (date) => date.toISOString().substring(0, 10);
+exports.toIsoDate = toIsoDate;
+const inertThousandSeparator = (value) => {
+    if (value <= 9999) {
+        // 4 digits or less, do not need to be separated.
+        // e.g. "1234"
+        return value.toFixed(0);
+    }
+    // 5 digits or more, separate each 3 digits with a space(SI format).
+    // e.g. "12 345"
+    return value.toFixed(0).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1 ');
+};
+exports.inertThousandSeparator = inertThousandSeparator;
+/** Round large numbers */
+const toScale = (value) => {
+    if (value <= 9999) {
+        // 0 - 9999
+        return value.toFixed(0);
+    }
+    else if (value <= 999999) {
+        // 10K - 999K
+        return Math.floor(value / 1000).toFixed(0) + 'K';
+    }
+    else {
+        return '1M+';
+    }
+};
+exports.toScale = toScale;
+/** Round to two decimal places. */
+const toFixed = (value) => +value.toFixed(2);
+exports.toFixed = toFixed;
+//# sourceMappingURL=utils.js.map
 
 /***/ }),
 
