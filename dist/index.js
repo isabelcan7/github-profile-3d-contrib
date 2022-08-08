@@ -1021,25 +1021,30 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnim
     const radius = (height / 2) * 0.8;
     const cx = width / 2;
     const cy = (height / 2) * 1.1;
+    const commitLabel = settings.l10n ? settings.l10n.commit : 'Commit';
+    const issueLabel = settings.l10n ? settings.l10n.issue : 'Issue';
+    const pullReqLabel = settings.l10n ? settings.l10n.pullreq : 'PullReq';
+    const reviewLabel = settings.l10n ? settings.l10n.review : 'Review';
+    const RepoLabel = settings.l10n ? settings.l10n.repo : 'Repo';
     const data = [
         {
-            name: 'Commit',
+            name: commitLabel,
             value: userInfo.totalCommitContributions,
         },
         {
-            name: 'Issue',
+            name: issueLabel,
             value: userInfo.totalIssueContributions,
         },
         {
-            name: 'PullReq',
+            name: pullReqLabel,
             value: userInfo.totalPullRequestContributions,
         },
         {
-            name: 'Review',
+            name: reviewLabel,
             value: userInfo.totalPullRequestReviewContributions,
         },
         {
-            name: 'Repo',
+            name: RepoLabel,
             value: userInfo.totalRepositoryContributions,
         },
     ];
@@ -1202,6 +1207,9 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
         .attr('text-anchor', 'end')
         .text(util.inertThousandSeparator(userInfo.totalContributions))
         .attr('fill', settings.strongColor);
+    const contribLabel = settings.l10n
+        ? settings.l10n.contrib
+        : 'contributions';
     group
         .append('text')
         .style('font-size', '24px')
@@ -1209,7 +1217,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
         .attr('y', positionYContrib)
         .attr('text-anchor', 'start')
         .attr('text-anchor', 'start')
-        .text('contributions')
+        .text(contribLabel)
         .attr('fill', settings.foregroundColor);
     const positionXStar = (width * 5) / 10;
     const positionYStar = positionYContrib;
@@ -1477,8 +1485,12 @@ const main = async () => {
         const response = await client.fetchData(token, userName, maxRepos);
         const userInfo = aggregate.aggregateUserInfo(response);
         if (process.env.SETTING_JSON) {
-            const settings = r.readSettingJson(process.env.SETTING_JSON);
-            f.writeFile('profile-customize.svg', create.createSvg(userInfo, settings, false));
+            const settingFile = r.readSettingJson(process.env.SETTING_JSON);
+            const settingInfos = 'length' in settingFile ? settingFile : [settingFile];
+            for (const settingInfo of settingInfos) {
+                const fileName = settingInfo.fileName || 'profile-customize.svg';
+                f.writeFile(fileName, create.createSvg(userInfo, settingInfo, false));
+            }
         }
         else {
             const settings = userInfo.isHalloween
