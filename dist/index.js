@@ -871,7 +871,7 @@ exports.createPieLanguage = void 0;
 const d3 = __importStar(__nccwpck_require__(45203));
 const OTHER_NAME = 'other';
 const OTHER_COLOR = '#444444';
-const createPieLanguage = (svg, userInfo, x, y, width, height, settings, isAnimate) => {
+const createPieLanguage = (svg, userInfo, x, y, width, height, settings, isForcedAnimation) => {
     if (userInfo.totalContributions === 0) {
         return;
     }
@@ -887,6 +887,7 @@ const createPieLanguage = (svg, userInfo, x, y, width, height, settings, isAnima
             contributions: otherContributions,
         });
     }
+    const isAnimate = settings.growingAnimation || isForcedAnimation;
     const animeSteps = 5;
     const animateOpacity = (num) => Array(languages.length + animeSteps)
         .fill('')
@@ -1017,10 +1018,11 @@ const toLevel = (value) => {
     const result = Math.log10(value);
     return Math.min(result, 5) + 1;
 };
-const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isAnimate) => {
+const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForcedAnimation) => {
     const radius = (height / 2) * 0.8;
     const cx = width / 2;
     const cy = (height / 2) * 1.1;
+    const isAnimate = settings.growingAnimation || isForcedAnimation;
     const commitLabel = settings.l10n ? settings.l10n.commit : 'Commit';
     const issueLabel = settings.l10n ? settings.l10n.issue : 'Issue';
     const pullReqLabel = settings.l10n ? settings.l10n.pullreq : 'PullReq';
