@@ -1350,9 +1350,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.fetchData = exports.fetchNext = exports.fetchFirst = exports.URL = void 0;
 const axios_1 = __importDefault(__nccwpck_require__(87269));
-exports.URL = 'https://api.github.com/graphql';
+exports.URL = process.env.GITHUB_ENDPOINT || 'https://api.github.com/graphql';
 const maxReposOneQuery = 100;
-const fetchFirst = async (token, userName) => {
+const fetchFirst = async (token, userName, year = null) => {
+    const yearArgs = year
+        ? `(from:"${year}-01-01T00:00:00.000Z", to:"${year}-12-31T23:59:59.000Z")`
+        : '';
     const headers = {
         Authorization: `bearer ${token}`,
     };
@@ -1360,7 +1363,7 @@ const fetchFirst = async (token, userName) => {
         query: `
             query($login: String!) {
                 user(login: $login) {
-                    contributionsCollection {
+                    contributionsCollection${yearArgs} {
                         contributionCalendar {
                             isHalloween
                             totalContributions
@@ -1441,8 +1444,8 @@ const fetchNext = async (token, userName, cursor) => {
 };
 exports.fetchNext = fetchNext;
 /** Fetch data from GitHub GraphQL */
-const fetchData = async (token, userName, maxRepos) => {
-    const res1 = await (0, exports.fetchFirst)(token, userName);
+const fetchData = async (token, userName, maxRepos, year = null) => {
+    const res1 = await (0, exports.fetchFirst)(token, userName, year);
     const result = res1.data;
     if (result && result.user.repositories.nodes.length === maxReposOneQuery) {
         const repos1 = result.user.repositories;
@@ -1525,7 +1528,12 @@ const main = async () => {
             core.setFailed('MAX_REPOS is NaN');
             return;
         }
-        const response = await client.fetchData(token, userName, maxRepos);
+        const year = process.env.YEAR ? Number(process.env.YEAR) : null;
+        if (Number.isNaN(year)) {
+            core.setFailed('YEAR is NaN');
+            return;
+        }
+        const response = await client.fetchData(token, userName, maxRepos, year);
         const userInfo = aggregate.aggregateUserInfo(response);
         if (process.env.SETTING_JSON) {
             const settingFile = r.readSettingJson(process.env.SETTING_JSON);
