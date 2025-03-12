@@ -100,437 +100,33 @@ exports.aggregateUserInfo = aggregateUserInfo;
 /***/ }),
 
 /***/ 71107:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
 
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GitBlockSettings = exports.NightRainbowSettings = exports.NightGreenSettings = exports.NightViewSettings = exports.SouthSeasonSettings = exports.NorthSeasonSettings = exports.HalloweenSettings = exports.NormalSettings = void 0;
-exports.NormalSettings = {
-    type: 'normal',
-    backgroundColor: '#ffffff',
-    foregroundColor: '#00000f',
-    strongColor: '#111133',
-    weakColor: 'gray',
-    radarColor: '#47a042',
-    contribColors: ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'],
-};
-exports.HalloweenSettings = {
-    type: 'normal',
-    backgroundColor: '#ffffff',
-    foregroundColor: '#00000f',
-    strongColor: '#111133',
-    weakColor: 'gray',
-    radarColor: '#47a042',
-    contribColors: ['#efefef', '#ffed4a', '#ffc402', '#fe9400', '#fa6100'],
-};
+const NormalSettings_json_1 = __importDefault(__nccwpck_require__(13277));
+exports.NormalSettings = NormalSettings_json_1.default;
+const HalloweenSettings_json_1 = __importDefault(__nccwpck_require__(4771));
+exports.HalloweenSettings = HalloweenSettings_json_1.default;
 // Northern hemisphere
-exports.NorthSeasonSettings = {
-    type: 'season',
-    backgroundColor: '#ffffff',
-    foregroundColor: '#00000f',
-    strongColor: '#111133',
-    weakColor: 'gray',
-    radarColor: '#47a042',
-    contribColors1: ['#efefef', '#ffe7ff', '#edaeda', '#e492ca', '#ba7aad'],
-    contribColors2: ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'],
-    contribColors3: ['#efefef', '#ffed4a', '#ffc402', '#fe9400', '#fa6100'],
-    contribColors4: ['#efefef', '#999999', '#cccccc', '#dddddd', '#eeeeee'], // winter
-};
+const NorthSeasonSettings_json_1 = __importDefault(__nccwpck_require__(26734));
+exports.NorthSeasonSettings = NorthSeasonSettings_json_1.default;
 // Southern hemisphere
-exports.SouthSeasonSettings = {
-    type: 'season',
-    backgroundColor: '#ffffff',
-    foregroundColor: '#00000f',
-    strongColor: '#111133',
-    weakColor: 'gray',
-    radarColor: '#47a042',
-    contribColors1: ['#efefef', '#ffed4a', '#ffc402', '#fe9400', '#fa6100'],
-    contribColors2: ['#efefef', '#999999', '#cccccc', '#dddddd', '#eeeeee'],
-    contribColors3: ['#efefef', '#ffe7ff', '#edaeda', '#e492ca', '#ba7aad'],
-    contribColors4: ['#efefef', '#d8e887', '#8cc569', '#47a042', '#1d6a23'], // summer
-};
-exports.NightViewSettings = {
-    type: 'normal',
-    backgroundColor: '#00000f',
-    foregroundColor: '#eeeeff',
-    strongColor: 'rgb(255,200,55)',
-    weakColor: '#aaaaaa',
-    radarColor: 'rgb(255,200,55)',
-    contribColors: [
-        'rgb(25,60,130)',
-        'rgb(25,90,210)',
-        'rgb(25,120,220)',
-        'rgb(25,150,230)',
-        'rgb(25,165,240)',
-    ],
-};
-exports.NightGreenSettings = {
-    type: 'normal',
-    backgroundColor: '#00000f',
-    foregroundColor: '#eeeeff',
-    strongColor: 'rgb(255,200,55)',
-    weakColor: '#aaaaaa',
-    radarColor: '#47a042',
-    contribColors: ['#444444', '#1B7D28', '#24A736', '#2DD143', '#57DA69'],
-};
-exports.NightRainbowSettings = {
-    type: 'rainbow',
-    backgroundColor: '#00000f',
-    foregroundColor: '#eeeeff',
-    strongColor: 'rgb(255,200,55)',
-    weakColor: '#aaaaaa',
-    radarColor: 'rgb(255,200,55)',
-    saturation: '50%',
-    contribLightness: ['20%', '30%', '35%', '40%', '50%'],
-    duration: '10s',
-    hueRatio: -7,
-};
-exports.GitBlockSettings = {
-    type: 'bitmap',
-    backgroundColor: '#ffffff',
-    foregroundColor: '#00000f',
-    strongColor: '#111133',
-    weakColor: 'gray',
-    radarColor: '#47a042',
-    contribPatterns: [
-        {
-            top: {
-                backgroundColor: '#f8f8f8',
-                foregroundColor: '#aaaaaa',
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    29360576,
-                    103810608,
-                    168299016,
-                    302518792,
-                    285479172,
-                    293867908,
-                    314839748,
-                    225971576,
-                    178784936,
-                    122685264,
-                    31457760,
-                    0,
-                    0,
-                    0,
-                ],
-            },
-            left: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-            right: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-        },
-        {
-            top: {
-                backgroundColor: 'hsl(125, 52%, 50%)',
-                foregroundColor: 'hsl(125, 52%, 10%)',
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    29360576,
-                    103810608,
-                    168299016,
-                    302518792,
-                    285479172,
-                    293867908,
-                    314839748,
-                    225971576,
-                    178784936,
-                    122685264,
-                    31457760,
-                    0,
-                    0,
-                    0,
-                ],
-            },
-            left: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-            right: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-        },
-        {
-            top: {
-                backgroundColor: 'hsl(242, 100%, 65%)',
-                foregroundColor: 'hsl(242, 100%, 16%)',
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    29360576,
-                    103810608,
-                    168299016,
-                    302518792,
-                    285479172,
-                    293867908,
-                    314839748,
-                    225971576,
-                    178784936,
-                    122685264,
-                    31457760,
-                    0,
-                    0,
-                    0,
-                ],
-            },
-            left: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-            right: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-        },
-        {
-            top: {
-                backgroundColor: 'hsl(48, 100%, 50%)',
-                foregroundColor: 'hsl(48, 100%, 15%)',
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    29360576,
-                    103810608,
-                    168299016,
-                    302518792,
-                    285479172,
-                    293867908,
-                    314839748,
-                    225971576,
-                    178784936,
-                    122685264,
-                    31457760,
-                    0,
-                    0,
-                    0,
-                ],
-            },
-            left: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-            right: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-        },
-        {
-            top: {
-                backgroundColor: 'hsl(350, 100%, 50%)',
-                foregroundColor: 'hsl(350, 100%, 15%)',
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    29360576,
-                    103810608,
-                    168299016,
-                    302518792,
-                    285479172,
-                    293867908,
-                    314839748,
-                    225971576,
-                    178784936,
-                    122685264,
-                    31457760,
-                    0,
-                    0,
-                    0,
-                ],
-            },
-            left: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-            right: {
-                width: 32,
-                bitmap: [
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    0,
-                    2863311530,
-                ],
-            },
-        },
-    ],
-};
+const SouthSeasonSettings_json_1 = __importDefault(__nccwpck_require__(83548));
+exports.SouthSeasonSettings = SouthSeasonSettings_json_1.default;
+const NightViewSettings_json_1 = __importDefault(__nccwpck_require__(91707));
+exports.NightViewSettings = NightViewSettings_json_1.default;
+const NightGreenSettings_json_1 = __importDefault(__nccwpck_require__(86775));
+exports.NightGreenSettings = NightGreenSettings_json_1.default;
+const NightRainbowSettings_json_1 = __importDefault(__nccwpck_require__(29598));
+exports.NightRainbowSettings = NightRainbowSettings_json_1.default;
+const GitBlockSettings_json_1 = __importDefault(__nccwpck_require__(69595));
+exports.GitBlockSettings = GitBlockSettings_json_1.default;
 //# sourceMappingURL=color-template.js.map
 
 /***/ }),
@@ -572,75 +168,63 @@ const DARKER_RIGHT = 1;
 const DARKER_LEFT = 0.5;
 const DARKER_TOP = 0;
 const diffDate = (beforeDate, afterDate) => Math.floor((afterDate - beforeDate) / (24 * 60 * 60 * 1000));
-const createGradation = (dayOfMonth, color1, color2) => {
-    let ratio;
-    if (dayOfMonth <= 7) {
-        ratio = 0.2;
-    }
-    else if (dayOfMonth <= 14) {
-        ratio = 0.4;
-    }
-    else if (dayOfMonth <= 21) {
-        ratio = 0.6;
-    }
-    else if (dayOfMonth <= 28) {
-        ratio = 0.8;
-    }
-    else {
-        return color2;
-    }
-    const color = d3.interpolate(color1, color2);
-    return color(ratio);
+const addNormalColor = (path, contribLevel, panel) => {
+    path.attr('class', `cont-${panel}-${contribLevel}`);
 };
-const decideSeasonColor = (contributionLevel, settings, date) => {
+const decideSeasonPatternNo = (date) => {
     const sunday = new Date(date.getTime());
     sunday.setDate(sunday.getDate() - sunday.getDay());
     const month = sunday.getUTCMonth();
     const dayOfMonth = sunday.getUTCDate();
+    const diff = dayOfMonth <= 7
+        ? 0
+        : dayOfMonth <= 14
+            ? 1
+            : dayOfMonth <= 21
+                ? 2
+                : dayOfMonth <= 28
+                    ? 3
+                    : 4;
     switch (month + 1) {
         case 9:
-            // summer -> autumn
-            return createGradation(dayOfMonth, settings.contribColors2[contributionLevel], settings.contribColors3[contributionLevel]);
+            // summer -> autumn = 0-4
+            return 0 + diff;
         case 10:
         case 11:
-            // autumn
-            return settings.contribColors3[contributionLevel];
+            // autumn = 4
+            return 4;
         case 12:
-            // autumn -> winter
-            return createGradation(dayOfMonth, settings.contribColors3[contributionLevel], settings.contribColors4[contributionLevel]);
+            // autumn -> winter = 5-9
+            return 5 + diff;
         case 1:
         case 2:
-            // winter
-            return settings.contribColors4[contributionLevel];
+            // winter = 9
+            return 9;
         case 3:
-            // winter -> spring
-            return createGradation(dayOfMonth, settings.contribColors4[contributionLevel], settings.contribColors1[contributionLevel]);
+            // winter -> spring = 10-14
+            return 10 + diff;
         case 4:
         case 5:
-            // spring
-            return settings.contribColors1[contributionLevel];
+            // spring = 14
+            return 14;
         case 6:
-            // spring -> summer
-            return createGradation(dayOfMonth, settings.contribColors1[contributionLevel], settings.contribColors2[contributionLevel]);
+            // spring -> summer = 15-19
+            return 15 + diff;
         case 7:
         case 8:
         default:
-            // summer
-            return settings.contribColors2[contributionLevel];
+            // summer = 19
+            return 19;
     }
 };
-const addNormalColor = (path, contributionLevel, settings, darker) => {
-    const color = settings.contribColors[contributionLevel];
-    path.attr('fill', d3.rgb(color).darker(darker).toString());
+const addSeasonColor = (path, contribLevel, panel, date) => {
+    const pattern = decideSeasonPatternNo(date);
+    path.attr('class', `cont-${panel}-p${pattern}-${contribLevel}`);
 };
-const addSeasonColor = (path, contributionLevel, settings, darker, date) => {
-    const color = decideSeasonColor(contributionLevel, settings, date);
-    path.attr('fill', d3.rgb(color).darker(darker).toString());
-};
-const addRainbowColor = (path, contributionLevel, settings, darker, week) => {
+const addRainbowColor = (path, contribLevel, settings, darker, week) => {
     const offsetHue = week * settings.hueRatio;
     const saturation = settings.saturation;
-    const lightness = settings.contribLightness[contributionLevel];
+    const lightness = settings.contribLightness[contribLevel];
     const values = [...Array(7)]
         .map((_, i) => (i * 60 + offsetHue) % 360)
         .map((hue) => `hsl(${hue},${saturation},${lightness})`)
@@ -656,7 +240,7 @@ const addBitmapPattern = (path, contributionLevel, panel) => {
     path.attr('fill', `url(#pattern_${contributionLevel}_${panel})`);
 };
 const atan = (value) => (Math.atan(value) * 360) / 2 / Math.PI;
-const addPatternForBitmap = (defs, panelPattern, contributionLevel, panel, backgroundColor, foregroundColor) => {
+const addPatternForBitmap = (defs, panelPattern, contributionLevel, panel) => {
     const width = Math.max(1, panelPattern.width);
     const height = Math.max(1, panelPattern.bitmap.length);
     const pattern = defs
@@ -673,7 +257,7 @@ const addPatternForBitmap = (defs, panelPattern, contributionLevel, panel, backg
         .attr('y', 0)
         .attr('width', width)
         .attr('height', height)
-        .attr('fill', backgroundColor);
+        .attr('class', `cont-${panel}-bg-${contributionLevel}`);
     const path = d3.path();
     for (const [y, bitmapValue] of panelPattern.bitmap.entries()) {
         const bitmap = typeof bitmapValue === 'string'
@@ -688,32 +272,16 @@ const addPatternForBitmap = (defs, panelPattern, contributionLevel, panel, backg
     pattern
         .append('path')
         .attr('stroke', 'none')
-        .attr('fill', foregroundColor)
+        .attr('class', `cont-${panel}-fg-${contributionLevel}`)
         .attr('d', path.toString());
 };
 const addDefines = (svg, settings) => {
     if (settings.type === 'bitmap') {
         const defs = svg.append('defs');
         for (const [contribLevel, info] of settings.contribPatterns.entries()) {
-            addPatternForBitmap(defs, info.top, contribLevel, 'top', info.top.backgroundColor, info.top.foregroundColor);
-            addPatternForBitmap(defs, info.left, contribLevel, 'left', info.left.backgroundColor ||
-                d3
-                    .rgb(info.top.backgroundColor)
-                    .darker(DARKER_LEFT)
-                    .toString(), info.left.foregroundColor ||
-                d3
-                    .rgb(info.top.foregroundColor)
-                    .darker(DARKER_LEFT)
-                    .toString());
-            addPatternForBitmap(defs, info.right, contribLevel, 'right', info.right.backgroundColor ||
-                d3
-                    .rgb(info.top.backgroundColor)
-                    .darker(DARKER_RIGHT)
-                    .toString(), info.right.foregroundColor ||
-                d3
-                    .rgb(info.top.foregroundColor)
-                    .darker(DARKER_RIGHT)
-                    .toString());
+            addPatternForBitmap(defs, info.top, contribLevel, 'top');
+            addPatternForBitmap(defs, info.left, contribLevel, 'left');
+            addPatternForBitmap(defs, info.right, contribLevel, 'right');
         }
     }
 };
@@ -763,10 +331,10 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
             .attr('height', util.toFixed(widthTop))
             .attr('transform', `skewY(${-ANGLE}) skewX(${util.toFixed(atan(dxx / 2 / dyy))}) scale(${util.toFixed(dxx / widthTop)} ${util.toFixed((2 * dyy) / widthTop)})`);
         if (settings.type === 'normal') {
-            addNormalColor(topPanel, contribLevel, settings, DARKER_TOP);
+            addNormalColor(topPanel, contribLevel, 'top');
         }
         else if (settings.type === 'season') {
-            addSeasonColor(topPanel, contribLevel, settings, DARKER_TOP, cal.date);
+            addSeasonColor(topPanel, contribLevel, 'top', cal.date);
         }
         else if (settings.type === 'rainbow') {
             addRainbowColor(topPanel, contribLevel, settings, DARKER_TOP, week);
@@ -788,10 +356,10 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
             .attr('height', util.toFixed(heightLeft))
             .attr('transform', `skewY(${ANGLE}) scale(${util.toFixed(dxx / widthLeft)} ${util.toFixed(scaleLeft)})`);
         if (settings.type === 'normal') {
-            addNormalColor(leftPanel, contribLevel, settings, DARKER_LEFT);
+            addNormalColor(leftPanel, contribLevel, 'left');
         }
         else if (settings.type === 'season') {
-            addSeasonColor(leftPanel, contribLevel, settings, DARKER_LEFT, cal.date);
+            addSeasonColor(leftPanel, contribLevel, 'left', cal.date);
         }
         else if (settings.type === 'rainbow') {
             addRainbowColor(leftPanel, contribLevel, settings, DARKER_LEFT, week);
@@ -821,10 +389,10 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
             .attr('height', util.toFixed(heightRight))
             .attr('transform', `translate(${util.toFixed(dxx)} ${util.toFixed(dyy)}) skewY(${-ANGLE}) scale(${util.toFixed(dxx / widthRight)} ${util.toFixed(scaleRight)})`);
         if (settings.type === 'normal') {
-            addNormalColor(rightPanel, contribLevel, settings, DARKER_RIGHT);
+            addNormalColor(rightPanel, contribLevel, 'right');
         }
         else if (settings.type === 'season') {
-            addSeasonColor(rightPanel, contribLevel, settings, DARKER_RIGHT, cal.date);
+            addSeasonColor(rightPanel, contribLevel, 'right', cal.date);
         }
         else if (settings.type === 'rainbow') {
             addRainbowColor(rightPanel, contribLevel, settings, DARKER_RIGHT, week);
@@ -844,6 +412,130 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
 };
 exports.create3DContrib = create3DContrib;
 //# sourceMappingURL=create-3d-contrib.js.map
+
+/***/ }),
+
+/***/ 42906:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.createCssColors = void 0;
+const d3 = __importStar(__nccwpck_require__(85871));
+const DARKER_RIGHT = 1;
+const DARKER_LEFT = 0.5;
+const DARKER_TOP = 0;
+const createColors = (settings) => {
+    const cssColors = [];
+    cssColors.push(`.fill-fg { fill: ${settings.foregroundColor}; }`, `.stroke-fg { stroke: ${settings.foregroundColor}; }`, `.fill-bg { fill: ${settings.backgroundColor}; }`, `.stroke-bg { stroke: ${settings.backgroundColor}; }`);
+    if (settings.type == 'normal' ||
+        settings.type == 'season' ||
+        settings.type == 'rainbow' ||
+        settings.type == 'bitmap') {
+        cssColors.push(`.fill-strong { fill: ${settings.strongColor}; }`);
+    }
+    if (settings.type != 'pie_lang_only') {
+        cssColors.push(`.fill-weak { fill: ${settings.weakColor}; }`, `.stroke-weak { stroke: ${settings.weakColor}; }`);
+        cssColors.push('.radar {', 'stroke-width: 4px;', `stroke: ${settings.radarColor};`, `fill: ${settings.radarColor};`, `fill-opacity: 0.5;`, '}');
+    }
+    if (settings.type == 'normal') {
+        settings.contribColors.forEach((color, i) => {
+            const topColor = d3.rgb(color).darker(DARKER_TOP).toString();
+            const leftColor = d3.rgb(color).darker(DARKER_LEFT).toString();
+            const rightColor = d3.rgb(color).darker(DARKER_RIGHT).toString();
+            cssColors.push(`.cont-top-${i} { fill: ${topColor}; }`, `.cont-left-${i} { fill: ${leftColor}; }`, `.cont-right-${i} { fill: ${rightColor}; }`);
+        });
+    }
+    if (settings.type == 'season') {
+        let n = 0;
+        const interpolator1 = d3.interpolate(settings.contribColors1, settings.contribColors2);
+        const interpolator2 = d3.interpolate(settings.contribColors2, settings.contribColors3);
+        const interpolator3 = d3.interpolate(settings.contribColors3, settings.contribColors4);
+        const interpolator4 = d3.interpolate(settings.contribColors4, settings.contribColors1);
+        [interpolator2, interpolator3, interpolator4, interpolator1].forEach((interpolator) => {
+            [
+                interpolator(0.2),
+                interpolator(0.4),
+                interpolator(0.6),
+                interpolator(0.8),
+                interpolator(1),
+            ].forEach((colors) => {
+                colors.forEach((color, i) => {
+                    const topColor = d3
+                        .rgb(color)
+                        .darker(DARKER_TOP)
+                        .toString();
+                    const leftColor = d3
+                        .rgb(color)
+                        .darker(DARKER_LEFT)
+                        .toString();
+                    const rightColor = d3
+                        .rgb(color)
+                        .darker(DARKER_RIGHT)
+                        .toString();
+                    cssColors.push(`.cont-top-p${n}-${i} { fill: ${topColor}; }`, `.cont-left-p${n}-${i} { fill: ${leftColor}; }`, `.cont-right-p${n}-${i} { fill: ${rightColor}; }`);
+                });
+                n++;
+            });
+        });
+    }
+    if (settings.type == 'bitmap') {
+        settings.contribPatterns.forEach((pattern, i) => {
+            const topBack = pattern.top.backgroundColor;
+            const topFore = pattern.top.foregroundColor;
+            const rightBack = pattern.right.backgroundColor
+                ? pattern.right.backgroundColor
+                : d3.rgb(topBack).darker(DARKER_RIGHT).toString();
+            const rightFore = pattern.right.foregroundColor
+                ? pattern.right.foregroundColor
+                : d3.rgb(topFore).darker(DARKER_RIGHT).toString();
+            const leftBack = pattern.left.backgroundColor
+                ? pattern.left.backgroundColor
+                : d3.rgb(topBack).darker(DARKER_LEFT).toString();
+            const leftFore = pattern.left.foregroundColor
+                ? pattern.left.foregroundColor
+                : d3.rgb(topFore).darker(DARKER_LEFT).toString();
+            cssColors.push(`.cont-top-bg-${i} { fill: ${topBack}; }`, `.cont-top-fg-${i} { fill: ${topFore}; }`, `.cont-right-bg-${i} { fill: ${rightBack}; }`, `.cont-right-fg-${i} { fill: ${rightFore}; }`, `.cont-left-bg-${i} { fill: ${leftBack}; }`, `.cont-left-fg-${i} { fill: ${leftFore}; }`);
+        });
+    }
+    return cssColors.join('\n');
+};
+const createCssColors = (settings) => {
+    const cssColors = [];
+    // insert colors of light mode.
+    cssColors.push(createColors(settings));
+    // insert colors of dark mode.
+    if ('darkMode' in settings && settings.darkMode) {
+        cssColors.push('@media (prefers-color-scheme: dark) {', createColors(settings.darkMode), '}');
+    }
+    return cssColors.join('\n');
+};
+exports.createCssColors = createCssColors;
+//# sourceMappingURL=create-css-colors.js.map
 
 /***/ }),
 
@@ -927,7 +619,7 @@ const createPieLanguage = (svg, userInfo, x, y, width, height, settings, isForce
         .attr('width', fontSize)
         .attr('height', fontSize)
         .attr('fill', (d) => d.data.color)
-        .attr('stroke', settings.backgroundColor)
+        .attr('class', 'stroke-bg')
         .attr('stroke-width', '1px');
     if (isAnimate) {
         markers
@@ -947,7 +639,7 @@ const createPieLanguage = (svg, userInfo, x, y, width, height, settings, isForce
         .text((d) => d.data.language)
         .attr('x', fontSize * 1.2)
         .attr('y', (d) => (d.index + offset) * (height / row))
-        .attr('fill', settings.foregroundColor)
+        .attr('class', 'fill-fg')
         .attr('font-size', `${fontSize}px`);
     if (isAnimate) {
         labels
@@ -970,8 +662,8 @@ const createPieLanguage = (svg, userInfo, x, y, width, height, settings, isForce
         .enter()
         .append('path')
         .attr('d', arc)
-        .style('fill', (d) => d.data.color)
-        .attr('stroke', settings.backgroundColor)
+        .style('fill', (d) => d.data.color) // style -> attr ?
+        .attr('class', 'stroke-bg')
         .attr('stroke-width', '2px');
     paths
         .append('title')
@@ -1040,7 +732,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForc
     const issueLabel = settings.l10n ? settings.l10n.issue : 'Issue';
     const pullReqLabel = settings.l10n ? settings.l10n.pullreq : 'PullReq';
     const reviewLabel = settings.l10n ? settings.l10n.review : 'Review';
-    const RepoLabel = settings.l10n ? settings.l10n.repo : 'Repo';
+    const repoLabel = settings.l10n ? settings.l10n.repo : 'Repo';
     const data = [
         {
             name: commitLabel,
@@ -1059,7 +751,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForc
             value: userInfo.totalPullRequestReviewContributions,
         },
         {
-            name: RepoLabel,
+            name: repoLabel,
             value: userInfo.totalRepositoryContributions,
         },
     ];
@@ -1079,7 +771,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForc
             .attr('y1', (d, i) => posY(j + 1, i))
             .attr('x2', (d, i) => posX(j + 1, i + 1))
             .attr('y2', (d, i) => posY(j + 1, i + 1))
-            .style('stroke', settings.weakColor)
+            .attr('class', 'stroke-weak')
             .style('stroke-dasharray', '4 4')
             .style('stroke-width', '1px');
     }
@@ -1094,7 +786,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForc
         .attr('dominant-baseline', 'auto')
         .attr('x', util.toFixed(radius / 50))
         .attr('y', (d, i) => util.toFixed(-radius * ((i + 1) / levels)))
-        .attr('fill', settings.weakColor);
+        .attr('class', 'fill-weak');
     const axis = group
         .selectAll(null)
         .data(data)
@@ -1106,7 +798,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForc
         .attr('y1', (d, i) => posY(1, i))
         .attr('x2', (d, i) => posX(levels, i))
         .attr('y2', (d, i) => posY(levels, i))
-        .style('stroke', settings.weakColor)
+        .attr('class', 'stroke-weak')
         .style('stroke-dasharray', '4 4')
         .style('stroke-width', '1px');
     axis.append('text')
@@ -1116,7 +808,7 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForc
         .attr('dominant-baseline', 'middle')
         .attr('x', (d, i) => posX(1.25 * levels, i))
         .attr('y', (d, i) => posY(1.17 * levels, i))
-        .attr('fill', settings.foregroundColor)
+        .attr('class', 'fill-fg')
         .append('title')
         .text((d) => d.value);
     const points = data
@@ -1125,11 +817,8 @@ const createRadarContrib = (svg, userInfo, x, y, width, height, settings, isForc
         .join(' ');
     const radar = group
         .append('polygon')
-        .style('stroke-width', '4px')
-        .style('stroke', settings.radarColor)
-        .attr('points', points)
-        .style('fill', settings.radarColor)
-        .style('fill-opacity', 0.5);
+        .attr('class', 'radar')
+        .attr('points', points);
     if (isAnimate) {
         const level0 = toLevel(0);
         const points0 = data
@@ -1183,6 +872,7 @@ const jsdom_1 = __nccwpck_require__(81865);
 const contrib = __importStar(__nccwpck_require__(92699));
 const pie = __importStar(__nccwpck_require__(40855));
 const radar = __importStar(__nccwpck_require__(81874));
+const colors = __importStar(__nccwpck_require__(42906));
 const util = __importStar(__nccwpck_require__(71010));
 const width = 1280;
 const height = 850;
@@ -1210,7 +900,10 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
         .attr('width', svgWidth)
         .attr('height', svgHeight)
         .attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
-    svg.append('style').html('* { font-family: "Ubuntu", "Helvetica", "Arial", sans-serif; }');
+    svg.append('style').html([
+        '* { font-family: "Ubuntu", "Helvetica", "Arial", sans-serif; }',
+        colors.createCssColors(settings),
+    ].join('\n'));
     contrib.addDefines(svg, settings);
     // background
     svg.append('rect')
@@ -1218,7 +911,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
         .attr('y', 0)
         .attr('width', svgWidth)
         .attr('height', svgHeight)
-        .attr('fill', settings.backgroundColor);
+        .attr('class', 'fill-bg');
     if (settings.type === 'pie_lang_only') {
         // pie chart only
         pie.createPieLanguage(svg, userInfo, 0, 0, pieWidth, pieHeight, settings, isForcedAnimation);
@@ -1245,7 +938,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
             .attr('y', positionYContrib)
             .attr('text-anchor', 'end')
             .text(util.inertThousandSeparator(userInfo.totalContributions))
-            .attr('fill', settings.strongColor);
+            .attr('class', 'fill-strong');
         const contribLabel = settings.l10n
             ? settings.l10n.contrib
             : 'contributions';
@@ -1257,7 +950,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
             .attr('text-anchor', 'start')
             .attr('text-anchor', 'start')
             .text(contribLabel)
-            .attr('fill', settings.foregroundColor);
+            .attr('class', 'fill-fg');
         const positionXStar = (width * 5) / 10;
         const positionYStar = positionYContrib;
         // icon of star
@@ -1267,7 +960,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
             .append('path')
             .attr('fill-rule', 'evenodd')
             .attr('d', 'M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z')
-            .attr('fill', settings.foregroundColor);
+            .attr('class', 'fill-fg');
         group
             .append('text')
             .style('font-size', '32px')
@@ -1276,7 +969,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
             .attr('y', positionYStar)
             .attr('text-anchor', 'start')
             .text(util.toScale(userInfo.totalStargazerCount))
-            .attr('fill', settings.foregroundColor)
+            .attr('class', 'fill-fg')
             .append('title')
             .text(userInfo.totalStargazerCount);
         const positionXFork = (width * 6) / 10;
@@ -1288,7 +981,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
             .append('path')
             .attr('fill-rule', 'evenodd')
             .attr('d', 'M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z')
-            .attr('fill', settings.foregroundColor);
+            .attr('class', 'fill-fg');
         group
             .append('text')
             .style('font-size', '32px')
@@ -1297,7 +990,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
             .attr('y', positionYFork)
             .attr('text-anchor', 'start')
             .text(util.toScale(userInfo.totalForkCount))
-            .attr('fill', settings.foregroundColor)
+            .attr('class', 'fill-fg')
             .append('title')
             .text(userInfo.totalForkCount);
         // ISO 8601 format
@@ -1312,7 +1005,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
             .attr('dominant-baseline', 'hanging')
             .attr('text-anchor', 'end')
             .text(period)
-            .attr('fill', settings.weakColor);
+            .attr('class', 'fill-weak');
     }
     return container.html();
 };
@@ -187174,7 +186867,7 @@ class ParseError extends Error{sourceStart;sourceEnd;parserState;constructor(e,n
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
-/*! Axios v1.8.1 Copyright (c) 2025 Matt Zabriskie and contributors */
+/*! Axios v1.8.2 Copyright (c) 2025 Matt Zabriskie and contributors */
 
 
 const FormData$1 = __nccwpck_require__(96454);
@@ -189260,7 +188953,7 @@ function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
   return requestedURL;
 }
 
-const VERSION = "1.8.1";
+const VERSION = "1.8.2";
 
 function parseProtocol(url) {
   const match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url);
@@ -189955,7 +189648,7 @@ const httpAdapter = isHttpAdapterSupported && function httpAdapter(config) {
     }
 
     // Parse url
-    const fullPath = buildFullPath(config.baseURL, config.url);
+    const fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
     const parsed = new URL(fullPath, platform.hasBrowserEnv ? platform.origin : undefined);
     const protocol = parsed.protocol || supportedProtocols[0];
 
@@ -216773,6 +216466,70 @@ function defaultConstrain(transform, extent, translateExtent) {
 
 
 
+
+/***/ }),
+
+/***/ 69595:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"bitmap","backgroundColor":"#ffffff","foregroundColor":"#00000f","strongColor":"#111133","weakColor":"gray","radarColor":"#47a042","contribPatterns":[{"top":{"backgroundColor":"#f8f8f8","foregroundColor":"#aaaaaa","width":32,"bitmap":["0x00000000","0x00000000","0x01c001c0","0x06300630","0x0a080a08","0x12081208","0x11041104","0x11841184","0x12c412c4","0x0d780d78","0x0aa80aa8","0x07500750","0x01e001e0","0x00000000","0x00000000","0x00000000"]},"left":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]},"right":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]}},{"top":{"backgroundColor":"hsl(125, 52%, 50%)","foregroundColor":"hsl(125, 52%, 10%)","width":32,"bitmap":["0x00000000","0x00000000","0x01c001c0","0x06300630","0x0a080a08","0x12081208","0x11041104","0x11841184","0x12c412c4","0x0d780d78","0x0aa80aa8","0x07500750","0x01e001e0","0x00000000","0x00000000","0x00000000"]},"left":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]},"right":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]}},{"top":{"backgroundColor":"hsl(242, 100%, 65%)","foregroundColor":"hsl(242, 100%, 16%)","width":32,"bitmap":["0x00000000","0x00000000","0x01c001c0","0x06300630","0x0a080a08","0x12081208","0x11041104","0x11841184","0x12c412c4","0x0d780d78","0x0aa80aa8","0x07500750","0x01e001e0","0x00000000","0x00000000","0x00000000"]},"left":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]},"right":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]}},{"top":{"backgroundColor":"hsl(48, 100%, 50%)","foregroundColor":"hsl(48, 100%, 15%)","width":32,"bitmap":["0x00000000","0x00000000","0x01c001c0","0x06300630","0x0a080a08","0x12081208","0x11041104","0x11841184","0x12c412c4","0x0d780d78","0x0aa80aa8","0x07500750","0x01e001e0","0x00000000","0x00000000","0x00000000"]},"left":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]},"right":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]}},{"top":{"backgroundColor":"hsl(350, 100%, 50%)","foregroundColor":"hsl(350, 100%, 15%)","width":32,"bitmap":["0x00000000","0x00000000","0x01c001c0","0x06300630","0x0a080a08","0x12081208","0x11041104","0x11841184","0x12c412c4","0x0d780d78","0x0aa80aa8","0x07500750","0x01e001e0","0x00000000","0x00000000","0x00000000"]},"left":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]},"right":{"width":32,"bitmap":["0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0x00000000","0xaaaaaaaa"]}}]}');
+
+/***/ }),
+
+/***/ 4771:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"normal","backgroundColor":"#ffffff","foregroundColor":"#00000f","strongColor":"#111133","weakColor":"gray","radarColor":"#47a042","contribColors":["#efefef","#ffed4a","#ffc402","#fe9400","#fa6100"]}');
+
+/***/ }),
+
+/***/ 86775:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"normal","backgroundColor":"#00000f","foregroundColor":"#eeeeff","strongColor":"rgb(255,200,55)","weakColor":"#aaaaaa","radarColor":"#47a042","contribColors":["#444444","#1B7D28","#24A736","#2DD143","#57DA69"]}');
+
+/***/ }),
+
+/***/ 29598:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"rainbow","backgroundColor":"#00000f","foregroundColor":"#eeeeff","strongColor":"rgb(255,200,55)","weakColor":"#aaaaaa","radarColor":"rgb(255,200,55)","saturation":"50%","contribLightness":["20%","30%","35%","40%","50%"],"duration":"10s","hueRatio":-7}');
+
+/***/ }),
+
+/***/ 91707:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"normal","backgroundColor":"#00000f","foregroundColor":"#eeeeff","strongColor":"rgb(255,200,55)","weakColor":"#aaaaaa","radarColor":"rgb(255,200,55)","contribColors":["rgb(25,60,130)","rgb(25,90,210)","rgb(25,120,220)","rgb(25,150,230)","rgb(25,165,240)"]}');
+
+/***/ }),
+
+/***/ 13277:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"normal","backgroundColor":"#ffffff","foregroundColor":"#00000f","strongColor":"#111133","weakColor":"gray","radarColor":"#47a042","contribColors":["#efefef","#d8e887","#8cc569","#47a042","#1d6a23"]}');
+
+/***/ }),
+
+/***/ 26734:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"season","backgroundColor":"#ffffff","foregroundColor":"#00000f","strongColor":"#111133","weakColor":"gray","radarColor":"#47a042","contribColors1":["#efefef","#ffe7ff","#edaeda","#e492ca","#ba7aad"],"contribColors2":["#efefef","#d8e887","#8cc569","#47a042","#1d6a23"],"contribColors3":["#efefef","#ffed4a","#ffc402","#fe9400","#fa6100"],"contribColors4":["#efefef","#999999","#cccccc","#dddddd","#eeeeee"]}');
+
+/***/ }),
+
+/***/ 83548:
+/***/ ((module) => {
+
+"use strict";
+module.exports = /*#__PURE__*/JSON.parse('{"type":"season","backgroundColor":"#ffffff","foregroundColor":"#00000f","strongColor":"#111133","weakColor":"gray","radarColor":"#47a042","contribColors1":["#efefef","#ffed4a","#ffc402","#fe9400","#fa6100"],"contribColors2":["#efefef","#999999","#cccccc","#dddddd","#eeeeee"],"contribColors3":["#efefef","#ffe7ff","#edaeda","#e492ca","#ba7aad"],"contribColors4":["#efefef","#d8e887","#8cc569","#47a042","#1d6a23"]}');
 
 /***/ }),
 
