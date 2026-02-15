@@ -1,4 +1,28 @@
-# Change Log
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) since version 0.9.2,
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.9.2] - 2026-02-15
+
+### Added
+
+* Brazilian Portuguese translation of README #129
+
+### Changed
+
+* Replaced `core.setFailed` with `console.error` and `process.exitCode` to resolve vulnerable dependency ( `undici 5.29.0` ) #136
+* style: Remove unnecessary blank line in PieLangOnlySettings interface #136
+* No behavior changes
+
+### Security
+
+* Updated vulnerable dependency `js-yaml` #131
+* Updated vulnerable dependency `glob` #132
+* Updated vulnerable dependency `axios` #135
+* Removed dependencies `@actions/github` and `@actions/core` to exclude vulnerable dependency ( `undici 5.29.0` ) #136
 
 ## 2025-09-13, 0.9.1 release
 
