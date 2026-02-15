@@ -1,4 +1,3 @@
-import * as core from '@actions/core';
 import * as aggregate from './aggregate-user-info';
 import * as template from './color-template';
 import * as create from './create-svg';
@@ -10,25 +9,29 @@ export const main = async (): Promise<void> => {
     try {
         const token = process.env.GITHUB_TOKEN;
         if (!token) {
-            core.setFailed('GITHUB_TOKEN is empty');
+            console.error('GITHUB_TOKEN is empty');
+            process.exitCode = 1;
             return;
         }
         const userName =
             3 <= process.argv.length ? process.argv[2] : process.env.USERNAME;
         if (!userName) {
-            core.setFailed('USERNAME is empty');
+            console.error('USERNAME is empty');
+            process.exitCode = 1;
             return;
         }
         const maxRepos = process.env.MAX_REPOS
             ? Number(process.env.MAX_REPOS)
             : 100;
         if (Number.isNaN(maxRepos)) {
-            core.setFailed('MAX_REPOS is NaN');
+            console.error('MAX_REPOS is NaN');
+            process.exitCode = 1;
             return;
         }
         const year = process.env.YEAR ? Number(process.env.YEAR) : null;
         if (Number.isNaN(year)) {
-            core.setFailed('YEAR is NaN');
+            console.error('YEAR is NaN');
+            process.exitCode = 1;
             return;
         }
 
@@ -108,7 +111,7 @@ export const main = async (): Promise<void> => {
         }
     } catch (error) {
         console.error(error);
-        core.setFailed('error');
+        process.exitCode = 1;
     }
 };
 
