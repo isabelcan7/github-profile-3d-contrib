@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Brazilian Portuguese translation of README #129
+* Brazilian Portuguese translation of README @SoulBreathe #129
 
 ### Changed
 
