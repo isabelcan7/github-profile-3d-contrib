@@ -157,7 +157,6 @@ export interface PieLangOnlySettings extends PieLangSettings {
     type: 'pie_lang_only';
 
     darkMode?: PieLangOnlySettings;
-
 }
 
 export interface RadarContribOnlySettings extends RadarContribSettings {
