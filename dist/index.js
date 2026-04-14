@@ -160,7 +160,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.create3DContrib = exports.addDefines = void 0;
+exports.create3DContrib = exports.addDefines = exports.getRainbowKeyframes = void 0;
 const d3 = __importStar(__nccwpck_require__(85871));
 const util = __importStar(__nccwpck_require__(71010));
 const ANGLE = 30;
@@ -221,21 +221,47 @@ const addSeasonColor = (path, contribLevel, panel, date) => {
     const pattern = decideSeasonPatternNo(date);
     path.attr('class', `cont-${panel}-p${pattern}-${contribLevel}`);
 };
-const addRainbowColor = (path, contribLevel, settings, darker, week) => {
-    const offsetHue = week * settings.hueRatio;
-    const saturation = settings.saturation;
-    const lightness = settings.contribLightness[contribLevel];
-    const values = [...Array(7)]
-        .map((_, i) => (i * 60 + offsetHue) % 360)
-        .map((hue) => `hsl(${hue},${saturation},${lightness})`)
-        .map((c) => d3.rgb(c).darker(darker).toString())
-        .join(';');
-    path.append('animate')
-        .attr('attributeName', 'fill')
-        .attr('values', values)
-        .attr('dur', settings.duration)
-        .attr('repeatCount', 'indefinite');
+const FACE_NAMES = {
+    [DARKER_TOP]: 'top',
+    [DARKER_LEFT]: 'left',
+    [DARKER_RIGHT]: 'right',
 };
+const addRainbowColor = (path, contribLevel, settings, darker, week) => {
+    const faceName = FACE_NAMES[darker];
+    const className = `rb-l${contribLevel}-${faceName}`;
+    const offsetHue = week * settings.hueRatio;
+    const normalizedHue = ((offsetHue % 360) + 360) % 360;
+    const durationSeconds = parseFloat(settings.duration);
+    const delaySeconds = -(normalizedHue / 360) * durationSeconds;
+    path.attr('class', className).attr('style', `animation-delay:${delaySeconds.toFixed(3)}s`);
+};
+const getRainbowKeyframes = (settings) => {
+    const hues = [0, 60, 120, 180, 240, 300, 360];
+    const darkerMap = [
+        ['top', DARKER_TOP],
+        ['left', DARKER_LEFT],
+        ['right', DARKER_RIGHT],
+    ];
+    const lines = [];
+    for (let level = 0; level < settings.contribLightness.length; level++) {
+        const lightness = settings.contribLightness[level];
+        for (const [faceName, darker] of darkerMap) {
+            const className = `rb-l${level}-${faceName}`;
+            lines.push(`.${className}{animation:${className} ${settings.duration} linear infinite;}`);
+            const stops = hues.map((hue, i) => {
+                const pct = ((i / (hues.length - 1)) * 100).toFixed(2);
+                const fill = d3
+                    .rgb(`hsl(${hue},${settings.saturation},${lightness})`)
+                    .darker(darker)
+                    .toString();
+                return `${pct}%{fill:${fill}}`;
+            });
+            lines.push(`@keyframes ${className}{${stops.join('')}}`);
+        }
+    }
+    return lines.join('');
+};
+exports.getRainbowKeyframes = getRainbowKeyframes;
 const addBitmapPattern = (path, contributionLevel, panel) => {
     path.attr('fill', `url(#pattern_${contributionLevel}_${panel})`);
 };
@@ -901,9 +927,13 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
         .attr('width', svgWidth)
         .attr('height', svgHeight)
         .attr('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
+    const rainbowCss = settings.type === 'rainbow'
+        ? contrib.getRainbowKeyframes(settings)
+        : '';
     svg.append('style').html([
         '* { font-family: "Ubuntu", "Helvetica", "Arial", sans-serif; }',
         colors.createCssColors(settings),
+        rainbowCss,
     ].join('\n'));
     contrib.addDefines(svg, settings);
     // background
@@ -1255,6 +1285,7 @@ const main = async () => {
             f.writeFile('profile-night-view.svg', create.createSvg(userInfo, template.NightViewSettings, true));
             f.writeFile('profile-night-green.svg', create.createSvg(userInfo, template.NightGreenSettings, true));
             f.writeFile('profile-night-rainbow.svg', create.createSvg(userInfo, template.NightRainbowSettings, true));
+            f.writeFile('profile-night-rainbow-static.svg', create.createSvg(userInfo, template.NightRainbowSettings, false));
             f.writeFile('profile-gitblock.svg', create.createSvg(userInfo, template.GitBlockSettings, true));
         }
     }
