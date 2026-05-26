@@ -131,6 +131,38 @@ const createColors = (settings: type.Settings): string => {
         });
     }
 
+    if (settings.type == 'rainbow') {
+        const hues = [0, 60, 120, 180, 240, 300, 360];
+        const darkerList: ReadonlyArray<[string, number]> = [
+            ['top', DARKER_TOP],
+            ['left', DARKER_LEFT],
+            ['right', DARKER_RIGHT],
+        ];
+
+        for (let level = 0; level < settings.contribLightness.length; level++) {
+            const lightness = settings.contribLightness[level];
+            for (const [faceName, darker] of darkerList) {
+                const className = `rb-l${level}-${faceName}`;
+                cssColors.push(
+                    `.${className}{animation:${className} ${settings.duration} linear infinite;}`,
+                );
+                const stops = hues
+                    .map((hue, i) => {
+                        const pct = ((i / (hues.length - 1)) * 100).toFixed(2);
+                        const fill = d3
+                            .rgb(
+                                `hsl(${hue},${settings.saturation},${lightness})`,
+                            )
+                            .darker(darker)
+                            .toString();
+                        return `${pct}%{fill:${fill}}`;
+                    })
+                    .join('');
+                cssColors.push(`@keyframes ${className}{${stops}}`);
+            }
+        }
+    }
+
     return cssColors.join('\n');
 };
 

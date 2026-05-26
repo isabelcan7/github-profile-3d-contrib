@@ -3,9 +3,6 @@ import * as util from './utils';
 import * as type from './type';
 
 const ANGLE = 30;
-const DARKER_RIGHT = 1;
-const DARKER_LEFT = 0.5;
-const DARKER_TOP = 0;
 
 const toEpochDays = (date: Date): number =>
     Math.floor(date.getTime() / (24 * 60 * 60 * 1000));
@@ -81,21 +78,14 @@ const addSeasonColor = (
     path.attr('class', `cont-${panel}-p${pattern}-${contribLevel}`);
 };
 
-const FACE_NAMES: Record<number, string> = {
-    [DARKER_TOP]: 'top',
-    [DARKER_LEFT]: 'left',
-    [DARKER_RIGHT]: 'right',
-};
-
 const addRainbowColor = (
     path: d3.Selection<SVGRectElement, unknown, null, unknown>,
     contribLevel: number,
+    panel: PanelType,
     settings: type.RainbowColorSettings,
-    darker: number,
     week: number,
 ): void => {
-    const faceName = FACE_NAMES[darker];
-    const className = `rb-l${contribLevel}-${faceName}`;
+    const className = `rb-l${contribLevel}-${panel}`;
     const offsetHue = week * settings.hueRatio;
     const normalizedHue = ((offsetHue % 360) + 360) % 360;
     const durationSeconds = parseFloat(settings.duration);
@@ -105,38 +95,6 @@ const addRainbowColor = (
         'style',
         `animation-delay:${delaySeconds.toFixed(3)}s`,
     );
-};
-
-export const getRainbowKeyframes = (
-    settings: type.RainbowColorSettings,
-): string => {
-    const hues = [0, 60, 120, 180, 240, 300, 360];
-    const darkerMap: Array<[string, number]> = [
-        ['top', DARKER_TOP],
-        ['left', DARKER_LEFT],
-        ['right', DARKER_RIGHT],
-    ];
-    const lines: string[] = [];
-
-    for (let level = 0; level < settings.contribLightness.length; level++) {
-        const lightness = settings.contribLightness[level];
-        for (const [faceName, darker] of darkerMap) {
-            const className = `rb-l${level}-${faceName}`;
-            lines.push(
-                `.${className}{animation:${className} ${settings.duration} linear infinite;}`,
-            );
-            const stops = hues.map((hue, i) => {
-                const pct = ((i / (hues.length - 1)) * 100).toFixed(2);
-                const fill = d3
-                    .rgb(`hsl(${hue},${settings.saturation},${lightness})`)
-                    .darker(darker)
-                    .toString();
-                return `${pct}%{fill:${fill}}`;
-            });
-            lines.push(`@keyframes ${className}{${stops.join('')}}`);
-        }
-    }
-    return lines.join('');
 };
 
 const addBitmapPattern = (
@@ -297,7 +255,7 @@ export const create3DContrib = (
         } else if (settings.type === 'season') {
             addSeasonColor(topPanel, contribLevel, 'top', cal.date);
         } else if (settings.type === 'rainbow') {
-            addRainbowColor(topPanel, contribLevel, settings, DARKER_TOP, week);
+            addRainbowColor(topPanel, contribLevel, 'top', settings, week);
         } else if (settings.type === 'bitmap') {
             addBitmapPattern(topPanel, contribLevel, 'top');
         }
@@ -327,13 +285,7 @@ export const create3DContrib = (
         } else if (settings.type === 'season') {
             addSeasonColor(leftPanel, contribLevel, 'left', cal.date);
         } else if (settings.type === 'rainbow') {
-            addRainbowColor(
-                leftPanel,
-                contribLevel,
-                settings,
-                DARKER_LEFT,
-                week,
-            );
+            addRainbowColor(leftPanel, contribLevel, 'left', settings, week);
         } else if (settings.type === 'bitmap') {
             addBitmapPattern(leftPanel, contribLevel, 'left');
         }
@@ -379,13 +331,7 @@ export const create3DContrib = (
         } else if (settings.type === 'season') {
             addSeasonColor(rightPanel, contribLevel, 'right', cal.date);
         } else if (settings.type === 'rainbow') {
-            addRainbowColor(
-                rightPanel,
-                contribLevel,
-                settings,
-                DARKER_RIGHT,
-                week,
-            );
+            addRainbowColor(rightPanel, contribLevel, 'right', settings, week);
         } else if (settings.type === 'bitmap') {
             addBitmapPattern(rightPanel, contribLevel, 'right');
         }
