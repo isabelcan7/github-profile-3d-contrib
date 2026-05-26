@@ -3,9 +3,6 @@ import * as util from './utils';
 import * as type from './type';
 
 const ANGLE = 30;
-const DARKER_RIGHT = 1;
-const DARKER_LEFT = 0.5;
-const DARKER_TOP = 0;
 
 const toEpochDays = (date: Date): number =>
     Math.floor(date.getTime() / (24 * 60 * 60 * 1000));
@@ -84,24 +81,20 @@ const addSeasonColor = (
 const addRainbowColor = (
     path: d3.Selection<SVGRectElement, unknown, null, unknown>,
     contribLevel: number,
+    panel: PanelType,
     settings: type.RainbowColorSettings,
-    darker: number,
     week: number,
 ): void => {
+    const className = `rb-l${contribLevel}-${panel}`;
     const offsetHue = week * settings.hueRatio;
-    const saturation = settings.saturation;
-    const lightness = settings.contribLightness[contribLevel];
-    const values = [...Array<undefined>(7)]
-        .map((_, i) => (i * 60 + offsetHue) % 360)
-        .map((hue) => `hsl(${hue},${saturation},${lightness})`)
-        .map((c) => d3.rgb(c).darker(darker).toString())
-        .join(';');
+    const normalizedHue = ((offsetHue % 360) + 360) % 360;
+    const durationSeconds = parseFloat(settings.duration);
+    const delaySeconds = -(normalizedHue / 360) * durationSeconds;
 
-    path.append('animate')
-        .attr('attributeName', 'fill')
-        .attr('values', values)
-        .attr('dur', settings.duration)
-        .attr('repeatCount', 'indefinite');
+    path.attr('class', className).attr(
+        'style',
+        `animation-delay:${delaySeconds.toFixed(3)}s`,
+    );
 };
 
 const addBitmapPattern = (
@@ -262,7 +255,7 @@ export const create3DContrib = (
         } else if (settings.type === 'season') {
             addSeasonColor(topPanel, contribLevel, 'top', cal.date);
         } else if (settings.type === 'rainbow') {
-            addRainbowColor(topPanel, contribLevel, settings, DARKER_TOP, week);
+            addRainbowColor(topPanel, contribLevel, 'top', settings, week);
         } else if (settings.type === 'bitmap') {
             addBitmapPattern(topPanel, contribLevel, 'top');
         }
@@ -292,13 +285,7 @@ export const create3DContrib = (
         } else if (settings.type === 'season') {
             addSeasonColor(leftPanel, contribLevel, 'left', cal.date);
         } else if (settings.type === 'rainbow') {
-            addRainbowColor(
-                leftPanel,
-                contribLevel,
-                settings,
-                DARKER_LEFT,
-                week,
-            );
+            addRainbowColor(leftPanel, contribLevel, 'left', settings, week);
         } else if (settings.type === 'bitmap') {
             addBitmapPattern(leftPanel, contribLevel, 'left');
         }
@@ -344,13 +331,7 @@ export const create3DContrib = (
         } else if (settings.type === 'season') {
             addSeasonColor(rightPanel, contribLevel, 'right', cal.date);
         } else if (settings.type === 'rainbow') {
-            addRainbowColor(
-                rightPanel,
-                contribLevel,
-                settings,
-                DARKER_RIGHT,
-                week,
-            );
+            addRainbowColor(rightPanel, contribLevel, 'right', settings, week);
         } else if (settings.type === 'bitmap') {
             addBitmapPattern(rightPanel, contribLevel, 'right');
         }
