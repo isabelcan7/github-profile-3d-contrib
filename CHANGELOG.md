@@ -1,9 +1,23 @@
 # Changelog
+<!-- markdownlint-disable MD024 -->
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) since version 0.9.2,
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.9.3] - 2026-06-15
+
+### Changed
+
+* Improved the performance of the rainbow theme. @K-H-A-L-I-D #148
+* Fixed the `clean` npm script to work on Windows. #154
+
+### Security
+
+* Upgrade and clean up dependent libraries.
 
 ## [0.9.2] - 2026-02-15
 
