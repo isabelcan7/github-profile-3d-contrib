@@ -15,7 +15,6 @@ const pieWidth = pieHeight * 2;
 
 const radarWidth = 400 * 1.3;
 const radarHeight = (radarWidth * 3) / 4;
-const radarX = width - radarWidth - 40;
 
 export const createSvg = (
     userInfo: type.UserInfo,
@@ -93,30 +92,6 @@ export const createSvg = (
             0,
             width,
             height,
-            settings,
-            isForcedAnimation,
-        );
-
-        // radar chart
-        radar.createRadarContrib(
-            svg,
-            userInfo,
-            radarX,
-            70,
-            radarWidth,
-            radarHeight,
-            settings,
-            isForcedAnimation,
-        );
-
-        // pie chart
-        pie.createPieLanguage(
-            svg,
-            userInfo,
-            40,
-            height - pieHeight - 70,
-            pieWidth,
-            pieHeight,
             settings,
             isForcedAnimation,
         );
