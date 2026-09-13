@@ -160,6 +160,7 @@ export interface TreeColorSettings extends BaseSettings {
 
     treeShape: TreeShape;
     trunkColor: string;
+    groundColor?: string;
     contribColors: [string, string, string, string, string];
 
     darkMode?: TreeColorSettings;
@@ -170,6 +171,7 @@ export interface TreeSeasonColorSettings extends BaseSettings {
 
     treeShape: TreeShape;
     trunkColor: string;
+    groundColor?: string;
     /** first season */
     contribColors1: [string, string, string, string, string];
     /** second season */

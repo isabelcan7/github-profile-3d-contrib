@@ -191,17 +191,22 @@ const drawTree = (
     const baseline = calHeight;
 
     if (contribLevel === 0) {
+        const r = dx * 0.34;
         bar.append('circle')
             .attr('cx', util.toFixed(cx))
-            .attr('cy', util.toFixed(baseline))
-            .attr('r', util.toFixed(dx * 0.16))
-            .attr('class', crownClass)
-            .attr('opacity', 0.35);
+            .attr('cy', util.toFixed(baseline - r * 0.35))
+            .attr('r', util.toFixed(r))
+            .attr('class', 'tree-empty');
         return;
     }
 
-    const trunkWidth = dx * 0.3;
-    const trunkHeight = Math.max(dx * 0.5, calHeight * 0.22);
+    const trunkWidth = dx * 0.32;
+    const crownWidth = dx * 1.7;
+    const maxRadius = crownWidth / 2;
+
+    const crownSpan = Math.max(dx * 1.1, calHeight * 0.78);
+    const trunkHeight = Math.max(dx * 0.42, calHeight - crownSpan);
+
     bar.append('rect')
         .attr('x', util.toFixed(cx - trunkWidth / 2))
         .attr('y', util.toFixed(baseline - trunkHeight))
@@ -210,12 +215,10 @@ const drawTree = (
         .attr('class', 'tree-trunk');
 
     const crownBottom = baseline - trunkHeight;
-    const crownHeight = Math.max(dx, calHeight - trunkHeight);
-    const crownWidth = dx * 1.7;
 
     if (settings.treeShape === 'round') {
-        const r = Math.min(crownWidth, crownHeight) / 2;
-        const cy = crownBottom - crownHeight + r;
+        const r = Math.min(maxRadius, crownSpan / 2);
+        const cy = crownBottom - r * 0.82;
         bar.append('circle')
             .attr('cx', util.toFixed(cx))
             .attr('cy', util.toFixed(cy))
@@ -234,10 +237,11 @@ const drawTree = (
     }
 
     const tiers = 3;
+    const tierStep = crownSpan / (tiers + 0.6);
     for (let i = 0; i < tiers; i++) {
-        const ratio = 1 - i / tiers;
-        const tierBottom = crownBottom - (crownHeight * i) / tiers;
-        const tierTop = crownBottom - (crownHeight * (i + 1.35)) / tiers;
+        const ratio = 1 - (i / tiers) * 0.62;
+        const tierBottom = crownBottom - tierStep * i;
+        const tierTop = tierBottom - tierStep * 1.75;
         const halfWidth = (crownWidth * ratio) / 2;
         bar.append('path')
             .attr(
