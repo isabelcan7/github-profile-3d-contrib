@@ -292,27 +292,49 @@ export const create3DContrib = (
     const group = svg.append('g');
 
     if (settings.type === 'tree' || settings.type === 'tree_season') {
-        const cells = userInfo.contributionCalendar.map((cal) => {
-            const week = Math.floor(
-                (toEpochDays(cal.date) - sundayOfFirstWeek) / 7,
-            );
-            const dayOfWeek = cal.date.getUTCDay();
-            return {
-                x: offsetX + (week - dayOfWeek) * dx + dx,
-                y: offsetY + (week + dayOfWeek) * dy,
-            };
-        });
         const pad = dx * 0.55;
-        const path = cells
-            .map(
-                (c) =>
-                    `M ${util.toFixed(c.x)} ${util.toFixed(c.y - dy - pad)}` +
-                    ` L ${util.toFixed(c.x + dx + pad)} ${util.toFixed(c.y)}` +
-                    ` L ${util.toFixed(c.x)} ${util.toFixed(c.y + dy + pad)}` +
-                    ` L ${util.toFixed(c.x - dx - pad)} ${util.toFixed(c.y)} Z`,
-            )
-            .join(' ');
-        group.append('path').attr('d', path).attr('class', 'tree-ground');
+        const corner = (week: number, day: number, sx: number, sy: number) => {
+            const cx2 = offsetX + (week - day) * dx + dx + sx * (dx + pad);
+            const cy2 = offsetY + (week + day) * dy + sy * (dy + pad);
+            return `${util.toFixed(cx2)} ${util.toFixed(cy2)}`;
+        };
+
+        const firstDay = firstDate.getUTCDay();
+        const lastDate =
+            userInfo.contributionCalendar[
+                userInfo.contributionCalendar.length - 1
+            ].date;
+        const lastWeek = Math.floor(
+            (toEpochDays(lastDate) - sundayOfFirstWeek) / 7,
+        );
+        const lastDay = lastDate.getUTCDay();
+
+        const outline: string[] = [];
+
+        // start at the first drawn day, top corner
+        outline.push(corner(0, firstDay, 0, -1));
+        // step down the partial first week to saturday
+        for (let d = firstDay; d < 6; d++) {
+            outline.push(corner(0, d, -1, 0));
+            outline.push(corner(0, d + 1, -1, 0));
+        }
+        // straight edge along saturdays
+        outline.push(corner(0, 6, -1, 0));
+        outline.push(corner(lastWeek, 6, -1, 0));
+        // step up the partial last week
+        for (let d = 6; d > lastDay; d--) {
+            outline.push(corner(lastWeek, d, 1, 0));
+            outline.push(corner(lastWeek, d - 1, 1, 0));
+        }
+        outline.push(corner(lastWeek, lastDay, 0, 1));
+        // straight edge back along sundays
+        outline.push(corner(lastWeek, lastDay, 1, 0));
+        outline.push(corner(0, firstDay, 1, 0));
+
+        group
+            .append('path')
+            .attr('d', `M ${outline.join(' L ')} Z`)
+            .attr('class', 'tree-ground');
     }
 
     userInfo.contributionCalendar.forEach((cal) => {
