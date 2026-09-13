@@ -153,7 +153,7 @@ export interface BitmapPatternSettings extends BaseSettings {
     darkMode?: BitmapPatternSettings;
 }
 
-export type TreeShape = 'pine' | 'round' | 'mixed';
+export type TreeShape = 'pine' | 'round';
 
 export interface TreeColorSettings extends BaseSettings {
     type: 'tree';
