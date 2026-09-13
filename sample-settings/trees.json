@@ -35,9 +35,9 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#24402a"
+      "groundColor": "#27502c"
     },
-    "groundColor": "#cfe0c3"
+    "groundColor": "#27502c"
   },
   {
     "backgroundColor": "#f4f6f0",
@@ -75,9 +75,9 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#24402a"
+      "groundColor": "#27502c"
     },
-    "groundColor": "#cfe0c3"
+    "groundColor": "#27502c"
   },
   {
     "backgroundColor": "#f4f6f0",
@@ -157,9 +157,9 @@
         "#cfe6f2",
         "#eef8ff"
       ],
-      "groundColor": "#24402a"
+      "groundColor": "#27502c"
     },
-    "groundColor": "#cfe0c3"
+    "groundColor": "#27502c"
   },
   {
     "backgroundColor": "#f4f6f0",
@@ -239,8 +239,8 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#24402a"
+      "groundColor": "#27502c"
     },
-    "groundColor": "#cfe0c3"
+    "groundColor": "#27502c"
   }
 ]

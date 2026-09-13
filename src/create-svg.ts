@@ -29,6 +29,13 @@ export const createSvg = (
     } else if (settings.type === 'radar_contrib_only') {
         svgWidth = radarWidth;
         svgHeight = radarHeight;
+    } else if (
+        settings.type === 'tree' ||
+        settings.type === 'tree_season'
+    ) {
+        const spacing = settings.spacing ?? 1;
+        svgWidth = width * spacing;
+        svgHeight = height * spacing;
     }
 
     const fakeDom = new JSDOM(
@@ -90,8 +97,8 @@ export const createSvg = (
             userInfo,
             0,
             0,
-            width,
-            height,
+            svgWidth,
+            svgHeight,
             settings,
             isForcedAnimation,
         );

@@ -278,8 +278,11 @@ export const create3DContrib = (
     const weekcount = Math.ceil(
         (userInfo.contributionCalendar.length + firstDate.getUTCDay()) / 7.0,
     );
+    const isTree =
+        settings.type === 'tree' || settings.type === 'tree_season';
+    const viewAngle = isTree ? (settings.viewAngle ?? ANGLE) : ANGLE;
     const dx = width / 64;
-    const dy = dx * Math.tan(ANGLE * ((2 * Math.PI) / 360));
+    const dy = dx * Math.tan(viewAngle * ((2 * Math.PI) / 360));
     const dxx = dx * 0.9;
     const dyy = dy * 0.9;
 

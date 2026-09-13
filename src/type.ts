@@ -161,6 +161,10 @@ export interface TreeColorSettings extends BaseSettings {
     treeShape: TreeShape;
     trunkColor: string;
     groundColor?: string;
+    /** horizontal spacing multiplier, default 1 */
+    spacing?: number;
+    /** isometric angle in degrees, default 30 */
+    viewAngle?: number;
     contribColors: [string, string, string, string, string];
 
     darkMode?: TreeColorSettings;
@@ -172,6 +176,10 @@ export interface TreeSeasonColorSettings extends BaseSettings {
     treeShape: TreeShape;
     trunkColor: string;
     groundColor?: string;
+    /** horizontal spacing multiplier, default 1 */
+    spacing?: number;
+    /** isometric angle in degrees, default 30 */
+    viewAngle?: number;
     /** first season */
     contribColors1: [string, string, string, string, string];
     /** second season */

@@ -339,14 +339,17 @@ const drawTree = (bar, settings, contribLevel, date, dx, calHeight) => {
     }
 };
 const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedAnimation = false) => {
+    var _a;
     if (userInfo.contributionCalendar.length === 0) {
         return;
     }
     const firstDate = userInfo.contributionCalendar[0].date;
     const sundayOfFirstWeek = toEpochDays(firstDate) - firstDate.getUTCDay();
     const weekcount = Math.ceil((userInfo.contributionCalendar.length + firstDate.getUTCDay()) / 7.0);
+    const isTree = settings.type === 'tree' || settings.type === 'tree_season';
+    const viewAngle = isTree ? ((_a = settings.viewAngle) !== null && _a !== void 0 ? _a : ANGLE) : ANGLE;
     const dx = width / 64;
-    const dy = dx * Math.tan(ANGLE * ((2 * Math.PI) / 360));
+    const dy = dx * Math.tan(viewAngle * ((2 * Math.PI) / 360));
     const dxx = dx * 0.9;
     const dyy = dy * 0.9;
     const offsetX = dx * 7;
@@ -1019,6 +1022,7 @@ const pieWidth = pieHeight * 2;
 const radarWidth = 400 * 1.3;
 const radarHeight = (radarWidth * 3) / 4;
 const createSvg = (userInfo, settings, isForcedAnimation) => {
+    var _a;
     let svgWidth = width;
     let svgHeight = height;
     if (settings.type === 'pie_lang_only') {
@@ -1028,6 +1032,12 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
     else if (settings.type === 'radar_contrib_only') {
         svgWidth = radarWidth;
         svgHeight = radarHeight;
+    }
+    else if (settings.type === 'tree' ||
+        settings.type === 'tree_season') {
+        const spacing = (_a = settings.spacing) !== null && _a !== void 0 ? _a : 1;
+        svgWidth = width * spacing;
+        svgHeight = height * spacing;
     }
     const fakeDom = new jsdom_1.JSDOM('<!DOCTYPE html><html><body><div class="container"></div></body></html>');
     const container = d3.select(fakeDom.window.document).select('.container');
@@ -1059,7 +1069,7 @@ const createSvg = (userInfo, settings, isForcedAnimation) => {
     }
     else {
         // 3D-Contrib Calendar
-        contrib.create3DContrib(svg, userInfo, 0, 0, width, height, settings, isForcedAnimation);
+        contrib.create3DContrib(svg, userInfo, 0, 0, svgWidth, svgHeight, settings, isForcedAnimation);
         const group = svg.append('g');
         // ISO 8601 format
         const startDate = userInfo.contributionCalendar[0].date;
