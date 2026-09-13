@@ -276,6 +276,70 @@ const addDefines = (svg, settings) => {
     }
 };
 exports.addDefines = addDefines;
+const treeCrownClass = (settings, contribLevel, date, dark) => {
+    const kind = dark ? 'tree-crown-dark' : 'tree-crown';
+    if (settings.type === 'tree_season') {
+        return `${kind}-p${decideSeasonPatternNo(date)}-${contribLevel}`;
+    }
+    return `${kind}-${contribLevel}`;
+};
+const drawTree = (bar, settings, contribLevel, date, dx, calHeight) => {
+    const crownClass = treeCrownClass(settings, contribLevel, date, false);
+    const shadeClass = treeCrownClass(settings, contribLevel, date, true);
+    const cx = dx;
+    const baseline = calHeight;
+    if (contribLevel === 0) {
+        bar.append('circle')
+            .attr('cx', util.toFixed(cx))
+            .attr('cy', util.toFixed(baseline))
+            .attr('r', util.toFixed(dx * 0.16))
+            .attr('class', crownClass)
+            .attr('opacity', 0.35);
+        return;
+    }
+    const trunkWidth = dx * 0.3;
+    const trunkHeight = Math.max(dx * 0.5, calHeight * 0.22);
+    bar.append('rect')
+        .attr('x', util.toFixed(cx - trunkWidth / 2))
+        .attr('y', util.toFixed(baseline - trunkHeight))
+        .attr('width', util.toFixed(trunkWidth))
+        .attr('height', util.toFixed(trunkHeight))
+        .attr('class', 'tree-trunk');
+    const crownBottom = baseline - trunkHeight;
+    const crownHeight = Math.max(dx, calHeight - trunkHeight);
+    const crownWidth = dx * 1.7;
+    if (settings.treeShape === 'round') {
+        const r = Math.min(crownWidth, crownHeight) / 2;
+        const cy = crownBottom - crownHeight + r;
+        bar.append('circle')
+            .attr('cx', util.toFixed(cx))
+            .attr('cy', util.toFixed(cy))
+            .attr('r', util.toFixed(r))
+            .attr('class', crownClass);
+        bar.append('path')
+            .attr('d', `M ${util.toFixed(cx)} ${util.toFixed(cy - r)}` +
+            ` A ${util.toFixed(r)} ${util.toFixed(r)} 0 0 1 ${util.toFixed(cx)} ${util.toFixed(cy + r)} Z`)
+            .attr('class', shadeClass);
+        return;
+    }
+    const tiers = 3;
+    for (let i = 0; i < tiers; i++) {
+        const ratio = 1 - i / tiers;
+        const tierBottom = crownBottom - (crownHeight * i) / tiers;
+        const tierTop = crownBottom - (crownHeight * (i + 1.35)) / tiers;
+        const halfWidth = (crownWidth * ratio) / 2;
+        bar.append('path')
+            .attr('d', `M ${util.toFixed(cx)} ${util.toFixed(tierTop)}` +
+            ` L ${util.toFixed(cx + halfWidth)} ${util.toFixed(tierBottom)}` +
+            ` L ${util.toFixed(cx - halfWidth)} ${util.toFixed(tierBottom)} Z`)
+            .attr('class', crownClass);
+        bar.append('path')
+            .attr('d', `M ${util.toFixed(cx)} ${util.toFixed(tierTop)}` +
+            ` L ${util.toFixed(cx + halfWidth)} ${util.toFixed(tierBottom)}` +
+            ` L ${util.toFixed(cx)} ${util.toFixed(tierBottom)} Z`)
+            .attr('class', shadeClass);
+    }
+};
 const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedAnimation = false) => {
     if (userInfo.contributionCalendar.length === 0) {
         return;
@@ -309,6 +373,10 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
                 .attr('values', `${util.toFixed(baseX)} ${util.toFixed(baseY - 3)};${util.toFixed(baseX)} ${util.toFixed(baseY - calHeight)}`)
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
+        }
+        if (settings.type === 'tree' || settings.type === 'tree_season') {
+            drawTree(bar, settings, contribLevel, cal.date, dx, calHeight);
+            return;
         }
         const widthTop = settings.type === 'bitmap'
             ? Math.max(1, settings.contribPatterns[contribLevel].top.width)
@@ -446,7 +514,9 @@ const createColors = (settings) => {
     if (settings.type == 'normal' ||
         settings.type == 'season' ||
         settings.type == 'rainbow' ||
-        settings.type == 'bitmap') {
+        settings.type == 'bitmap' ||
+        settings.type == 'tree' ||
+        settings.type == 'tree_season') {
         cssColors.push(`.fill-strong { fill: ${settings.strongColor}; }`);
     }
     if (settings.type != 'pie_lang_only') {
@@ -489,6 +559,40 @@ const createColors = (settings) => {
                         .darker(DARKER_RIGHT)
                         .toString();
                     cssColors.push(`.cont-top-p${n}-${i} { fill: ${topColor}; }`, `.cont-left-p${n}-${i} { fill: ${leftColor}; }`, `.cont-right-p${n}-${i} { fill: ${rightColor}; }`);
+                });
+                n++;
+            });
+        });
+    }
+    if (settings.type == 'tree') {
+        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`);
+        settings.contribColors.forEach((color, i) => {
+            cssColors.push(`.tree-crown-${i} { fill: ${color}; }`, `.tree-crown-dark-${i} { fill: ${d3
+                .rgb(color)
+                .darker(0.45)
+                .toString()}; }`);
+        });
+    }
+    if (settings.type == 'tree_season') {
+        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`);
+        let n = 0;
+        const interpolator1 = d3.interpolate(settings.contribColors1, settings.contribColors2);
+        const interpolator2 = d3.interpolate(settings.contribColors2, settings.contribColors3);
+        const interpolator3 = d3.interpolate(settings.contribColors3, settings.contribColors4);
+        const interpolator4 = d3.interpolate(settings.contribColors4, settings.contribColors1);
+        [interpolator2, interpolator3, interpolator4, interpolator1].forEach((interpolator) => {
+            [
+                interpolator(0.2),
+                interpolator(0.4),
+                interpolator(0.6),
+                interpolator(0.8),
+                interpolator(1),
+            ].forEach((colors) => {
+                colors.forEach((color, i) => {
+                    cssColors.push(`.tree-crown-p${n}-${i} { fill: ${color}; }`, `.tree-crown-dark-p${n}-${i} { fill: ${d3
+                        .rgb(color)
+                        .darker(0.45)
+                        .toString()}; }`);
                 });
                 n++;
             });

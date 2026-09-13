@@ -1,0 +1,238 @@
+[
+  {
+    "backgroundColor": "#ffffff",
+    "foregroundColor": "#00000f",
+    "strongColor": "#111133",
+    "weakColor": "gray",
+    "radarColor": "#47a042",
+    "growingAnimation": true,
+    "type": "tree",
+    "fileName": "profile-tree-pine.svg",
+    "treeShape": "pine",
+    "trunkColor": "#795548",
+    "contribColors": [
+      "#2d3b2f",
+      "#4a7c3f",
+      "#5fa84d",
+      "#7fc95c",
+      "#a8e063"
+    ],
+    "darkMode": {
+      "backgroundColor": "#0d1117",
+      "foregroundColor": "#e6edf3",
+      "strongColor": "#e6edf3",
+      "weakColor": "#8b949e",
+      "radarColor": "#47a042",
+      "growingAnimation": true,
+      "type": "tree",
+      "fileName": "profile-tree-pine.svg",
+      "treeShape": "pine",
+      "trunkColor": "#795548",
+      "contribColors": [
+        "#2d3b2f",
+        "#4a7c3f",
+        "#5fa84d",
+        "#7fc95c",
+        "#a8e063"
+      ]
+    }
+  },
+  {
+    "backgroundColor": "#ffffff",
+    "foregroundColor": "#00000f",
+    "strongColor": "#111133",
+    "weakColor": "gray",
+    "radarColor": "#47a042",
+    "growingAnimation": true,
+    "type": "tree",
+    "fileName": "profile-tree-round.svg",
+    "treeShape": "round",
+    "trunkColor": "#795548",
+    "contribColors": [
+      "#2d3b2f",
+      "#4a7c3f",
+      "#5fa84d",
+      "#7fc95c",
+      "#a8e063"
+    ],
+    "darkMode": {
+      "backgroundColor": "#0d1117",
+      "foregroundColor": "#e6edf3",
+      "strongColor": "#e6edf3",
+      "weakColor": "#8b949e",
+      "radarColor": "#47a042",
+      "growingAnimation": true,
+      "type": "tree",
+      "fileName": "profile-tree-round.svg",
+      "treeShape": "round",
+      "trunkColor": "#795548",
+      "contribColors": [
+        "#2d3b2f",
+        "#4a7c3f",
+        "#5fa84d",
+        "#7fc95c",
+        "#a8e063"
+      ]
+    }
+  },
+  {
+    "backgroundColor": "#ffffff",
+    "foregroundColor": "#00000f",
+    "strongColor": "#111133",
+    "weakColor": "gray",
+    "radarColor": "#47a042",
+    "growingAnimation": true,
+    "type": "tree_season",
+    "fileName": "profile-tree-season-north.svg",
+    "treeShape": "round",
+    "trunkColor": "#795548",
+    "contribColors1": [
+      "#3a3340",
+      "#c77db0",
+      "#e492ca",
+      "#f2b6dc",
+      "#ffd9f0"
+    ],
+    "contribColors2": [
+      "#2d3b2f",
+      "#4a7c3f",
+      "#5fa84d",
+      "#7fc95c",
+      "#a8e063"
+    ],
+    "contribColors3": [
+      "#3d3326",
+      "#b35c1a",
+      "#e08a1e",
+      "#f5b62e",
+      "#ffd95e"
+    ],
+    "contribColors4": [
+      "#2b3138",
+      "#5d7386",
+      "#8aa2b5",
+      "#b3c5d4",
+      "#dce8f2"
+    ],
+    "darkMode": {
+      "backgroundColor": "#0d1117",
+      "foregroundColor": "#e6edf3",
+      "strongColor": "#e6edf3",
+      "weakColor": "#8b949e",
+      "radarColor": "#47a042",
+      "growingAnimation": true,
+      "type": "tree_season",
+      "fileName": "profile-tree-season-north.svg",
+      "treeShape": "round",
+      "trunkColor": "#795548",
+      "contribColors1": [
+        "#3a3340",
+        "#c77db0",
+        "#e492ca",
+        "#f2b6dc",
+        "#ffd9f0"
+      ],
+      "contribColors2": [
+        "#2d3b2f",
+        "#4a7c3f",
+        "#5fa84d",
+        "#7fc95c",
+        "#a8e063"
+      ],
+      "contribColors3": [
+        "#3d3326",
+        "#b35c1a",
+        "#e08a1e",
+        "#f5b62e",
+        "#ffd95e"
+      ],
+      "contribColors4": [
+        "#2b3138",
+        "#5d7386",
+        "#8aa2b5",
+        "#b3c5d4",
+        "#dce8f2"
+      ]
+    }
+  },
+  {
+    "backgroundColor": "#ffffff",
+    "foregroundColor": "#00000f",
+    "strongColor": "#111133",
+    "weakColor": "gray",
+    "radarColor": "#47a042",
+    "growingAnimation": true,
+    "type": "tree_season",
+    "fileName": "profile-tree-season-south.svg",
+    "treeShape": "round",
+    "trunkColor": "#795548",
+    "contribColors1": [
+      "#3d3326",
+      "#b35c1a",
+      "#e08a1e",
+      "#f5b62e",
+      "#ffd95e"
+    ],
+    "contribColors2": [
+      "#2b3138",
+      "#5d7386",
+      "#8aa2b5",
+      "#b3c5d4",
+      "#dce8f2"
+    ],
+    "contribColors3": [
+      "#3a3340",
+      "#c77db0",
+      "#e492ca",
+      "#f2b6dc",
+      "#ffd9f0"
+    ],
+    "contribColors4": [
+      "#2d3b2f",
+      "#4a7c3f",
+      "#5fa84d",
+      "#7fc95c",
+      "#a8e063"
+    ],
+    "darkMode": {
+      "backgroundColor": "#0d1117",
+      "foregroundColor": "#e6edf3",
+      "strongColor": "#e6edf3",
+      "weakColor": "#8b949e",
+      "radarColor": "#47a042",
+      "growingAnimation": true,
+      "type": "tree_season",
+      "fileName": "profile-tree-season-south.svg",
+      "treeShape": "round",
+      "trunkColor": "#795548",
+      "contribColors1": [
+        "#3d3326",
+        "#b35c1a",
+        "#e08a1e",
+        "#f5b62e",
+        "#ffd95e"
+      ],
+      "contribColors2": [
+        "#2b3138",
+        "#5d7386",
+        "#8aa2b5",
+        "#b3c5d4",
+        "#dce8f2"
+      ],
+      "contribColors3": [
+        "#3a3340",
+        "#c77db0",
+        "#e492ca",
+        "#f2b6dc",
+        "#ffd9f0"
+      ],
+      "contribColors4": [
+        "#2d3b2f",
+        "#4a7c3f",
+        "#5fa84d",
+        "#7fc95c",
+        "#a8e063"
+      ]
+    }
+  }
+]

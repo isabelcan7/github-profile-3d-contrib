@@ -19,7 +19,9 @@ const createColors = (settings: type.Settings): string => {
         settings.type == 'normal' ||
         settings.type == 'season' ||
         settings.type == 'rainbow' ||
-        settings.type == 'bitmap'
+        settings.type == 'bitmap' ||
+        settings.type == 'tree' ||
+        settings.type == 'tree_season'
     ) {
         cssColors.push(`.fill-strong { fill: ${settings.strongColor}; }`);
     }
@@ -96,6 +98,62 @@ const createColors = (settings: type.Settings): string => {
                             `.cont-top-p${n}-${i} { fill: ${topColor}; }`,
                             `.cont-left-p${n}-${i} { fill: ${leftColor}; }`,
                             `.cont-right-p${n}-${i} { fill: ${rightColor}; }`,
+                        );
+                    });
+                    n++;
+                });
+            },
+        );
+    }
+
+    if (settings.type == 'tree') {
+        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`);
+        settings.contribColors.forEach((color, i) => {
+            cssColors.push(
+                `.tree-crown-${i} { fill: ${color}; }`,
+                `.tree-crown-dark-${i} { fill: ${d3
+                    .rgb(color)
+                    .darker(0.45)
+                    .toString()}; }`,
+            );
+        });
+    }
+
+    if (settings.type == 'tree_season') {
+        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`);
+        let n = 0;
+        const interpolator1 = d3.interpolate(
+            settings.contribColors1,
+            settings.contribColors2,
+        );
+        const interpolator2 = d3.interpolate(
+            settings.contribColors2,
+            settings.contribColors3,
+        );
+        const interpolator3 = d3.interpolate(
+            settings.contribColors3,
+            settings.contribColors4,
+        );
+        const interpolator4 = d3.interpolate(
+            settings.contribColors4,
+            settings.contribColors1,
+        );
+        [interpolator2, interpolator3, interpolator4, interpolator1].forEach(
+            (interpolator) => {
+                [
+                    interpolator(0.2),
+                    interpolator(0.4),
+                    interpolator(0.6),
+                    interpolator(0.8),
+                    interpolator(1),
+                ].forEach((colors) => {
+                    colors.forEach((color, i) => {
+                        cssColors.push(
+                            `.tree-crown-p${n}-${i} { fill: ${color}; }`,
+                            `.tree-crown-dark-p${n}-${i} { fill: ${d3
+                                .rgb(color)
+                                .darker(0.45)
+                                .toString()}; }`,
                         );
                     });
                     n++;

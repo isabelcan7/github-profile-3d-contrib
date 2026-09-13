@@ -163,6 +163,101 @@ export const addDefines = (
     }
 };
 
+const treeCrownClass = (
+    settings: type.FullSettings,
+    contribLevel: number,
+    date: Date,
+    dark: boolean,
+): string => {
+    const kind = dark ? 'tree-crown-dark' : 'tree-crown';
+    if (settings.type === 'tree_season') {
+        return `${kind}-p${decideSeasonPatternNo(date)}-${contribLevel}`;
+    }
+    return `${kind}-${contribLevel}`;
+};
+
+const drawTree = (
+    bar: d3.Selection<SVGGElement, unknown, null, unknown>,
+    settings: type.TreeColorSettings | type.TreeSeasonColorSettings,
+    contribLevel: number,
+    date: Date,
+    dx: number,
+    calHeight: number,
+): void => {
+    const crownClass = treeCrownClass(settings, contribLevel, date, false);
+    const shadeClass = treeCrownClass(settings, contribLevel, date, true);
+
+    const cx = dx;
+    const baseline = calHeight;
+
+    if (contribLevel === 0) {
+        bar.append('circle')
+            .attr('cx', util.toFixed(cx))
+            .attr('cy', util.toFixed(baseline))
+            .attr('r', util.toFixed(dx * 0.16))
+            .attr('class', crownClass)
+            .attr('opacity', 0.35);
+        return;
+    }
+
+    const trunkWidth = dx * 0.3;
+    const trunkHeight = Math.max(dx * 0.5, calHeight * 0.22);
+    bar.append('rect')
+        .attr('x', util.toFixed(cx - trunkWidth / 2))
+        .attr('y', util.toFixed(baseline - trunkHeight))
+        .attr('width', util.toFixed(trunkWidth))
+        .attr('height', util.toFixed(trunkHeight))
+        .attr('class', 'tree-trunk');
+
+    const crownBottom = baseline - trunkHeight;
+    const crownHeight = Math.max(dx, calHeight - trunkHeight);
+    const crownWidth = dx * 1.7;
+
+    if (settings.treeShape === 'round') {
+        const r = Math.min(crownWidth, crownHeight) / 2;
+        const cy = crownBottom - crownHeight + r;
+        bar.append('circle')
+            .attr('cx', util.toFixed(cx))
+            .attr('cy', util.toFixed(cy))
+            .attr('r', util.toFixed(r))
+            .attr('class', crownClass);
+        bar.append('path')
+            .attr(
+                'd',
+                `M ${util.toFixed(cx)} ${util.toFixed(cy - r)}` +
+                    ` A ${util.toFixed(r)} ${util.toFixed(r)} 0 0 1 ${util.toFixed(
+                        cx,
+                    )} ${util.toFixed(cy + r)} Z`,
+            )
+            .attr('class', shadeClass);
+        return;
+    }
+
+    const tiers = 3;
+    for (let i = 0; i < tiers; i++) {
+        const ratio = 1 - i / tiers;
+        const tierBottom = crownBottom - (crownHeight * i) / tiers;
+        const tierTop = crownBottom - (crownHeight * (i + 1.35)) / tiers;
+        const halfWidth = (crownWidth * ratio) / 2;
+        bar.append('path')
+            .attr(
+                'd',
+                `M ${util.toFixed(cx)} ${util.toFixed(tierTop)}` +
+                    ` L ${util.toFixed(cx + halfWidth)} ${util.toFixed(tierBottom)}` +
+                    ` L ${util.toFixed(cx - halfWidth)} ${util.toFixed(tierBottom)} Z`,
+            )
+            .attr('class', crownClass);
+        bar.append('path')
+            .attr(
+                'd',
+                `M ${util.toFixed(cx)} ${util.toFixed(tierTop)}` +
+                    ` L ${util.toFixed(cx + halfWidth)} ${util.toFixed(tierBottom)}` +
+                    ` L ${util.toFixed(cx)} ${util.toFixed(tierBottom)} Z`,
+            )
+            .attr('class', shadeClass);
+    }
+};
+
 export const create3DContrib = (
     svg: d3.Selection<SVGSVGElement, unknown, null, unknown>,
     userInfo: type.UserInfo,
@@ -228,6 +323,11 @@ export const create3DContrib = (
                 )
                 .attr('dur', '3s')
                 .attr('repeatCount', '1');
+        }
+
+        if (settings.type === 'tree' || settings.type === 'tree_season') {
+            drawTree(bar, settings, contribLevel, cal.date, dx, calHeight);
+            return;
         }
 
         const widthTop =

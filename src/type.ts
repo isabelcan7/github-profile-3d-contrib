@@ -153,6 +153,35 @@ export interface BitmapPatternSettings extends BaseSettings {
     darkMode?: BitmapPatternSettings;
 }
 
+export type TreeShape = 'pine' | 'round';
+
+export interface TreeColorSettings extends BaseSettings {
+    type: 'tree';
+
+    treeShape: TreeShape;
+    trunkColor: string;
+    contribColors: [string, string, string, string, string];
+
+    darkMode?: TreeColorSettings;
+}
+
+export interface TreeSeasonColorSettings extends BaseSettings {
+    type: 'tree_season';
+
+    treeShape: TreeShape;
+    trunkColor: string;
+    /** first season */
+    contribColors1: [string, string, string, string, string];
+    /** second season */
+    contribColors2: [string, string, string, string, string];
+    /** third season */
+    contribColors3: [string, string, string, string, string];
+    /** fourth season */
+    contribColors4: [string, string, string, string, string];
+
+    darkMode?: TreeSeasonColorSettings;
+}
+
 export interface PieLangOnlySettings extends PieLangSettings {
     type: 'pie_lang_only';
 
@@ -169,7 +198,9 @@ export type FullSettings =
     | NormalColorSettings
     | SeasonColorSettings
     | RainbowColorSettings
-    | BitmapPatternSettings;
+    | BitmapPatternSettings
+    | TreeColorSettings
+    | TreeSeasonColorSettings;
 
 export type Settings =
     | FullSettings
