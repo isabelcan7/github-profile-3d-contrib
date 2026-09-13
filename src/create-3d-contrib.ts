@@ -286,25 +286,27 @@ export const create3DContrib = (
     const group = svg.append('g');
 
     if (settings.type === 'tree' || settings.type === 'tree_season') {
-        const ground = group.append('g');
-        userInfo.contributionCalendar.forEach((cal) => {
+        const cells = userInfo.contributionCalendar.map((cal) => {
             const week = Math.floor(
                 (toEpochDays(cal.date) - sundayOfFirstWeek) / 7,
             );
             const dayOfWeek = cal.date.getUTCDay();
-            const gx = offsetX + (week - dayOfWeek) * dx + dx;
-            const gy = offsetY + (week + dayOfWeek) * dy;
-            ground
-                .append('path')
-                .attr(
-                    'd',
-                    `M ${util.toFixed(gx)} ${util.toFixed(gy - dyy)}` +
-                        ` L ${util.toFixed(gx + dxx)} ${util.toFixed(gy)}` +
-                        ` L ${util.toFixed(gx)} ${util.toFixed(gy + dyy)}` +
-                        ` L ${util.toFixed(gx - dxx)} ${util.toFixed(gy)} Z`,
-                )
-                .attr('class', 'tree-ground');
+            return {
+                x: offsetX + (week - dayOfWeek) * dx + dx,
+                y: offsetY + (week + dayOfWeek) * dy,
+            };
         });
+        const pad = dx * 0.55;
+        const path = cells
+            .map(
+                (c) =>
+                    `M ${util.toFixed(c.x)} ${util.toFixed(c.y - dy - pad)}` +
+                    ` L ${util.toFixed(c.x + dx + pad)} ${util.toFixed(c.y)}` +
+                    ` L ${util.toFixed(c.x)} ${util.toFixed(c.y + dy + pad)}` +
+                    ` L ${util.toFixed(c.x - dx - pad)} ${util.toFixed(c.y)} Z`,
+            )
+            .join(' ');
+        group.append('path').attr('d', path).attr('class', 'tree-ground');
     }
 
     userInfo.contributionCalendar.forEach((cal) => {

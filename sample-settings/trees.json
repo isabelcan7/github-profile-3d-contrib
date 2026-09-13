@@ -1,9 +1,9 @@
 [
   {
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#f4f6f0",
     "foregroundColor": "#00000f",
     "strongColor": "#111133",
-    "weakColor": "gray",
+    "weakColor": "#7d8b79",
     "radarColor": "#47a042",
     "growingAnimation": true,
     "type": "tree",
@@ -18,10 +18,10 @@
       "#a8e063"
     ],
     "darkMode": {
-      "backgroundColor": "#0d1117",
+      "backgroundColor": "#111a14",
       "foregroundColor": "#e6edf3",
       "strongColor": "#e6edf3",
-      "weakColor": "#8b949e",
+      "weakColor": "#7d8b79",
       "radarColor": "#47a042",
       "growingAnimation": true,
       "type": "tree",
@@ -35,15 +35,15 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#18271a"
+      "groundColor": "#24402a"
     },
-    "groundColor": "#1e3320"
+    "groundColor": "#cfe0c3"
   },
   {
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#f4f6f0",
     "foregroundColor": "#00000f",
     "strongColor": "#111133",
-    "weakColor": "gray",
+    "weakColor": "#7d8b79",
     "radarColor": "#47a042",
     "growingAnimation": true,
     "type": "tree",
@@ -58,10 +58,10 @@
       "#a8e063"
     ],
     "darkMode": {
-      "backgroundColor": "#0d1117",
+      "backgroundColor": "#111a14",
       "foregroundColor": "#e6edf3",
       "strongColor": "#e6edf3",
-      "weakColor": "#8b949e",
+      "weakColor": "#7d8b79",
       "radarColor": "#47a042",
       "growingAnimation": true,
       "type": "tree",
@@ -75,15 +75,15 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#18271a"
+      "groundColor": "#24402a"
     },
-    "groundColor": "#1e3320"
+    "groundColor": "#cfe0c3"
   },
   {
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#f4f6f0",
     "foregroundColor": "#00000f",
     "strongColor": "#111133",
-    "weakColor": "gray",
+    "weakColor": "#7d8b79",
     "radarColor": "#47a042",
     "growingAnimation": true,
     "type": "tree_season",
@@ -119,10 +119,10 @@
       "#eef8ff"
     ],
     "darkMode": {
-      "backgroundColor": "#0d1117",
+      "backgroundColor": "#111a14",
       "foregroundColor": "#e6edf3",
       "strongColor": "#e6edf3",
-      "weakColor": "#8b949e",
+      "weakColor": "#7d8b79",
       "radarColor": "#47a042",
       "growingAnimation": true,
       "type": "tree_season",
@@ -157,15 +157,15 @@
         "#cfe6f2",
         "#eef8ff"
       ],
-      "groundColor": "#18271a"
+      "groundColor": "#24402a"
     },
-    "groundColor": "#1e3320"
+    "groundColor": "#cfe0c3"
   },
   {
-    "backgroundColor": "#ffffff",
+    "backgroundColor": "#f4f6f0",
     "foregroundColor": "#00000f",
     "strongColor": "#111133",
-    "weakColor": "gray",
+    "weakColor": "#7d8b79",
     "radarColor": "#47a042",
     "growingAnimation": true,
     "type": "tree_season",
@@ -201,10 +201,10 @@
       "#a8e063"
     ],
     "darkMode": {
-      "backgroundColor": "#0d1117",
+      "backgroundColor": "#111a14",
       "foregroundColor": "#e6edf3",
       "strongColor": "#e6edf3",
-      "weakColor": "#8b949e",
+      "weakColor": "#7d8b79",
       "radarColor": "#47a042",
       "growingAnimation": true,
       "type": "tree_season",
@@ -239,8 +239,8 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#18271a"
+      "groundColor": "#24402a"
     },
-    "groundColor": "#1e3320"
+    "groundColor": "#cfe0c3"
   }
 ]
