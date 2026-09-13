@@ -291,11 +291,13 @@ const drawTree = (bar, settings, contribLevel, date, dx, calHeight) => {
     if (contribLevel === 0) {
         return;
     }
-    const trunkWidth = dx * 0.32;
-    const crownWidth = dx * 1.7;
+    const growth = Math.min(1, Math.max(0, (calHeight - 3) / 90));
+    const scale = 0.72 + growth * 0.62;
+    const trunkWidth = dx * 0.3 * scale;
+    const crownWidth = dx * 1.62 * scale;
     const maxRadius = crownWidth / 2;
-    const crownSpan = Math.max(dx * 1.1, calHeight * 0.78);
-    const trunkHeight = Math.max(dx * 0.42, calHeight - crownSpan);
+    const crownSpan = dx * 1.5 * scale;
+    const trunkHeight = dx * 0.5 * scale;
     bar.append('rect')
         .attr('x', util.toFixed(cx - trunkWidth / 2))
         .attr('y', util.toFixed(baseline - trunkHeight))
