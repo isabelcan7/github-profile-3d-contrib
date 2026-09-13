@@ -191,12 +191,6 @@ const drawTree = (
     const baseline = calHeight;
 
     if (contribLevel === 0) {
-        const r = dx * 0.34;
-        bar.append('circle')
-            .attr('cx', util.toFixed(cx))
-            .attr('cy', util.toFixed(baseline - r * 0.35))
-            .attr('r', util.toFixed(r))
-            .attr('class', 'tree-empty');
         return;
     }
 
@@ -290,6 +284,28 @@ export const create3DContrib = (
     const offsetY = height - (weekcount + 7) * dy;
 
     const group = svg.append('g');
+
+    if (settings.type === 'tree' || settings.type === 'tree_season') {
+        const ground = group.append('g');
+        userInfo.contributionCalendar.forEach((cal) => {
+            const week = Math.floor(
+                (toEpochDays(cal.date) - sundayOfFirstWeek) / 7,
+            );
+            const dayOfWeek = cal.date.getUTCDay();
+            const gx = offsetX + (week - dayOfWeek) * dx + dx;
+            const gy = offsetY + (week + dayOfWeek) * dy;
+            ground
+                .append('path')
+                .attr(
+                    'd',
+                    `M ${util.toFixed(gx)} ${util.toFixed(gy - dyy)}` +
+                        ` L ${util.toFixed(gx + dxx)} ${util.toFixed(gy)}` +
+                        ` L ${util.toFixed(gx)} ${util.toFixed(gy + dyy)}` +
+                        ` L ${util.toFixed(gx - dxx)} ${util.toFixed(gy)} Z`,
+                )
+                .attr('class', 'tree-ground');
+        });
+    }
 
     userInfo.contributionCalendar.forEach((cal) => {
         const week = Math.floor(

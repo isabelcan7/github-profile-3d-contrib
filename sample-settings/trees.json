@@ -35,9 +35,9 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#1b2b1f"
+      "groundColor": "#18271a"
     },
-    "groundColor": "#26402a"
+    "groundColor": "#1e3320"
   },
   {
     "backgroundColor": "#ffffff",
@@ -75,9 +75,9 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#1b2b1f"
+      "groundColor": "#18271a"
     },
-    "groundColor": "#26402a"
+    "groundColor": "#1e3320"
   },
   {
     "backgroundColor": "#ffffff",
@@ -112,11 +112,11 @@
       "#ffd95e"
     ],
     "contribColors4": [
-      "#2b3138",
-      "#5d7386",
-      "#8aa2b5",
-      "#b3c5d4",
-      "#dce8f2"
+      "#3f5a6d",
+      "#7fa8c4",
+      "#a8cbe0",
+      "#cfe6f2",
+      "#eef8ff"
     ],
     "darkMode": {
       "backgroundColor": "#0d1117",
@@ -151,15 +151,15 @@
         "#ffd95e"
       ],
       "contribColors4": [
-        "#2b3138",
-        "#5d7386",
-        "#8aa2b5",
-        "#b3c5d4",
-        "#dce8f2"
+        "#3f5a6d",
+        "#7fa8c4",
+        "#a8cbe0",
+        "#cfe6f2",
+        "#eef8ff"
       ],
-      "groundColor": "#1b2b1f"
+      "groundColor": "#18271a"
     },
-    "groundColor": "#26402a"
+    "groundColor": "#1e3320"
   },
   {
     "backgroundColor": "#ffffff",
@@ -180,11 +180,11 @@
       "#ffd95e"
     ],
     "contribColors2": [
-      "#2b3138",
-      "#5d7386",
-      "#8aa2b5",
-      "#b3c5d4",
-      "#dce8f2"
+      "#3f5a6d",
+      "#7fa8c4",
+      "#a8cbe0",
+      "#cfe6f2",
+      "#eef8ff"
     ],
     "contribColors3": [
       "#3a3340",
@@ -219,11 +219,11 @@
         "#ffd95e"
       ],
       "contribColors2": [
-        "#2b3138",
-        "#5d7386",
-        "#8aa2b5",
-        "#b3c5d4",
-        "#dce8f2"
+        "#3f5a6d",
+        "#7fa8c4",
+        "#a8cbe0",
+        "#cfe6f2",
+        "#eef8ff"
       ],
       "contribColors3": [
         "#3a3340",
@@ -239,8 +239,8 @@
         "#7fc95c",
         "#a8e063"
       ],
-      "groundColor": "#1b2b1f"
+      "groundColor": "#18271a"
     },
-    "groundColor": "#26402a"
+    "groundColor": "#1e3320"
   }
 ]

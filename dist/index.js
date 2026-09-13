@@ -289,12 +289,6 @@ const drawTree = (bar, settings, contribLevel, date, dx, calHeight) => {
     const cx = dx;
     const baseline = calHeight;
     if (contribLevel === 0) {
-        const r = dx * 0.34;
-        bar.append('circle')
-            .attr('cx', util.toFixed(cx))
-            .attr('cy', util.toFixed(baseline - r * 0.35))
-            .attr('r', util.toFixed(r))
-            .attr('class', 'tree-empty');
         return;
     }
     const trunkWidth = dx * 0.32;
@@ -356,6 +350,22 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
     const offsetX = dx * 7;
     const offsetY = height - (weekcount + 7) * dy;
     const group = svg.append('g');
+    if (settings.type === 'tree' || settings.type === 'tree_season') {
+        const ground = group.append('g');
+        userInfo.contributionCalendar.forEach((cal) => {
+            const week = Math.floor((toEpochDays(cal.date) - sundayOfFirstWeek) / 7);
+            const dayOfWeek = cal.date.getUTCDay();
+            const gx = offsetX + (week - dayOfWeek) * dx + dx;
+            const gy = offsetY + (week + dayOfWeek) * dy;
+            ground
+                .append('path')
+                .attr('d', `M ${util.toFixed(gx)} ${util.toFixed(gy - dyy)}` +
+                ` L ${util.toFixed(gx + dxx)} ${util.toFixed(gy)}` +
+                ` L ${util.toFixed(gx)} ${util.toFixed(gy + dyy)}` +
+                ` L ${util.toFixed(gx - dxx)} ${util.toFixed(gy)} Z`)
+                .attr('class', 'tree-ground');
+        });
+    }
     userInfo.contributionCalendar.forEach((cal) => {
         const week = Math.floor((toEpochDays(cal.date) - sundayOfFirstWeek) / 7);
         const dayOfWeek = cal.date.getUTCDay(); // sun = 0, mon = 1, ...
@@ -568,7 +578,7 @@ const createColors = (settings) => {
         });
     }
     if (settings.type == 'tree') {
-        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`, `.tree-empty { fill: ${(_a = settings.groundColor) !== null && _a !== void 0 ? _a : '#20361f'}; }`);
+        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`, `.tree-ground { fill: ${(_a = settings.groundColor) !== null && _a !== void 0 ? _a : '#1e3320'}; }`);
         settings.contribColors.forEach((color, i) => {
             cssColors.push(`.tree-crown-${i} { fill: ${color}; }`, `.tree-crown-dark-${i} { fill: ${d3
                 .rgb(color)
@@ -577,7 +587,7 @@ const createColors = (settings) => {
         });
     }
     if (settings.type == 'tree_season') {
-        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`, `.tree-empty { fill: ${(_b = settings.groundColor) !== null && _b !== void 0 ? _b : '#20361f'}; }`);
+        cssColors.push(`.tree-trunk { fill: ${settings.trunkColor}; }`, `.tree-ground { fill: ${(_b = settings.groundColor) !== null && _b !== void 0 ? _b : '#1e3320'}; }`);
         let n = 0;
         const interpolator1 = d3.interpolate(settings.contribColors1, settings.contribColors2);
         const interpolator2 = d3.interpolate(settings.contribColors2, settings.contribColors3);

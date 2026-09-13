@@ -109,7 +109,7 @@ const createColors = (settings: type.Settings): string => {
     if (settings.type == 'tree') {
         cssColors.push(
             `.tree-trunk { fill: ${settings.trunkColor}; }`,
-            `.tree-empty { fill: ${settings.groundColor ?? '#20361f'}; }`,
+            `.tree-ground { fill: ${settings.groundColor ?? '#1e3320'}; }`,
         );
         settings.contribColors.forEach((color, i) => {
             cssColors.push(
@@ -125,7 +125,7 @@ const createColors = (settings: type.Settings): string => {
     if (settings.type == 'tree_season') {
         cssColors.push(
             `.tree-trunk { fill: ${settings.trunkColor}; }`,
-            `.tree-empty { fill: ${settings.groundColor ?? '#20361f'}; }`,
+            `.tree-ground { fill: ${settings.groundColor ?? '#1e3320'}; }`,
         );
         let n = 0;
         const interpolator1 = d3.interpolate(
