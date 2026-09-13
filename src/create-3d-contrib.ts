@@ -176,29 +176,45 @@ const treeCrownClass = (
     return `${kind}-${contribLevel}`;
 };
 
+const hashSeed = (date: Date): number => {
+    const n = Math.floor(date.getTime() / 86400000);
+    const x = Math.sin(n * 12.9898) * 43758.5453;
+    return x - Math.floor(x);
+};
+
 const drawTree = (
     bar: d3.Selection<SVGGElement, unknown, null, unknown>,
     settings: type.TreeColorSettings | type.TreeSeasonColorSettings,
     contribLevel: number,
-    date: Date,
+    cal: type.CalendarInfo,
     dx: number,
     calHeight: number,
 ): void => {
-    const crownClass = treeCrownClass(settings, contribLevel, date, false);
-    const shadeClass = treeCrownClass(settings, contribLevel, date, true);
-
-    const cx = dx;
-    const baseline = calHeight;
-
     if (contribLevel === 0) {
         return;
     }
 
-    const trunkWidth = dx * 0.32;
-    const crownWidth = dx * 1.7;
+    const date = cal.date;
+    const crownClass = treeCrownClass(settings, contribLevel, date, false);
+    const shadeClass = treeCrownClass(settings, contribLevel, date, true);
+
+    const seed = hashSeed(date);
+    const count = cal.contributionCount;
+
+    // within a level, busier days grow slightly bigger trees
+    const busy = Math.min(1, Math.log10(count + 1) / Math.log10(16));
+    const sizeJitter = 0.86 + seed * 0.2 + busy * 0.22;
+    const leanDir = seed < 0.5 ? -1 : 1;
+    const lean = (seed * 2 - 1) * dx * 0.12;
+
+    const cx = dx + lean * 0.4;
+    const baseline = calHeight;
+
+    const trunkWidth = dx * (0.26 + seed * 0.1);
+    const crownWidth = dx * 1.7 * sizeJitter;
     const maxRadius = crownWidth / 2;
 
-    const crownSpan = Math.max(dx * 1.1, calHeight * 0.78);
+    const crownSpan = Math.max(dx * 1.1, calHeight * 0.78) * sizeJitter;
     const trunkHeight = Math.max(dx * 0.42, calHeight - crownSpan);
 
     bar.append('rect')
@@ -210,37 +226,61 @@ const drawTree = (
 
     const crownBottom = baseline - trunkHeight;
 
-    if (settings.treeShape === 'round') {
+    const shape =
+        settings.treeShape === 'mixed'
+            ? seed < 0.45
+                ? 'pine'
+                : 'round'
+            : settings.treeShape;
+
+    if (shape === 'round') {
         const r = Math.min(maxRadius, crownSpan / 2);
         const cy = crownBottom - r * 0.82;
-        bar.append('circle')
-            .attr('cx', util.toFixed(cx))
-            .attr('cy', util.toFixed(cy))
-            .attr('r', util.toFixed(r))
-            .attr('class', crownClass);
+        const squash = 0.9 + seed * 0.22;
+        const blobs: Array<[number, number, number]> =
+            busy > 0.55
+                ? [
+                      [cx - r * 0.42 * leanDir, cy + r * 0.2, r * 0.72],
+                      [cx + r * 0.4 * leanDir, cy + r * 0.05, r * 0.66],
+                      [cx + lean, cy - r * 0.34, r * 0.74],
+                  ]
+                : [[cx + lean, cy, r]];
+
+        blobs.forEach(([bx, by, br]) => {
+            bar.append('ellipse')
+                .attr('cx', util.toFixed(bx))
+                .attr('cy', util.toFixed(by))
+                .attr('rx', util.toFixed(br))
+                .attr('ry', util.toFixed(br * squash))
+                .attr('class', crownClass);
+        });
+        const [mx, my, mr] = blobs[blobs.length - 1];
         bar.append('path')
             .attr(
                 'd',
-                `M ${util.toFixed(cx)} ${util.toFixed(cy - r)}` +
-                    ` A ${util.toFixed(r)} ${util.toFixed(r)} 0 0 1 ${util.toFixed(
-                        cx,
-                    )} ${util.toFixed(cy + r)} Z`,
+                `M ${util.toFixed(mx)} ${util.toFixed(my - mr * squash)}` +
+                    ` A ${util.toFixed(mr)} ${util.toFixed(
+                        mr * squash,
+                    )} 0 0 1 ${util.toFixed(mx)} ${util.toFixed(
+                        my + mr * squash,
+                    )} Z`,
             )
             .attr('class', shadeClass);
         return;
     }
 
-    const tiers = 3;
+    const tiers = busy > 0.62 ? 4 : busy > 0.25 ? 3 : 2;
     const tierStep = crownSpan / (tiers + 0.6);
     for (let i = 0; i < tiers; i++) {
         const ratio = 1 - (i / tiers) * 0.62;
         const tierBottom = crownBottom - tierStep * i;
         const tierTop = tierBottom - tierStep * 1.75;
         const halfWidth = (crownWidth * ratio) / 2;
+        const tipX = cx + lean * (i / tiers);
         bar.append('path')
             .attr(
                 'd',
-                `M ${util.toFixed(cx)} ${util.toFixed(tierTop)}` +
+                `M ${util.toFixed(tipX)} ${util.toFixed(tierTop)}` +
                     ` L ${util.toFixed(cx + halfWidth)} ${util.toFixed(tierBottom)}` +
                     ` L ${util.toFixed(cx - halfWidth)} ${util.toFixed(tierBottom)} Z`,
             )
@@ -248,7 +288,7 @@ const drawTree = (
         bar.append('path')
             .attr(
                 'd',
-                `M ${util.toFixed(cx)} ${util.toFixed(tierTop)}` +
+                `M ${util.toFixed(tipX)} ${util.toFixed(tierTop)}` +
                     ` L ${util.toFixed(cx + halfWidth)} ${util.toFixed(tierBottom)}` +
                     ` L ${util.toFixed(cx)} ${util.toFixed(tierBottom)} Z`,
             )
@@ -348,7 +388,14 @@ export const create3DContrib = (
         }
 
         if (settings.type === 'tree' || settings.type === 'tree_season') {
-            drawTree(bar, settings, contribLevel, cal.date, dx, calHeight);
+            drawTree(
+                bar,
+                settings,
+                contribLevel,
+                cal,
+                dx,
+                calHeight,
+            );
             return;
         }
 
