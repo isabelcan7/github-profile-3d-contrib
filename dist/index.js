@@ -356,7 +356,10 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
     const offsetY = height - (weekcount + 7) * dy;
     const group = svg.append('g');
     if (settings.type === 'tree' || settings.type === 'tree_season') {
-        const pad = dx * 0.55;
+        // pad must keep the isometric ratio, otherwise the corners
+        // of the hull come out at a slightly different angle than the edges
+        const padX = dx * 0.55;
+        const padY = padX * (dy / dx);
         // Convex hull of every cell's four corners: the calendar band is
         // convex apart from the stepped ends, and the hull keeps the long
         // edges perfectly straight.
@@ -366,18 +369,23 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
             const day = cal.date.getUTCDay();
             const cx2 = offsetX + (week - day) * dx + dx;
             const cy2 = offsetY + (week + day) * dy;
-            points.push([cx2, cy2 - dy - pad]);
-            points.push([cx2 + dx + pad, cy2]);
-            points.push([cx2, cy2 + dy + pad]);
-            points.push([cx2 - dx - pad, cy2]);
+            points.push([cx2, cy2 - dy - padY]);
+            points.push([cx2 + dx + padX, cy2]);
+            points.push([cx2, cy2 + dy + padY]);
+            points.push([cx2 - dx - padX, cy2]);
         });
         points.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
         const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+        // tolerance large enough to absorb the coordinate rounding below,
+        // so points that lie on a straight edge are dropped instead of
+        // kinking it
+        const epsilon = dx * dy * 0.02;
         const half = (pts) => {
             const out = [];
             pts.forEach((pnt) => {
                 while (out.length >= 2 &&
-                    cross(out[out.length - 2], out[out.length - 1], pnt) <= 0) {
+                    cross(out[out.length - 2], out[out.length - 1], pnt) <=
+                        epsilon) {
                     out.pop();
                 }
                 out.push(pnt);
@@ -385,7 +393,12 @@ const create3DContrib = (svg, userInfo, x, y, width, height, settings, isForcedA
             out.pop();
             return out;
         };
-        const hull = [...half(points), ...half([...points].reverse())];
+        const rawHull = [...half(points), ...half([...points].reverse())];
+        const hull = rawHull.filter((pnt, i) => {
+            const prev = rawHull[(i - 1 + rawHull.length) % rawHull.length];
+            const next = rawHull[(i + 1) % rawHull.length];
+            return Math.abs(cross(prev, pnt, next)) > epsilon;
+        });
         group
             .append('path')
             .attr('d', `M ${hull
