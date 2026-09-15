@@ -293,47 +293,57 @@ export const create3DContrib = (
 
     if (settings.type === 'tree' || settings.type === 'tree_season') {
         const pad = dx * 0.55;
-        const corner = (week: number, day: number, sx: number, sy: number) => {
-            const cx2 = offsetX + (week - day) * dx + dx + sx * (dx + pad);
-            const cy2 = offsetY + (week + day) * dy + sy * (dy + pad);
-            return `${util.toFixed(cx2)} ${util.toFixed(cy2)}`;
+
+        // Convex hull of every cell's four corners: the calendar band is
+        // convex apart from the stepped ends, and the hull keeps the long
+        // edges perfectly straight.
+        const points: Array<[number, number]> = [];
+        userInfo.contributionCalendar.forEach((cal) => {
+            const week = Math.floor(
+                (toEpochDays(cal.date) - sundayOfFirstWeek) / 7,
+            );
+            const day = cal.date.getUTCDay();
+            const cx2 = offsetX + (week - day) * dx + dx;
+            const cy2 = offsetY + (week + day) * dy;
+            points.push([cx2, cy2 - dy - pad]);
+            points.push([cx2 + dx + pad, cy2]);
+            points.push([cx2, cy2 + dy + pad]);
+            points.push([cx2 - dx - pad, cy2]);
+        });
+
+        points.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+        const cross = (
+            o: [number, number],
+            a: [number, number],
+            b: [number, number],
+        ) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+        const half = (pts: Array<[number, number]>) => {
+            const out: Array<[number, number]> = [];
+            pts.forEach((pnt) => {
+                while (
+                    out.length >= 2 &&
+                    cross(out[out.length - 2], out[out.length - 1], pnt) <= 0
+                ) {
+                    out.pop();
+                }
+                out.push(pnt);
+            });
+            out.pop();
+            return out;
         };
-
-        const firstDay = firstDate.getUTCDay();
-        const lastDate =
-            userInfo.contributionCalendar[
-                userInfo.contributionCalendar.length - 1
-            ].date;
-        const lastWeek = Math.floor(
-            (toEpochDays(lastDate) - sundayOfFirstWeek) / 7,
-        );
-        const lastDay = lastDate.getUTCDay();
-
-        const outline: string[] = [];
-
-        // start at the first drawn day, top corner
-        outline.push(corner(0, firstDay, 0, -1));
-        // step down the partial first week to saturday
-        for (let d = firstDay; d < 6; d++) {
-            outline.push(corner(0, d, -1, 0));
-            outline.push(corner(0, d + 1, -1, 0));
-        }
-        // straight edge along saturdays
-        outline.push(corner(0, 6, -1, 0));
-        outline.push(corner(lastWeek, 6, -1, 0));
-        // step up the partial last week
-        for (let d = 6; d > lastDay; d--) {
-            outline.push(corner(lastWeek, d, 1, 0));
-            outline.push(corner(lastWeek, d - 1, 1, 0));
-        }
-        outline.push(corner(lastWeek, lastDay, 0, 1));
-        // straight edge back along sundays
-        outline.push(corner(lastWeek, lastDay, 1, 0));
-        outline.push(corner(0, firstDay, 1, 0));
+        const hull = [...half(points), ...half([...points].reverse())];
 
         group
             .append('path')
-            .attr('d', `M ${outline.join(' L ')} Z`)
+            .attr(
+                'd',
+                `M ${hull
+                    .map(
+                        (pnt) =>
+                            `${util.toFixed(pnt[0])} ${util.toFixed(pnt[1])}`,
+                    )
+                    .join(' L ')} Z`,
+            )
             .attr('class', 'tree-ground');
     }
 
